@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+jinja2
+pyyaml
+markdown
+python-multipart
+groq
+python-dotenv 

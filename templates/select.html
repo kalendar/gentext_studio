@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Assistant</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        {% if not selected_course %}
+        <h2>Select a Course</h2>
+        <div class="courses">
+            {% for course_id, course in courses.items() %}
+            <div class="course-card" hx-get="/?course_id={{ course_id }}" hx-target="body">
+                <h3>{{ course.name }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% elif not selected_topic %}
+        <div class="navigation">
+            <a href="/" class="back-link">← Back to Courses</a>
+        </div>
+        <h2>Select a Topic in {{ selected_course.name }}</h2>
+        <div class="topics">
+            {% for topic_id, topic in selected_course.topics.items() %}
+            <div class="topic-card" hx-get="/?course_id={{ course_id }}&topic_id={{ topic_id }}" hx-target="body">
+                <h3>{{ topic.name }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="navigation">
+            <a href="/?course_id={{ course_id }}" class="back-link">← Back to Topics</a>
+        </div>
+        <h2>Select an Activity for {{ selected_topic.name }}</h2>
+        <div class="activities">
+            {% for activity_id, activity in selected_course.activities.items() %}
+            <div class="activity-card" hx-get="/?course_id={{ course_id }}&topic_id={{ topic_id }}&activity_id={{ activity_id }}" hx-target="body">
+                <h3>{{ activity.name }}</h3>
+                <div class="markdown-content">
+                    {{ markdown_to_html(activity.get_description(template_system.file_reader)) | safe }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html> 

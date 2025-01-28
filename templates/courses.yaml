@@ -1,0 +1,48 @@
+courses:
+  statistics:
+    name: "Introductory Statistics"
+    description_file: "courses/statistics/description.md"
+    topics:
+      probability:
+        name: "Probability"
+        description_file: "courses/statistics/topics/probability.md"
+      probability_distributions:
+        name: "Probability Distributions"
+        description_file: "courses/statistics/topics/probability_distributions.md"
+    
+    activities:
+      retrieval_practice:
+        name: "Retrieval Practice"
+        description_file: "courses/statistics/activities/retrieval_practice.md"
+        prompt_template_file: "courses/statistics/activities/retrieval_practice_prompt.md"
+      
+      reciprocal_teaching:
+        name: "Reciprocal Teaching"
+        description_file: "courses/statistics/activities/reciprocal_teaching.md"
+        prompt_template_file: "courses/statistics/activities/reciprocal_teaching_prompt.md" 
+
+  psychology:
+    name: "Introduction to Psychology"
+    description_file: "courses/psychology/description.md"
+    topics:
+      probability:
+        name: "Learning and Memory"
+        description_file: "courses/statistics/topics/probability.md"
+    activities:
+      retrieval_practice:
+        name: "Retrieval Practice"
+        description_file: "courses/statistics/activities/retrieval_practice.md"
+        prompt_template_file: "courses/statistics/activities/retrieval_practice_prompt.md"
+
+  business:
+    name: "Introduction to Business"
+    description_file: "courses/business/description.md"
+    topics:
+      probability:
+        name: "Marketing"
+        description_file: "courses/statistics/topics/probability.md"
+    activities:
+      retrieval_practice:
+        name: "Retrieval Practice"
+        description_file: "courses/statistics/activities/retrieval_practice.md"
+        prompt_template_file: "courses/statistics/activities/retrieval_practice_prompt.md"
