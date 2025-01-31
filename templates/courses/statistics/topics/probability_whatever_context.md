@@ -1,4 +1,3 @@
-<context>
 ## Essential Concepts
 * Probability is a measure that is associated with how certain we are of outcomes of a particular experiment or activity.
 
@@ -131,18 +130,3 @@ Probability that an event will happen based on pure mathematics, not by carrying
 **two-way (contingency) table**
 
 A table used in statistics to represent the relationship between two categorical variables.
-</context>
-
-<questions>
-* What is probability?
-* What range of values can a probability have?
-* If something has a probability of 0.10, how likely is it to occur?
-* What's the difference between an empirical probability and a theoretical probability?
-* Give an example of an empirical probability.
-* Give an example of a theoretical probability.
-* What is the probability of getting heads when tossing a fair coin?
-* What is the probability of getting a 5 or 6 when throwing a fair die?
-* What does it mean for two events to be mutually exclusive?
-* What is a conditional probability?
-* A person has tested positive for a disease. How would you find the probability that they're actually sick, given that they tested positive?
-</questions>

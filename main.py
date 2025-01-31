@@ -1,6 +1,7 @@
 import logging
 import os
 from functools import lru_cache
+from pathlib import Path
 
 import markdown
 from dotenv import load_dotenv
@@ -9,8 +10,9 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from groq import Groq
+from groq.types.chat.chat_completion_message_param import ChatCompletionMessageParam
 
-from models.template_system import TemplateSystem
+from models import create_library
 
 # Load environment variables
 load_dotenv()
@@ -27,10 +29,15 @@ templates = Jinja2Templates(directory="templates")
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Initialize template system with caching
-template_system = TemplateSystem()
+library = create_library(
+    path=Path(r"C:\Users\Josh\Documents\python_envs\oelm\templates\courses")
+)
+
+print(library.courses.get("statistics").topics)
 
 # Initialize conversation history
-conversation_history = {}
+# TODO
+conversation_history: dict[str, list[ChatCompletionMessageParam]] = {}
 
 # Add a constant for the model name
 GROQ_MODEL = "llama-3.1-8b-instant"
@@ -45,38 +52,38 @@ def markdown_to_html(content: str) -> str:
 @app.get("/", response_class=HTMLResponse)
 async def root(
     request: Request,
-    course_id: str = None,
-    topic_id: str = None,
-    activity_id: str = None,
+    course_name: str | None = None,
+    topic_name: str | None = None,
+    activity_name: str | None = None,
 ):
     try:
         # If all parameters are provided, generate prompt and start chat
-        if all([course_id, topic_id, activity_id]):
+        if course_name and topic_name and activity_name:
             logger.debug("Generating prompt for chat")
-            initial_prompt = template_system.generate_prompt(
-                course_id, topic_id, activity_id
+            initial_prompt = library.generate_prompt(
+                course_name, topic_name, activity_name
             )
 
             # Get the topic text
-            topic = template_system.get_topic(course_id, topic_id)
-            topic_text = (
-                topic.get_description(template_system.file_reader) if topic else ""
-            )
-
-            # Combine topic and activity text
-            if topic_text:
-                initial_prompt = f"Topic: {topic_text}\n\n{initial_prompt}"
+            topic = library.get_topic(course_name, topic_name)
+            if not topic:
+                raise ValueError
 
             if initial_prompt:
                 # Initialize conversation with system prompt
-                conversation_key = f"{course_id}_{topic_id}_{activity_id}"
-                conversation_history[conversation_key] = [
-                    {"role": "system", "content": initial_prompt}
-                ]
+                conversation_key = f"{course_name}_{topic_name}_{activity_name}"
+
+                conversation_history.update(
+                    {conversation_key: [{"role": "system", "content": initial_prompt}]}
+                )
 
                 # Get first response from AI
+                messages = conversation_history.get(conversation_key)
+                if not messages:
+                    raise KeyError
+
                 chat_completion = groq_client.chat.completions.create(
-                    messages=conversation_history[conversation_key],
+                    messages=messages,
                     model=GROQ_MODEL,
                 )
                 initial_response = chat_completion.choices[0].message.content
@@ -91,42 +98,47 @@ async def root(
                     {
                         "request": request,
                         "initial_prompt": initial_response,
-                        "course_id": course_id,
-                        "topic_id": topic_id,
-                        "activity_id": activity_id,
+                        "course_name": course_name,
+                        "topic_name": topic_name,
+                        "activity_name": activity_name,
                         "markdown_to_html": markdown_to_html,
                     },
                 )
             raise HTTPException(status_code=404, detail="Invalid parameters")
 
         # Get selected course if course_id is provided
-        selected_course = template_system.get_course(course_id) if course_id else None
+        selected_course = library.get_course(course_name) if course_name else None
+
         logger.debug(f"Selected course: {selected_course}")
+
         selected_topic = (
-            template_system.get_topic(course_id, topic_id)
-            if course_id and topic_id
+            library.get_topic(course_name, topic_name)
+            if course_name and topic_name
             else None
         )
+
         logger.debug(f"Selected topic: {selected_topic}")
         selected_activity = (
-            template_system.get_activity(course_id, activity_id)
-            if course_id and activity_id
+            library.get_activity(course_name, activity_name)
+            if course_name and activity_name
             else None
         )
+
         logger.debug(f"Selected activity: {selected_activity}")
 
         context = {
             "request": request,
-            "courses": template_system.courses,
+            "courses": library.courses,
             "selected_course": selected_course,
             "selected_topic": selected_topic,
             "selected_activity": selected_activity,
-            "course_id": course_id,
-            "topic_id": topic_id,
-            "activity_id": activity_id,
+            "course_id": course_name,
+            "topic_id": topic_name,
+            "activity_id": activity_name,
             "markdown_to_html": markdown_to_html,
-            "template_system": template_system,
+            "template_system": library,
         }
+
         logger.debug("Rendering template with context")
         return templates.TemplateResponse("select.html", context)
 
@@ -156,7 +168,7 @@ async def chat(
             conversation_history[conversation_key] = [
                 {
                     "role": "system",
-                    "content": template_system.generate_prompt(
+                    "content": library.generate_prompt(
                         course_id, topic_id, activity_id
                     ),
                 }
