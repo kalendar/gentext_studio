@@ -46,9 +46,13 @@
           hx-trigger="submit"
           _="on htmx:afterRequest set value of #message-input to ''"
         >
-          <input type="hidden" name="course_id" value="{{ course_id }}" />
-          <input type="hidden" name="topic_id" value="{{ topic_id }}" />
-          <input type="hidden" name="activity_id" value="{{ activity_id }}" />
+          <input type="hidden" name="course_name" value="{{ course_name }}" />
+          <input type="hidden" name="topic_name" value="{{ topic_name }}" />
+          <input
+            type="hidden"
+            name="activity_name"
+            value="{{ activity_name }}"
+          />
           <textarea
             id="message-input"
             name="message"

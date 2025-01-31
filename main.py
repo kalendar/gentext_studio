@@ -29,14 +29,10 @@ templates = Jinja2Templates(directory="templates")
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 # Initialize template system with caching
-library = create_library(
-    path=Path(r"C:\Users\Josh\Documents\python_envs\oelm\templates\courses")
-)
-
-print(library.courses.get("statistics").topics)
+library = create_library(path=Path(__name__).parent / "templates/courses")
 
 # Initialize conversation history
-# TODO
+# TODO Make non-global
 conversation_history: dict[str, list[ChatCompletionMessageParam]] = {}
 
 # Add a constant for the model name
@@ -154,14 +150,14 @@ async def root(
 async def chat(
     request: Request,
     message: str = Form(...),
-    course_id: str = Form(...),
-    topic_id: str = Form(...),
-    activity_id: str = Form(...),
+    course_name: str = Form(...),
+    topic_name: str = Form(...),
+    activity_name: str = Form(...),
 ):
     try:
         logger.debug(f"Received message: {message}")
 
-        conversation_key = f"{course_id}_{topic_id}_{activity_id}"
+        conversation_key = f"{course_name}_{topic_name}_{activity_name}"
 
         # Initialize conversation history if it doesn't exist
         if conversation_key not in conversation_history:
@@ -169,7 +165,7 @@ async def chat(
                 {
                     "role": "system",
                     "content": library.generate_prompt(
-                        course_id, topic_id, activity_id
+                        course_name, topic_name, activity_name
                     ),
                 }
             ]
