@@ -31,7 +31,9 @@
       </div>
 
       <div class="chat-container">
-        <div id="chat-messages" class="chat-messages">
+        <div id="chat-messages" 
+             class="chat-messages"
+             hx-on::after-settle="this.scrollTop = this.scrollHeight">
           <!-- Initial AI message will go here -->
           <div class="message ai-message">
             {{ markdown_to_html(initial_prompt) | safe }}
