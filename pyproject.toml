@@ -1,14 +1,17 @@
 [project]
 name = "oelm"
 version = "0.1.0"
-description = "Add your description here"
+description = "Combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful!"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.115.8",
     "groq>=0.16.0",
-    "ipykernel>=6.29.5",
+    "jinja2>=3.1.5",
     "markdown>=3.7",
     "pydantic>=2.10.6",
+    "python-dotenv>=1.0.1",
+    "python-multipart>=0.0.20",
     "rich>=13.9.4",
+    "uvicorn>=0.34.0",
 ]

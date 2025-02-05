@@ -1,4 +1,13 @@
 {
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.typeCheckingMode": "strict"
+    "python.analysis.typeCheckingMode": "strict",
+    "cSpell.words": [
+        "dotenv",
+        "fastapi",
+        "Groq",
+        "OELMs",
+        "pydantic",
+        "uvicorn",
+        "venv"
+    ]
 }
