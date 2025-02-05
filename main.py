@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from starlette import status
 
-from routers import chat, chat_selection
+from routers import activity_selection, chat
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -19,7 +19,7 @@ app = FastAPI(
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-app.include_router(chat_selection.router)
+app.include_router(activity_selection.router)
 app.include_router(chat.router)
 
 
