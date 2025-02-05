@@ -10,8 +10,8 @@ OELMs are described in more detail here:
 - [The OELMs Architecture: The Technical Power of Generative AI Meets the Participatory Power of OER](https://opencontent.org/blog/archives/7668)
 
 # Docs
-[🗺 Roadmap](/docs/roadmap.md)
+[🗺 Roadmap](/docs/Roadmap.md)
 
-[🛠 Contributing](/docs/contributing.md)
+[🛠 Contributing](/docs/Contributing.md)
 
-[👩‍💻 Development Installation](/docs/development_installation.md)
+[👩‍💻 Development Installation](/docs/Development_Installation.md)
