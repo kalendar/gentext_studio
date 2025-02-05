@@ -21,10 +21,10 @@
     </script>
     <style>
       .ai-message p {
-        margin: 0.5em 0;  /* Reduce space between paragraphs */
+        margin: 0.5em 0; /* Reduce space between paragraphs */
       }
       .ai-message p:first-child {
-        margin-top: 0;    /* Remove top margin from first paragraph */
+        margin-top: 0; /* Remove top margin from first paragraph */
       }
       .ai-message p:last-child {
         margin-bottom: 0; /* Remove bottom margin from last paragraph */
@@ -35,16 +35,18 @@
     <div class="container">
       <div class="navigation">
         <a
-          href="/?course_name={{ course_name }}&topic_name={{ topic_name }}"
+          href="{{ request.url_for('select_activity', course_name=course_name, topic_name=topic_name) }}"
           class="back-link"
           >← Back to Activities</a
         >
       </div>
 
       <div class="chat-container">
-        <div id="chat-messages" 
-             class="chat-messages"
-             hx-on::after-settle="this.scrollTop = this.scrollHeight">
+        <div
+          id="chat-messages"
+          class="chat-messages"
+          hx-on::after-settle="this.scrollTop = this.scrollHeight"
+        >
           <!-- Initial AI message will go here -->
           <div class="message ai-message">
             {{ markdown_to_html(initial_prompt) | safe }}
@@ -53,7 +55,7 @@
 
         <form
           class="chat-input"
-          hx-post="/chat"
+          hx-post="{{ request.url_for('chat') }}"
           hx-target="#chat-messages"
           hx-swap="beforeend"
           hx-trigger="submit"

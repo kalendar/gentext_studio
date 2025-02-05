@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Select Course{% endblock %}
+{% block body %}
+  <div class="container">
+    <h2>Select a Course</h2>
+    <div class="courses">
+      {% for course_name, course in courses.items() %}
+        <div
+          class="course-card"
+          hx-get="{{ request.url_for('select_topic', course_name=course_name) }}"
+          hx-target="body"
+          hx-push-url="true"
+        >
+          <h3>{{ course.name.replace("_", " ").title() }}</h3>
+        </>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

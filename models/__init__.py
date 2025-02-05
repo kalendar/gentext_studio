@@ -55,19 +55,19 @@ class Library:
         course_name: str,
         topic_name: str,
         activity_name: str,
-    ) -> str | None:
+    ) -> str:
         "prompt objectives content"
         course = self.courses.get(course_name)
         if course is None:
-            return
+            raise ValueError
 
         topic = course.topics.get(topic_name)
         if topic is None:
-            return
+            raise ValueError
 
         activity = course.activities.get(activity_name)
         if activity is None:
-            return
+            raise ValueError
 
         return f"""
 {activity.prompt}
