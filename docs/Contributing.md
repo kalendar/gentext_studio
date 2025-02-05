@@ -8,7 +8,7 @@ We welcome all types of contributions, including **bug fixes, new features, docu
 
 ## 📌 Getting Started
 
-1. **Check open issues**: Look for "good first issue" in [Issues](https://github.com/kalendar/oelm/issues).
+1. **Check open issues**: Look for "good first issue" in [Issues](/issues).
 2. **Fork the repo**: Click the **Fork** button on the top right.
 3. **Clone your fork**:
    ```sh
@@ -47,7 +47,7 @@ We welcome all types of contributions, including **bug fixes, new features, docu
 ## 🐛 Reporting Issues
 
 If you find a bug or want to request a feature:
-1. **Check if it's already reported** in [Issues](https://github.com/kalendar/oelm/issues).
+1. **Check if it's already reported** in [Issues](/issues).
 2. If not, **open a new issue**:
    - Use a **descriptive title**.
    - Provide **steps to reproduce** (for bugs).
@@ -57,7 +57,7 @@ If you find a bug or want to request a feature:
 
 ## 💬 Get Help & Stay Updated
 
-- Join the **[Discord](https://discord.gg/vSPvgyVxJ7)** or **[Discussions](https://github.com/kalendar/oelm/discussions)** to chat with the community.
+- Join the **[Discord](https://discord.gg/vSPvgyVxJ7)** or **[Discussions](/discussions)** to chat with the community.
 - Follow the **[Roadmap](ROADMAP.md)** to see what's coming next.
 
 ---
