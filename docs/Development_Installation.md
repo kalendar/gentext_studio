@@ -1,5 +1,8 @@
 [⬅Back](/README.md)
 ## Development Installation
+Prerequisite: [Groq](https://console.groq.com/keys) API Key.
+This application currently relies on Groq for rapid LLM responses, which is planned to be optional. Ideally, the LLM would run on device.
+
 ### [uv](https://github.com/astral-sh/uv) (Recommended)
 1. Clone this repo and enter the root directory.
 2. Run `uv sync` in the root directory.
