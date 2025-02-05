@@ -1,8 +1,9 @@
-fastapi
-uvicorn
-jinja2
-pyyaml
-markdown
-python-multipart
+fastapi[standard]
 groq
+jinja2
+markdown
+pydantic
 python-dotenv 
+python-multipart
+rich
+uvicorn
