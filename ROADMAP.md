@@ -41,7 +41,7 @@ These are features we're planning. Share your feedback or vote on priorities in 
 
 **Initial Instructor Tools**
 - Select a combination of content and activity and receive a URL students can use to bypass the TOC-TOP views and go straight to the chat
-- See an OELM-generated synthesis of student conversations for a given chapter, in order to adapt outside-of-OELM (OOO) instruction according to students’ understanding
+- See an OELM-generated synthesis of student conversations for a given chapter, in order to adapt outside-of-OELM instruction according to students’ understanding
 
 ## 💡 Ideas & Community Wishlist
 Suggest new feature ideas in [Discussions](/discussions)!
@@ -49,7 +49,7 @@ Suggest new feature ideas in [Discussions](/discussions)!
 ## 🤝 Contribution Guide
 Want to contribute? Follow these steps:  
 
-1. **Check Issues:** Look for a "good first issue" tag in[Issues](https://github.com/kalendar/oelm/issues).
+1. **Check Issues:** Look for a "good first issue" tag in [Issues](https://github.com/kalendar/oelm/issues).
 2. **Join Discussions:** Share your ideas in our [Discord](https://discord.gg/vSPvgyVxJ7).
 3. **Fork & Code:** Follow our [Guide to Contributing](CONTRIBUTING.md) to submit pull requests.
 4. **Get Recognized:** We highlight top contributors in our release notes! 🎉  
