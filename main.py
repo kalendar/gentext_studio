@@ -26,10 +26,19 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # Initialize Groq client
-groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+groq_api_key: str | None = os.getenv("GROQ_API_KEY", None)
+if groq_api_key is None:
+    raise ValueError("No GROQ_API_KEY environment variable!")
 
-# Initialize template system with caching
-library = create_library(path=Path(__name__).parent / "templates/courses")
+groq_client: Groq = Groq(api_key=groq_api_key)
+
+# Initialize library
+course_path: str | None = os.getenv("COURSES_PATH", None)
+if course_path is None:
+    # Default courses path
+    course_path = "courses"
+
+library = create_library(Path(course_path))
 
 # Initialize conversation history
 # TODO Make non-global
