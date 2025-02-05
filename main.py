@@ -42,7 +42,17 @@ GROQ_MODEL = "llama-3.1-8b-instant"
 # Convert markdown to HTML with caching
 @lru_cache(maxsize=100)
 def markdown_to_html(content: str) -> str:
-    return markdown.markdown(content, extensions=["fenced_code", "tables"])
+    # Strip whitespace from the beginning and end of the content
+    content = content.strip()
+    # Remove multiple consecutive newlines, replacing them with a single newline
+    content = "\n".join(line for line in content.splitlines() if line.strip())
+    # Convert to HTML with additional extensions for better formatting
+    html = markdown.markdown(
+        content, extensions=["fenced_code", "tables", "nl2br"], output_format="html5"
+    )
+    # Clean up any remaining whitespace around the HTML content
+    html = html.strip()
+    return html
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -82,7 +92,7 @@ async def root(
                     messages=messages,
                     model=GROQ_MODEL,
                 )
-                initial_response = chat_completion.choices[0].message.content
+                initial_response = chat_completion.choices[0].message.content.strip()
 
                 # Add AI's response to conversation history
                 conversation_history[conversation_key].append(
