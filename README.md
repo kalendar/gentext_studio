@@ -2,7 +2,7 @@
 
 We're developing Open Educational Language Models (or OELMs, pronounced "elms" like the tree). Our goal is to combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful!
 
-Check our our [🗺 Roadmap](ROADMAP.md) to see what we're working on and learn how you can join us!
+Check our our [🗺 Roadmap](/docs/Roadmap.md) to see what we're working on and learn how you can join us!
 
 OELMs are described in more detail here:
 
