@@ -1,0 +1,1 @@
+**Flashcards** are like mini quizzes in a card format. **Research shows that actively recalling information with flashcards can enhance memory retention more effectively than simply reviewing notes.** Flashcards work best when reviewed regularly and spaced over time, reinforcing learning with each session.

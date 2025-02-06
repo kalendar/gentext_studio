@@ -4,9 +4,7 @@ from typing import Annotated
 from fastapi import Form, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.routing import APIRouter
-from groq.types.chat.chat_completion_message_param import (
-    ChatCompletionMessageParam,
-)
+from groq.types.chat.chat_completion_message_param import ChatCompletionMessageParam
 from groq.types.chat.chat_completion_system_message_param import (
     ChatCompletionSystemMessageParam,
 )
@@ -25,7 +23,7 @@ conversation_history: dict[str, list[ChatCompletionMessageParam]] = {}
 
 # Add a constant for the model name
 # TODO move to optional env var
-GROQ_MODEL = "llama-3.1-8b-instant"
+GROQ_MODEL = "llama-3.3-70b-versatile"
 
 
 @router.get("/{course_name}/{topic_name}/{activity_name}", response_model=None)

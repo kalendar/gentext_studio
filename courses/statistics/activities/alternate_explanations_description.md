@@ -1,0 +1,1 @@
+**Alternate Explanations** is a way to study where students summarize, ask questions, clarify confusing parts, and predict what might come next.  **Studies show reciprocal teaching is great for improving reading skills because it teaches students how to check their understanding and learn better strategies**.

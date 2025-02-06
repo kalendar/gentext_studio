@@ -5,7 +5,7 @@
   <div class="container">
     <h2>Select a Course</h2>
     <div class="courses">
-      {% for course_name, course in courses.items() %}
+      {% for course_name, course in courses.items()|sort(attribute='0') %}
         <div
           class="course-card"
           hx-get="{{ request.url_for('select_topic', course_name=course_name) }}"

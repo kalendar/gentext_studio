@@ -14,7 +14,7 @@
     </div>
     <h2>Select a Topic in {{ to_title(selected_course.name) }}</h2>
     <div class="topics">
-      {% for topic_name, topic in selected_course.topics.items() %}
+      {% for topic_name, topic in selected_course.topics.items()|sort(attribute='0') %}
         <div
           class="topic-card"
           hx-get="{{ request.url_for('select_activity', course_name=selected_course.name, topic_name=topic_name) }}"

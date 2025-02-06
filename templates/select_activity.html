@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Select Activity{% endblock %}
+{% block title %}OELM - Select Activity{% endblock %}
 {% block body %}
   <div class="container">
     <div class="navigation">
@@ -14,7 +14,7 @@
     </div>
     <h2>Select an Activity for {{ to_title(topic_name) }}</h2>
     <div class="activities">
-      {% for activity_name, activity in selected_course.activities.items() %}
+      {% for activity_name, activity in selected_course.activities.items()|sort(attribute='0') %}
         <div
           class="activity-card"
           hx-get="{{ request.url_for('chat', course_name=course_name, topic_name=topic_name, activity_name=activity.name) }}"
