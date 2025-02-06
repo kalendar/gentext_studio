@@ -55,7 +55,7 @@
 
         <form
           class="chat-input"
-          hx-post="{{ request.url_for('chat') }}"
+          hx-post="{{ request.url_for('chat_post') }}"
           hx-target="#chat-messages"
           hx-swap="beforeend"
           hx-trigger="submit"

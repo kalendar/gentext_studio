@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}OELM - Select Topic{% endblock %}
+{% block title %}Select Activity{% endblock %}
 {% block body %}
   <div class="container">
     <div class="navigation">
@@ -17,7 +17,7 @@
       {% for activity_name, activity in selected_course.activities.items() %}
         <div
           class="activity-card"
-          hx-get="{{ request.url_for('chat').include_query_params(course_name=course_name, topic_name=topic_name, activity_name=activity.name) }}"
+          hx-get="{{ request.url_for('chat', course_name=course_name, topic_name=topic_name, activity_name=activity.name) }}"
           hx-target="body"
           hx-push-url="true"
         >

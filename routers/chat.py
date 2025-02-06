@@ -28,7 +28,7 @@ conversation_history: dict[str, list[ChatCompletionMessageParam]] = {}
 GROQ_MODEL = "llama-3.1-8b-instant"
 
 
-@router.get("/", response_model=None)
+@router.get("/{course_name}/{topic_name}/{activity_name}", response_model=None)
 async def chat(
     request: Request,
     library: LibraryDep,
@@ -89,7 +89,7 @@ async def chat(
 
 
 @router.post("/", response_model=None)
-async def post_chat(
+async def chat_post(
     request: Request,
     library: LibraryDep,
     templates: TemplatesDep,

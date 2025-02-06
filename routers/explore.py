@@ -4,7 +4,7 @@ from fastapi.routing import APIRouter
 
 from dependencies import LibraryDep, TemplatesDep
 
-router = APIRouter(prefix="/activity_selection")
+router = APIRouter(prefix="/explore")
 
 
 @router.get("/", response_model=None)
