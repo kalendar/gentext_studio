@@ -12,6 +12,7 @@ from groq.types.chat.chat_completion_system_message_param import (
 from dependencies import GroqClientDep, LibraryDep, TemplatesDep
 
 router = APIRouter(prefix="/chat")
+chat_manager = EnhancedChatManager(library)
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -37,7 +38,11 @@ async def chat(
     activity_name: str,
 ) -> HTMLResponse:
     logger.info("Generating prompt for chat")
-    initial_prompt = library.generate_prompt(course_name, topic_name, activity_name)
+    chat_config = chat_manager.initialize_chat(course_name, topic_name, activity_name)
+    chat_completion = groq_client.chat.completions.create(
+        messages=messages,
+        **chat_config["model_config"]
+    )
 
     # Get the topic text
     topic = library.get_topic(course_name, topic_name)
@@ -103,13 +108,24 @@ async def chat_post(
         logger.info(f"Received message: {message}")
 
         conversation_key = f"{course_name}_{topic_name}_{activity_name}"
-
-        # Initialize conversation history if it doesn't exist
-        if conversation_key not in conversation_history:
-            system_message = ChatCompletionSystemMessageParam(
-                content=library.generate_prompt(course_name, topic_name, activity_name),
-                role="system",
-            )
+    
+    # Get current model type from conversation metadata
+        current_model_type = conversation_metadata.get(conversation_key, {}).get("model_type", ModelType.GENERAL)
+    
+    # Check if we should switch models
+        new_model_type = chat_manager.should_update_model(message, current_model_type)
+        if new_model_type:
+            model_config = ModelSelector.get_model_config(new_model_type)
+        # Update conversation metadata with new model type
+            conversation_metadata[conversation_key]["model_type"] = new_model_type
+        else:
+            model_config = ModelSelector.get_model_config(current_model_type)
+    
+    # Use the selected model configuration
+        chat_completion = groq_client.chat.completions.create(
+        messages=conversation_history[conversation_key],
+        **model_config
+    )
 
             conversation_history[conversation_key] = [system_message]
 
