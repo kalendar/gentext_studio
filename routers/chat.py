@@ -122,7 +122,7 @@ async def chat_post(
         chat_completion = groq_client.chat.completions.create(
             messages=conversation_history[conversation_key],
             model=GROQ_MODEL,
-            max_tokens=150,  # Reduced token limit
+            max_tokens=500,
             temperature=0.7,
         )
 

@@ -1,1 +1,0 @@
-**Retrieval Practice** this activity is like a practice quiz conversation. **Research shows that students who do frequent practice quizzes tend to perform better on tests compared to those who only review notes.** Retrieval practice works best when done regularly and spaced out over time. 

@@ -1,0 +1,1 @@
+**Practice Quiz Conversation** this activity is a practice quiz with open-ended questions and feedback. **Research shows that students who do frequent practice quizzes tend to perform better on tests compared to those who only review notes.** Retrieval practice works best when done regularly and spaced out over time. 
