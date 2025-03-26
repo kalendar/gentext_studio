@@ -1,4 +1,3 @@
-import logging
 from typing import Annotated
 
 from fastapi import Form, HTTPException, Request
@@ -12,10 +11,6 @@ from groq.types.chat.chat_completion_system_message_param import (
 from dependencies import GroqClientDep, LibraryDep, TemplatesDep
 
 router = APIRouter(prefix="/chat")
-
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 # Initialize conversation history
 # TODO Make non-global
@@ -36,7 +31,6 @@ async def chat(
     topic_name: str,
     activity_name: str,
 ) -> HTMLResponse:
-    logger.info("Generating prompt for chat")
     initial_prompt = library.generate_prompt(course_name, topic_name, activity_name)
 
     # Get the topic text
@@ -100,8 +94,6 @@ async def chat_post(
     global conversation_history, GROQ_MODEL
 
     try:
-        logger.info(f"Received message: {message}")
-
         conversation_key = f"{course_name}_{topic_name}_{activity_name}"
 
         # Initialize conversation history if it doesn't exist
@@ -134,9 +126,6 @@ async def chat_post(
             {"role": "assistant", "content": ai_response}
         )
 
-        logger.debug(f"Rendering template with user_message: {message}")
-        logger.debug(f"Rendering template with ai_response: {ai_response}")
-
         return templates.TemplateResponse(
             "chat_messages.html",
             {
@@ -147,5 +136,4 @@ async def chat_post(
         )
 
     except Exception as e:
-        logger.error(f"Chat error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
