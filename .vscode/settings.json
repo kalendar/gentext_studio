@@ -1,6 +1,7 @@
 {
   "python.analysis.autoImportCompletions": true,
   "python.analysis.typeCheckingMode": "strict",
+  "emmet.includeLanguages": { "jinja-html": "html" },
   "cSpell.words": [
     "dotenv",
     "fastapi",
@@ -13,5 +14,14 @@
     "TREEBEARD",
     "uvicorn",
     "venv"
-  ]
+  ],
+  "[jinja-html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.jinja": "jinja-html"
+  },
+  "tailwindCSS.includeLanguages": {
+    "jinja-html": "html"
+  }
 }

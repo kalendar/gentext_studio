@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+@layer utilities {
+  .scrollbar {
+    scrollbar-color: var(--color-gray-200) #ffffff00;
+  }
+}
+
+:root {
+  --nav-height: calc(var(--spacing) * 10);
+  --content-height: calc(100vh - var(--nav-height));
+}
+
+h1 {
+  @apply font-extrabold;
+  @apply text-2xl;
+}
+
+h2 {
+  @apply font-bold;
+  @apply text-xl;
+}
+
+h3 {
+  @apply font-normal;
+  @apply text-lg;
+}

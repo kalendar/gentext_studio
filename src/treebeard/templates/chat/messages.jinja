@@ -1,0 +1,5 @@
+{% for message in messages %}
+  {% if message.role != "system" %}
+    <Message :role="message.role"> {{ message.content }} </Message>
+  {% endif %}
+{% endfor %}

@@ -1,0 +1,9 @@
+{# def role="ai" #}
+{% set class="w-[80%] rounded-xl p-3 break-all" %}
+{% if role == "assistant" %}
+  {% set class = class + " bg-gray-50" %}
+{% elif role == "user" %}
+  {% set class = class + " ml-auto bg-blue-400 text-white" %}
+{% endif %}
+
+<div class="{{ class }}" {{ attrs.render() }}>{{ content }}</div>

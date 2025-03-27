@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from starlette import status
 
-from treebeard.dependencies import Templates
-from treebeard.routers import explore
+from treebeard.routers import chat, explore, import_
 from treebeard.settings import SETTINGS
 
 app = FastAPI(
@@ -19,8 +19,13 @@ app.mount(
 )
 
 app.include_router(explore.router)
+app.include_router(import_.router)
+app.include_router(chat.router)
 
 
-@app.get("/", response_class=HTMLResponse)
-async def root(request: Request, templates: Templates):
-    return templates.TemplateResponse(request=request, name="base.jinja")
+@app.get("/")
+async def root(request: Request):
+    return RedirectResponse(
+        request.url_for("get_textbooks"),
+        status_code=status.HTTP_302_FOUND,
+    )

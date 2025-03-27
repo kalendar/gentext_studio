@@ -1,139 +1,150 @@
-from typing import Annotated
+import json
+import uuid
+from datetime import datetime
 
-from fastapi import Form, HTTPException, Request
+from fastapi import Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.routing import APIRouter
-from groq.types.chat.chat_completion_message_param import ChatCompletionMessageParam
-from groq.types.chat.chat_completion_system_message_param import (
-    ChatCompletionSystemMessageParam,
-)
 
-from dependencies import GroqClientDep, LibraryDep, TemplatesDep
+from treebeard.database.chat import (
+    AssistantMessage,
+    Chat,
+    ChatMessages,
+    SystemMessage,
+    UserMessage,
+)
+from treebeard.database.queries import get_chat as get_chat_object
+from treebeard.database.queries import get_textbook
+from treebeard.dependencies import GroqClient, ReadSession, Templates, WriteSession
+from treebeard.settings import SETTINGS
 
 router = APIRouter(prefix="/chat")
 
-# Initialize conversation history
-# TODO Make non-global
-conversation_history: dict[str, list[ChatCompletionMessageParam]] = {}
 
-# Add a constant for the model name
-# TODO move to optional env var
-GROQ_MODEL = "llama-3.3-70b-versatile"
-
-
-@router.get("/{course_name}/{topic_name}/{activity_name}", response_model=None)
-async def chat(
+@router.get("/textbook/{textbook_guid}/topic/{topic_guid}/activity{activity_guid}")
+async def get_chat(
     request: Request,
-    library: LibraryDep,
-    templates: TemplatesDep,
-    groq_client: GroqClientDep,
-    course_name: str,
-    topic_name: str,
-    activity_name: str,
+    read_session: ReadSession,
+    textbook_guid: uuid.UUID,
+    topic_guid: uuid.UUID,
+    activity_guid: uuid.UUID,
+    templates: Templates,
+    groq_client: GroqClient,
+    write_session: WriteSession,
+    chat_guid: uuid.UUID | None = None,
 ) -> HTMLResponse:
-    initial_prompt = library.generate_prompt(course_name, topic_name, activity_name)
-
-    # Get the topic text
-    topic = library.get_topic(course_name, topic_name)
-    if not topic:
-        raise ValueError
-
-    if initial_prompt:
-        # Initialize conversation with system prompt
-        conversation_key = f"{course_name}_{topic_name}_{activity_name}"
-
-        conversation_history.update(
-            {conversation_key: [{"role": "system", "content": initial_prompt}]}
+    textbook = get_textbook(session=read_session, guid=textbook_guid)
+    topic = next(
+        filter(lambda topic: topic.guid == topic_guid, list(textbook.topics)), None
+    )
+    if topic is None:
+        raise ValueError(
+            f"No topic with GUID: {topic_guid} found for textbook with GUID: {textbook_guid}"
         )
 
-        # Get first response from AI
-        messages = conversation_history.get(conversation_key)
-        if not messages:
-            raise KeyError
+    activity = next(
+        filter(lambda activity: activity.guid == activity_guid, list(topic.activities)),
+        None,
+    )
+    if activity is None:
+        raise ValueError(
+            f"No activity with GUID: {activity_guid} found for topic with GUID: {topic_guid}"
+        )
+
+    chat: Chat | None = None
+
+    if chat_guid is not None:
+        chat = get_chat_object(session=write_session, guid=chat_guid)
+
+    if chat is None:
+        initial_prompt = f"""
+{activity.prompt}
+<context>{topic.summary}</context>
+<objectives>{topic.outcomes}</objectives>
+"""
+
+        chat = Chat(
+            textbook_guid=textbook_guid,
+            topic_guid=topic_guid,
+            activity_guid=activity_guid,
+            start_time=datetime.now(),
+            chat_data=ChatMessages(
+                messages=[
+                    SystemMessage(content=initial_prompt),
+                ]
+            ),
+        )
 
         chat_completion = groq_client.chat.completions.create(
-            messages=messages,
-            model=GROQ_MODEL,
+            messages=json.loads(chat.chat_data.model_dump_json())["messages"],
+            model=SETTINGS.groq_model,
         )
 
         initial_response = chat_completion.choices[0].message.content
         if initial_response is None:
             raise ValueError("No response from Groq!")
 
-        initial_response = initial_response.strip()
+        chat.chat_data.messages.append(AssistantMessage(content=initial_response))
 
-        # Add AI's response to conversation history
-        conversation_history[conversation_key].append(
-            {"role": "assistant", "content": initial_response}
-        )
+    write_session.add(chat)
+    write_session.commit()
 
-        return templates.TemplateResponse(
-            "chat.html",
-            {
-                "request": request,
-                "initial_prompt": initial_response,
-                "course_name": course_name,
-                "topic_name": topic_name,
-                "activity_name": activity_name,
-            },
-        )
-    raise HTTPException(status_code=404, detail="Invalid parameters")
+    return templates.TemplateResponse(
+        request=request,
+        name="chat/chat.jinja",
+        context={
+            "chat_guid": chat.guid,
+            "activity_guid": activity_guid,
+            "topic_guid": topic_guid,
+            "textbook_guid": textbook_guid,
+            "messages": chat.chat_data.messages,
+        },
+    )
 
 
-@router.post("/", response_model=None)
-async def chat_post(
+@router.post("/post")
+async def post_chat(
     request: Request,
-    library: LibraryDep,
-    templates: TemplatesDep,
-    groq_client: GroqClientDep,
-    message: Annotated[str, Form()],
-    course_name: Annotated[str, Form()],
-    topic_name: Annotated[str, Form()],
-    activity_name: Annotated[str, Form()],
-) -> HTMLResponse:
-    global conversation_history, GROQ_MODEL
+    templates: Templates,
+    write_session: WriteSession,
+    groq_client: GroqClient,
+    message: str = Form(),
+    chat_guid: uuid.UUID = Form(),
+):
+    chat = get_chat_object(session=write_session, guid=chat_guid)
 
-    try:
-        conversation_key = f"{course_name}_{topic_name}_{activity_name}"
+    if chat is None:
+        raise ValueError(f"No chat with GUID: {chat_guid}.")
 
-        # Initialize conversation history if it doesn't exist
-        if conversation_key not in conversation_history:
-            system_message = ChatCompletionSystemMessageParam(
-                content=library.generate_prompt(course_name, topic_name, activity_name),
-                role="system",
-            )
+    messages = json.loads(chat.chat_data.model_dump_json())["messages"]
 
-            conversation_history[conversation_key] = [system_message]
+    messages.append({"role": "user", "content": message})
 
-        # Add user message to history
-        conversation_history[conversation_key].append(
-            {"role": "user", "content": message}
-        )
+    chat_completion = groq_client.chat.completions.create(
+        messages=messages,
+        model=SETTINGS.groq_model,
+    )
 
-        # Get chat completion from Groq with max tokens limit
-        chat_completion = groq_client.chat.completions.create(
-            messages=conversation_history[conversation_key],
-            model=GROQ_MODEL,
-            max_tokens=500,
-            temperature=0.7,
-        )
+    initial_response = chat_completion.choices[0].message.content
+    if initial_response is None:
+        raise ValueError("No response from Groq!")
 
-        # Extract the response
-        ai_response = chat_completion.choices[0].message.content
+    new_messages: list[UserMessage | AssistantMessage] = [
+        UserMessage(content=message),
+        AssistantMessage(content=initial_response),
+    ]
 
-        # Add AI response to history
-        conversation_history[conversation_key].append(
-            {"role": "assistant", "content": ai_response}
-        )
+    new_data = chat.chat_data.model_copy(deep=True)
+    new_data.messages.extend(new_messages)
+    chat.chat_data = new_data
 
-        return templates.TemplateResponse(
-            "chat_messages.html",
-            {
-                "request": request,
-                "user_message": message,
-                "ai_response": ai_response,
-            },
-        )
+    write_session.add(chat)
+    write_session.commit()
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return templates.TemplateResponse(
+        request=request,
+        name="chat/messages.jinja",
+        context={
+            "messages": new_messages,
+        },
+    )

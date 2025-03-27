@@ -1,0 +1,24 @@
+{% extends "base.jinja" %}
+
+{% block title %}OELM - Select Topic{% endblock %}
+
+{% block body %}
+  <div class="mx-auto mt-4 grid w-[80ch] grid-cols-1 gap-2">
+    <h2>Select a Topic</h2>
+    <div>
+      {% for topic in textbook.topics %}
+        <Card
+          :title="topic.name"
+          :hx-get="request.url_for('get_textbook_activities', textbook_guid=textbook.guid, topic_guid=topic.guid)"
+          hx-target="body"
+          hx-push-url="true"
+          clickable
+        >
+          <p>
+            {{ topic.summary if len(topic.summary) < 20 else topic.summary[:20] + "..." }}
+          </p>
+        </Card>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
