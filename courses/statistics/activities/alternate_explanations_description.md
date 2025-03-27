@@ -1,1 +1,0 @@
-**Alternate Explanations** can help you connect new ideas to things you already know. Share a few of your interests or hobbies, and get new explanations of course concepts described in terms of those interests. **Connecting new information to prior knowledge is key to improving long-term memory and understanding.** 

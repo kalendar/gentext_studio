@@ -1,0 +1,13 @@
+{# def request #}
+
+<nav
+  class="flex h-(--nav-height) items-center justify-between gap-5 bg-gray-50 px-5"
+  hx-boost="true"
+>
+  <ul>
+    Treebeard
+  </ul>
+  <ul>
+    <a href="{{ request.url_for('get_textbooks') }}">Textbooks</a>
+  </ul>
+</nav>

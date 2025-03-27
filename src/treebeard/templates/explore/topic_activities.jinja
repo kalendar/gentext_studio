@@ -1,0 +1,24 @@
+{% extends "base.jinja" %}
+
+{% block title %}OELM - Select Activity{% endblock %}
+
+{% block body %}
+  <div class="mx-auto mt-4 grid w-[80ch] grid-cols-1 gap-2">
+    <h2>Select an Activity</h2>
+    <div>
+      {% for activity in topic.activities %}
+        <Card
+          :title="activity.name"
+          :hx-get="request.url_for('get_chat', textbook_guid=textbook.guid, topic_guid=topic.guid, activity_guid=activity.guid)"
+          hx-target="body"
+          hx-push-url="true"
+          clickable
+        >
+          <p>
+            {{ activity.description if len(activity.description) < 20 else activity.description[:20] + "..." }}
+          </p>
+        </Card>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

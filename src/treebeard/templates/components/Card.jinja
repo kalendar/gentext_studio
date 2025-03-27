@@ -1,0 +1,12 @@
+{# def title = None, clickable = False #}
+{% set class="w-full rounded-xl bg-gray-50 p-3" %}
+{% if clickable %}
+  {% set class = class + " hover:scale-[101%] transition-all duration-75 cursor-pointer" %}
+{% endif %}
+
+<div class="{{ class }}" {{ attrs.render() }}>
+  {% if title %}
+    <p class="text-xl font-semibold">{{ title }}</p>
+  {% endif %}
+  {{ content }}
+</div>

@@ -316,3 +316,4 @@ dist
 ### Custom gitignore
 dev.ipynb
 __pycache__/main.cpython-312.pyc
+/dev

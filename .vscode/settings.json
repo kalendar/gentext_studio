@@ -1,14 +1,27 @@
 {
-    "python.analysis.autoImportCompletions": true,
-    "python.analysis.typeCheckingMode": "strict",
-    "cSpell.words": [
-        "dotenv",
-        "fastapi",
-        "Groq",
-        "OELMs",
-        "pydantic",
-        "redoc",
-        "uvicorn",
-        "venv"
-    ]
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "strict",
+  "emmet.includeLanguages": { "jinja-html": "html" },
+  "cSpell.words": [
+    "dotenv",
+    "fastapi",
+    "Groq",
+    "jinjax",
+    "leaflock",
+    "OELMs",
+    "pydantic",
+    "redoc",
+    "TREEBEARD",
+    "uvicorn",
+    "venv"
+  ],
+  "[jinja-html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.jinja": "jinja-html"
+  },
+  "tailwindCSS.includeLanguages": {
+    "jinja-html": "html"
+  }
 }

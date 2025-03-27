@@ -1,17 +1,47 @@
 [project]
-name = "oelm"
+name = "treebeard"
 version = "0.1.0"
 description = "Combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful!"
 readme = "README.md"
 requires-python = ">=3.13"
+
 dependencies = [
     "fastapi[standard]>=0.115.8",
     "groq>=0.16.0",
     "jinja2>=3.1.5",
+    "jinjax>=0.53",
+    "leaflock==0.1.8",
     "markdown>=3.7",
     "pydantic>=2.10.6",
+    "pydantic-settings>=2.8.1",
     "python-dotenv>=1.0.1",
     "python-multipart>=0.0.20",
     "rich>=13.9.4",
     "uvicorn>=0.34.0",
+    "watchfiles>=1.0.4",
 ]
+
+[dependency-groups]
+dev = [
+    "hatchling>=1.27.0",
+    "treebeard",
+]
+
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+pythonpath = "src"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/other"]
+
+[tool.uv.sources]
+treebeard = { workspace = true }
+

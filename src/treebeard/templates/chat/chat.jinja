@@ -1,0 +1,81 @@
+{% extends "base.jinja" %}
+
+{% block title %}OELM - Select Topic{% endblock %}
+
+{% block body %}
+  <div
+    class="mx-auto flex h-(--content-height) max-h-(--content-height) w-[80ch] flex-col gap-4 py-4"
+  >
+    <h2>Chat</h2>
+    <div
+      id="chatWindow"
+      class="scrollbar flex grow flex-col gap-4 overflow-x-hidden overflow-y-auto rounded-2xl border border-gray-200 p-5"
+    >
+      {% include "chat/messages.jinja" %}
+    </div>
+    <form
+      class="relative w-full rounded-3xl border border-gray-200 p-4"
+      hx-post="{{ request.url_for('post_chat') }}"
+      hx-target="#chatWindow"
+      hx-swap="beforeend"
+      hx-trigger="submit"
+    >
+      <input type="hidden" name="chat_guid" value="{{ chat_guid }}" />
+      <input type="hidden" name="textbook_guid" value="{{ textbook_guid }}" />
+      <input type="hidden" name="topic_guid" value="{{ topic_guid }}" />
+      <input type="hidden" name="activity_guid" value="{{ activity_guid }}" />
+      <div class="flex w-full flex-col gap-3">
+        <textarea
+          id="message-input"
+          class="scrollbar max-h-[20ch] w-full resize-none overflow-y-scroll focus:border-0 focus-visible:outline-0"
+          name="message"
+          placeholder="Type your message... (Shift+Enter for new line, Enter to send)"
+          required
+          rows="3"
+          onkeydown="if(event.keyCode === 13 && !event.shiftKey) { 
+                        event.preventDefault(); 
+                        if(this.value.trim() !== '') { 
+                            this.form.dispatchEvent(new Event('submit')); 
+                        } 
+                    }"
+        ></textarea>
+        <button
+          type="submit"
+          class="ml-auto h-10 w-10 overflow-clip rounded-4xl border border-gray-400 bg-white opacity-50 transition-all duration-75 hover:w-24 hover:scale-105 hover:bg-gray-100 hover:shadow"
+        >
+          <div class="ml-[calc(var(--spacing)_*_1.75)] flex gap-2">
+            <img src="/static/svg/arrow-up.svg" alt="Send" class="opacity-50" />
+            <p class="font-semibold opacity-50">Send</p>
+          </div>
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    autosize(document.getElementById("message-input"));
+
+    document.addEventListener("htmx:afterRequest", function (evt) {
+      const messageInput = document.getElementById("message-input");
+
+      if (messageInput) {
+        messageInput.value = "";
+      }
+    });
+
+    document.addEventListener("htmx:afterSwap", function (evt) {
+      const chatMessages = document.getElementById("chat-messages");
+
+      if (chatMessages) {
+        requestAnimationFrame(() => {
+          chatMessages.scrollTo({
+            top: chatMessages.scrollHeight,
+            behavior: "smooth",
+          });
+        });
+      }
+    });
+  </script>
+{% endblock %}

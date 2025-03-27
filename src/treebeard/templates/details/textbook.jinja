@@ -1,0 +1,25 @@
+{% extends "base.jinja" %}
+
+{% block title %}OELM - Textbook Details{% endblock %}
+
+{% block body %}
+  <div class="mx-auto mt-4 grid w-[80ch] grid-cols-1 gap-2">
+    <h1>{{ textbook.title }}</h1>
+    <h2>Authors</h2>
+    <div>{{ textbook.authors }}</div>
+    <h2>Reviewers</h2>
+    <div>{{ textbook.reviewers }}</div>
+    <h2>Topics</h2>
+    <div>
+      {% for topic in textbook.topics|sort(attribute="name") %}
+        <p>{{ topic.name }}</p>
+      {% endfor %}
+    </div>
+    <h2>Activities</h2>
+    <div>
+      {% for activity in textbook.activities|sort(attribute="name") %}
+        <p>{{ activity.name }}</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
