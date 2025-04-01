@@ -66,7 +66,7 @@
     });
 
     document.addEventListener("htmx:afterSwap", function (evt) {
-      const chatMessages = document.getElementById("chat-messages");
+      const chatMessages = document.getElementById("chatWindow");
 
       if (chatMessages) {
         requestAnimationFrame(() => {

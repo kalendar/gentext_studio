@@ -1,9 +1,9 @@
 {# def role="ai" #}
-{% set class="w-[80%] rounded-xl p-3 break-all" %}
+{% set class="w-[80%] rounded-xl p-3 prose prose-sm max-w-none" %}
 {% if role == "assistant" %}
   {% set class = class + " bg-gray-50" %}
 {% elif role == "user" %}
-  {% set class = class + " ml-auto bg-blue-400 text-white" %}
+  {% set class = class + " ml-auto bg-blue-400 text-white prose-invert" %}
 {% endif %}
 
-<div class="{{ class }}" {{ attrs.render() }}>{{ content }}</div>
+<div class="{{ class }}" {{ attrs.render() }} x-data="{ content: $el.innerHTML }" x-init="$el.innerHTML = marked.parse(content)">{{ content }}</div>
