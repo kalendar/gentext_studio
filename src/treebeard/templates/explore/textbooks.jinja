@@ -13,7 +13,7 @@
         Import Textbook
       </button -->
     </div>
-    <div>
+    <div class="mb-5">
       {% for textbook in textbooks | sort(attribute="name") %}
         <Card
           :hx-get="request.url_for('get_textbook_topics', textbook_guid=textbook.guid)"
@@ -26,13 +26,12 @@
             <a
               href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
               class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-              >Details <i class="fa-solid fa-circle-info"></i></a
-            >
+              >Details <i class="fa-solid fa-circle-info"></i
+            ></a>
           </div>
           <p>By: {{ (textbook.authors) }}</p>
           <p>Topics: {{ len(textbook.topics) }}</p>
           <p>Activities: {{ len(textbook.activities) }}</p>
-          
         </Card>
       {% endfor %}
     </div>
@@ -40,7 +39,7 @@
 {% endblock %}
 
 {% block script %}
-  <script>
+  <!-- script>
     document
       .getElementById("importButton")
       .addEventListener("click", function () {
@@ -64,5 +63,5 @@
         });
         input.click();
       });
-  </script>
+  </script -->
 {% endblock %}

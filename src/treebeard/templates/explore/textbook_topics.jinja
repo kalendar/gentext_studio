@@ -7,11 +7,14 @@
     <div class="flex w-full items-center justify-between">
       <h1>Select a Topic</h1>
       <p>
-        <a class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-        href="{{ request.url_for('get_textbooks') }}">Return to Textbooks</a>
+        <a
+          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+          href="{{ request.url_for('get_textbooks') }}"
+          >Return to Textbooks</a
+        >
       </p>
     </div>
-    <div>
+    <div class="mb-5">
       {% for topic in textbook.topics  | sort(attribute="name") %}
         <Card
           :title="topic.name"
@@ -19,11 +22,7 @@
           hx-target="body"
           hx-push-url="true"
           clickable
-        >
-          <!-- p>
-            {{ topic.summary if len(topic.summary) < 20 else topic.summary[:20] + "..." }}
-          </p -->
-        </Card>
+        />
       {% endfor %}
     </div>
   </div>

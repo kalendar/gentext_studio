@@ -1,5 +1,7 @@
 {% for message in messages %}
   {% if message.role != "system" %}
-    <Message :role="message.role"> {{ message.content }} </Message>
+    <Message :role="message.role">
+      {{ markdown_to_html(message.content) | safe }}
+    </Message>
   {% endif %}
 {% endfor %}

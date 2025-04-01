@@ -18,7 +18,7 @@
       hx-post="{{ request.url_for('post_chat') }}"
       hx-target="#chatWindow"
       hx-swap="beforeend"
-      hx-trigger="submit"
+      hx-trigger="submit, submit-chat-message from:body"
       hx-indicator="#loading-spinner"
     >
       <input type="hidden" name="chat_guid" value="{{ chat_guid }}" />
@@ -33,23 +33,24 @@
           placeholder="Type your message... (Shift+Enter for new line, Enter to send)"
           required
           rows="3"
-          onkeydown="if(event.keyCode === 13 && !event.shiftKey) { 
-                        event.preventDefault(); 
-                        if(this.value.trim() !== '') { 
-                            this.form.dispatchEvent(new Event('submit')); 
-                        } 
-                    }"
+          onkeydown="submitChatMessage(event, this)"
         ></textarea>
         <div class="ml-auto flex items-center gap-2">
           <div id="loading-spinner" class="htmx-indicator flex items-center">
-            <div class="h-6 w-6 animate-spin rounded-full border-3 border-gray-300 border-t-blue-500"></div>
+            <div
+              class="h-6 w-6 animate-spin rounded-full border-3 border-gray-300 border-t-blue-500"
+            ></div>
           </div>
           <button
             type="submit"
             class="h-10 w-10 overflow-clip rounded-4xl border border-gray-400 bg-white opacity-50 transition-all duration-75 hover:w-24 hover:scale-105 hover:bg-gray-100 hover:shadow"
           >
             <div class="ml-[calc(var(--spacing)_*_1.75)] flex gap-2">
-              <img src="/static/svg/arrow-up.svg" alt="Send" class="opacity-50" />
+              <img
+                src="/static/svg/arrow-up.svg"
+                alt="Send"
+                class="opacity-50"
+              />
               <p class="font-semibold opacity-50">Send</p>
             </div>
           </button>
@@ -61,27 +62,39 @@
 
 {% block script %}
   <script>
-    autosize(document.getElementById("message-input"));
+    const messageInput = document.getElementById("message-input");
+    const chatMessages = document.getElementById("chatWindow");
+
+    autosize(messageInput);
+
+    function submitChatMessage(event, element) {
+      if (event.keyCode === 13 && !event.shiftKey) {
+        event.preventDefault();
+        if (element.value.trim() !== "") {
+          document.body.dispatchEvent(new Event("submit-chat-message"));
+        }
+      }
+    }
+
+    function clearMessageInput() {
+      messageInput.value = "";
+    }
+
+    function scrollToMessage() {
+      requestAnimationFrame(() => {
+        chatMessages.scrollTo({
+          top: chatMessages.scrollHeight,
+          behavior: "smooth",
+        });
+      });
+    }
 
     document.addEventListener("htmx:afterRequest", function (evt) {
-      const messageInput = document.getElementById("message-input");
-
-      if (messageInput) {
-        messageInput.value = "";
-      }
+      clearMessageInput();
     });
 
     document.addEventListener("htmx:afterSwap", function (evt) {
-      const chatMessages = document.getElementById("chatWindow");
-
-      if (chatMessages) {
-        requestAnimationFrame(() => {
-          chatMessages.scrollTo({
-            top: chatMessages.scrollHeight,
-            behavior: "smooth",
-          });
-        });
-      }
+      scrollToMessage();
     });
   </script>
 {% endblock %}

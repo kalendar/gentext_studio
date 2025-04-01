@@ -7,13 +7,15 @@
     <div class="flex w-full items-center justify-between">
       <h1>Select a Activity</h1>
       <p>
-        <a class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-        href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}">Return to Topics</a>
+        <a
+          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+          href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}"
+          >Return to Topics</a
+        >
       </p>
     </div>
 
-
-    <div>
+    <div class="mb-5">
       {% for activity in topic.activities %}
         <Card
           :title="activity.name"
@@ -23,9 +25,8 @@
           clickable
         >
           <p class="mt-1">
-            {{ activity.description | safe}}
+            {{ markdown_to_html(activity.description) | safe }}
           </p>
-
         </Card>
       {% endfor %}
     </div>

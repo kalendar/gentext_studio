@@ -9,12 +9,19 @@ from sqlalchemy.orm import Session as SQLASession
 
 from treebeard.database import get_sessionmaker
 from treebeard.settings import SETTINGS
+from treebeard.utils import markdown_to_html
 
 __TREEBEARD_ROOT = Path(__file__).parent.resolve()
 
 __TEMPLATES = Jinja2Templates(directory=str(__TREEBEARD_ROOT / "templates"))
 __TEMPLATES.env.add_extension(jinjax.JinjaX)  # type: ignore
-__TEMPLATES.env.globals.update({"len": len, "sorted": sorted})  # type: ignore
+__TEMPLATES.env.globals.update(  # type: ignore
+    {
+        "len": len,
+        "sorted": sorted,
+        "markdown_to_html": markdown_to_html,
+    }
+)
 __CATALOG = jinjax.Catalog(jinja_env=__TEMPLATES.env)  # type: ignore
 __CATALOG.add_folder(root_path=str(__TREEBEARD_ROOT / "templates/components"))
 
