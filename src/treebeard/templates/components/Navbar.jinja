@@ -1,13 +1,20 @@
 {# def request #}
 
 <nav
-  class="flex h-(--nav-height) items-center justify-between gap-5 bg-gray-50 px-5"
+  class="flex h-(--nav-height) items-center justify-between gap-5  bg-sky-600 px-5"
   hx-boost="true"
 >
   <ul>
-    Treebeard
+    <strong>
+    <a class="text-white" href="{{ request.url_for('get_textbooks') }}">Generative Textbooks: Home</a>
+    </strong>
   </ul>
-  <ul>
-    <a href="{{ request.url_for('get_textbooks') }}">Textbooks</a>
+    <ul>
+    <li>
+      <a class="text-white" href="https://github.com/kalendar/treebeard"
+        >Get Involved <i class="fa-brands fa-github"></i></a
+      >
+    </li>
   </ul>
+
 </nav>

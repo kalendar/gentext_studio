@@ -1,10 +1,16 @@
 {% extends "base.jinja" %}
 
-{% block title %}OELM - Textbook Details{% endblock %}
+{% block title %}Generative Textbook Details{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-4 grid w-[80ch] grid-cols-1 gap-2">
-    <h1>{{ textbook.title }}</h1>
+  <div class="mx-auto mt-4 mb-5 grid w-[80ch] grid-cols-1 gap-2">
+    <div class="flex w-full items-center justify-between">
+      <h1>{{ textbook.title }}</h1>
+    <p>
+      <a class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+      href="{{ request.url_for('get_textbooks') }}">Return to Textbooks</a>
+    </p>
+  </div>
     <h2>Authors</h2>
     <div>{{ textbook.authors }}</div>
     <h2>Reviewers</h2>
@@ -13,13 +19,19 @@
     <div>
       {% for topic in textbook.topics|sort(attribute="name") %}
         <p>{{ topic.name }}</p>
+        <p class="ml-5">By: {{ topic.authors }}</p>
+        <p class="ml-5">Sources: {{ topic.sources }}</p>
+
       {% endfor %}
     </div>
     <h2>Activities</h2>
     <div>
       {% for activity in textbook.activities|sort(attribute="name") %}
         <p>{{ activity.name }}</p>
+        <p class="ml-5">By: {{ activity.authors }}</p>
+        <p class="ml-5">Sources: {{ activity.sources }}</p>
       {% endfor %}
     </div>
   </div>
+
 {% endblock %}

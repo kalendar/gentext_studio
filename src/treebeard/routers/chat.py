@@ -59,8 +59,8 @@ async def get_chat(
     if chat is None:
         initial_prompt = f"""
 {activity.prompt}
-<context>{topic.summary}</context>
-<objectives>{topic.outcomes}</objectives>
+<content>{topic.summary}</content>
+<outcomes>{topic.outcomes}</outcomes>
 """
 
         chat = Chat(

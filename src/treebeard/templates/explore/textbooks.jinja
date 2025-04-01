@@ -1,20 +1,20 @@
 {% extends "base.jinja" %}
 
-{% block title %}OELM - Select Textbook{% endblock %}
+{% block title %}Select a Textbook{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-4 grid w-[80ch] grid-cols-1 gap-2">
+  <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
     <div class="flex items-center justify-between">
-      <h2>Select a Textbook</h2>
-      <button
+      <h1>Select a Textbook</h1>
+      <!-- button
         id="importButton"
-        class="cursor-pointer rounded-xl bg-blue-300 p-2 text-white transition-all duration-75 hover:bg-blue-400"
+        class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
       >
         Import Textbook
-      </button>
+      </button -->
     </div>
     <div>
-      {% for textbook in textbooks %}
+      {% for textbook in textbooks | sort(attribute="name") %}
         <Card
           :hx-get="request.url_for('get_textbook_topics', textbook_guid=textbook.guid)"
           hx-target="body"
@@ -22,15 +22,17 @@
           clickable
         >
           <div class="flex justify-between">
-            <h1>{{ textbook.title }}</h1>
+            <h2>{{ textbook.title }}</h2>
             <a
               href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
-              class="bg-red-300"
-              >Details</a
+              class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+              >Details <i class="fa-solid fa-circle-info"></i></a
             >
           </div>
+          <p>By: {{ (textbook.authors) }}</p>
           <p>Topics: {{ len(textbook.topics) }}</p>
           <p>Activities: {{ len(textbook.activities) }}</p>
+          
         </Card>
       {% endfor %}
     </div>

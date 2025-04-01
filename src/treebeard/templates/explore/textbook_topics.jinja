@@ -1,12 +1,18 @@
 {% extends "base.jinja" %}
 
-{% block title %}OELM - Select Topic{% endblock %}
+{% block title %}Select a Topic{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-4 grid w-[80ch] grid-cols-1 gap-2">
-    <h2>Select a Topic</h2>
+  <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
+    <div class="flex w-full items-center justify-between">
+      <h1>Select a Topic</h1>
+      <p>
+        <a class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+        href="{{ request.url_for('get_textbooks') }}">Return to Textbooks</a>
+      </p>
+    </div>
     <div>
-      {% for topic in textbook.topics %}
+      {% for topic in textbook.topics  | sort(attribute="name") %}
         <Card
           :title="topic.name"
           :hx-get="request.url_for('get_textbook_activities', textbook_guid=textbook.guid, topic_guid=topic.guid)"
@@ -14,9 +20,9 @@
           hx-push-url="true"
           clickable
         >
-          <p>
+          <!-- p>
             {{ topic.summary if len(topic.summary) < 20 else topic.summary[:20] + "..." }}
-          </p>
+          </p -->
         </Card>
       {% endfor %}
     </div>

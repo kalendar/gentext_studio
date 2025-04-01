@@ -1,10 +1,18 @@
 {% extends "base.jinja" %}
 
-{% block title %}OELM - Select Activity{% endblock %}
+{% block title %}Select Activity{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-4 grid w-[80ch] grid-cols-1 gap-2">
-    <h2>Select an Activity</h2>
+  <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
+    <div class="flex w-full items-center justify-between">
+      <h1>Select a Activity</h1>
+      <p>
+        <a class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+        href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}">Return to Topics</a>
+      </p>
+    </div>
+
+
     <div>
       {% for activity in topic.activities %}
         <Card
@@ -14,9 +22,10 @@
           hx-push-url="true"
           clickable
         >
-          <p>
-            {{ activity.description if len(activity.description) < 20 else activity.description[:20] + "..." }}
+          <p class="mt-1">
+            {{ activity.description | safe}}
           </p>
+
         </Card>
       {% endfor %}
     </div>
