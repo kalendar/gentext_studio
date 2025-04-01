@@ -10,7 +10,7 @@ class __Settings(BaseSettings):
     sqlite_database_path: Path = Field()
 
     root_path: Path = Path(__file__).parent.resolve()
-    grok_api_key: str
+    groq_api_key: str
     groq_model: str
 
 

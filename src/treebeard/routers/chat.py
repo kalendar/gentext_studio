@@ -87,7 +87,7 @@ async def get_chat(
         chat.chat_data.messages.append(AssistantMessage(content=initial_response))
 
     write_session.add(chat)
-    write_session.commit()
+    write_session.flush([chat])
 
     return templates.TemplateResponse(
         request=request,
@@ -139,7 +139,6 @@ async def post_chat(
     chat.chat_data = new_data
 
     write_session.add(chat)
-    write_session.commit()
 
     return templates.TemplateResponse(
         request=request,

@@ -10,7 +10,7 @@ dependencies = [
     "groq>=0.16.0",
     "jinja2>=3.1.5",
     "jinjax>=0.53",
-    "leaflock==0.1.8",
+    "leaflock==0.2.1",
     "markdown>=3.7",
     "pydantic>=2.10.6",
     "pydantic-settings>=2.8.1",
@@ -24,6 +24,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "hatchling>=1.27.0",
+    "pre-commit>=4.2.0",
     "treebeard",
 ]
 
@@ -44,4 +45,3 @@ packages = ["src/other"]
 
 [tool.uv.sources]
 treebeard = { workspace = true }
-
