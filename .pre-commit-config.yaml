@@ -16,3 +16,10 @@ repos:
       - id: ruff
         args: [ --fix ]
       - id: ruff-format
+  - repo: local
+    hooks:
+      - id: prettier-html-jinja
+        name: Prettier for HTML and Jinja files
+        entry: prettier --config .prettierrc --write
+        language: node
+        files: '\.(html|jinja)$'
