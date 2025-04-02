@@ -111,10 +111,13 @@
         await navigator.clipboard.writeText(url);
         const originalText = element.textContent;
         element.textContent = "Link Copied to Clipboard!";
-        element.classList.add("bg-green-400");
+        element.classList.remove("bg-blue-400");
+        element.classList.add("bg-green-600");
         setTimeout(() => {
           element.textContent = originalText;
-          element.classList.remove("bg-green-400");
+          element.classList.remove("bg-green-600");
+          element.classList.add("bg-blue-400");
+
         }, 2000);
       } catch (err) {
         console.error("Failed to copy text: ", err);
