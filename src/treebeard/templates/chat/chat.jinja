@@ -1,12 +1,25 @@
 {% extends "base.jinja" %}
 
-{% block title %}Study{% endblock %}
+{% block title %}Conversation{% endblock %}
 
 {% block body %}
   <div
     class="mx-auto flex h-(--content-height) max-h-(--content-height) w-[80ch] flex-col gap-4 py-4"
   >
-    <h2>Chat</h2>
+
+    <div class="flex w-full items-center justify-between">
+        <h2>Conversation</h2>
+          <p>
+            <a
+              id="share-button"
+              class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+              href="{{ request.url_for('get_chat', chat_guid=chat_guid) }}"
+              onclick="copyToClipboard(event, this)"
+              >Share This Chat</a
+            >
+          </p>
+    </div>
+
     <div
       id="chatWindow"
       class="scrollbar flex grow flex-col gap-4 overflow-x-hidden overflow-y-auto rounded-2xl border border-gray-200 p-5"
@@ -64,6 +77,7 @@
   <script>
     const messageInput = document.getElementById("message-input");
     const chatMessages = document.getElementById("chatWindow");
+    const shareButton = document.getElementById("share-button");
 
     autosize(messageInput);
 
@@ -87,6 +101,24 @@
           behavior: "smooth",
         });
       });
+    }
+
+    async function copyToClipboard(event, element) {
+      event.preventDefault();
+      const url = element.href;
+      
+      try {
+        await navigator.clipboard.writeText(url);
+        const originalText = element.textContent;
+        element.textContent = "Link Copied to Clipboard!";
+        element.classList.add("bg-green-400");
+        setTimeout(() => {
+          element.textContent = originalText;
+          element.classList.remove("bg-green-400");
+        }, 2000);
+      } catch (err) {
+        console.error("Failed to copy text: ", err);
+      }
     }
 
     document.addEventListener("htmx:afterRequest", function (evt) {

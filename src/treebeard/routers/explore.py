@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.routing import APIRouter
 
 from treebeard.database.queries import all_textbooks
+from treebeard.database.queries import get_chat as get_chat_
 from treebeard.database.queries import get_textbook as get_textbook_
 from treebeard.dependencies import ReadSession, Templates
 
@@ -39,6 +40,29 @@ async def get_textbook(
         request=request,
         name="details/textbook.jinja",
         context={"textbook": textbook},
+    )
+
+
+@router.get("/details/chat/{chat_guid}", response_model=None)
+async def get_chat(
+    request: Request,
+    read_session: ReadSession,
+    chat_guid: str,
+    templates: Templates,
+) -> HTMLResponse | RedirectResponse:
+    try:
+        chat_uuid = uuid.UUID(chat_guid)
+    except ValueError:
+        raise ValueError(f"Invalid chat GUID format: {chat_guid}")
+
+    chat = get_chat_(session=read_session, guid=chat_uuid)
+    if chat is None:
+        raise ValueError(f"No chat with GUID: {chat_guid} found!")
+
+    return templates.TemplateResponse(
+        request=request,
+        name="details/chat.jinja",
+        context={"chat": chat},
     )
 
 

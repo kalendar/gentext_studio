@@ -11,8 +11,8 @@ if [ ! -f ".git/hooks/pre-commit" ]; then
     pre-commit install
 fi
 
-# Start tailwindcss, can't use same terminal because fastapi dev kills it on reload.
-npx tailwindcss -i ./src/treebeard/static/css/src/input.css -o ./src/treebeard/static/css/main.css -w
+# Start tailwindcss in a new terminal window
+osascript -e 'tell app "Terminal" to do script "cd \"'$(pwd)'\" && source .venv/bin/activate && npx tailwindcss -i ./src/treebeard/static/css/src/input.css -o ./src/treebeard/static/css/main.css -w"'
 
-# Start FastAPI server
+# Start FastAPI server in the current terminal
 fastapi dev ./src/treebeard --port 5080
