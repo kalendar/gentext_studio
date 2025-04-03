@@ -1,0 +1,26 @@
+{% extends "base.jinja" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+  <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
+    <h1>Login With:</h1>
+    {% if SETTINGS.google_oauth %}
+      <a
+        href="/login/google"
+        class="w-full cursor-pointer rounded-2xl border border-gray-400 bg-gray-200 p-3 text-center text-lg font-semibold hover:border-gray-500 hover:bg-gray-300"
+      >
+        Google
+      </a>
+    {% endif %}
+
+    {% if SETTINGS.github_oauth %}
+      <a
+        href="/login/github"
+        class="w-full cursor-pointer rounded-2xl border border-gray-400 bg-gray-200 p-3 text-center text-lg font-semibold hover:border-gray-500 hover:bg-gray-300"
+      >
+        Github
+      </a>
+    {% endif %}
+  </div>
+{% endblock %}

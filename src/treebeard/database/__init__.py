@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 # Force load
 from treebeard.database.chat import Base, Chat  # type: ignore  # noqa: F401
+from treebeard.database.user import User  # type: ignore  # noqa: F401
 
 
 def get_sessionmaker(database_url: str) -> sessionmaker[Session]:
