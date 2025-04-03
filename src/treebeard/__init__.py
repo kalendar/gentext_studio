@@ -22,7 +22,7 @@ if SETTINGS.github_oauth:
 
 if SETTINGS.google_oauth or SETTINGS.github_oauth:
     if not SETTINGS.session_key:
-        raise ValueError("Missing session environment variable!")
+        raise ValueError("Missing session key environment variable!")
 
     __middlewares.extend(
         [
