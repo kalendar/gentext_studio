@@ -13,11 +13,11 @@ __middlewares: list[Middleware] = []
 
 if SETTINGS.google_oauth:
     if not (SETTINGS.google_client_id and SETTINGS.google_client_secret):
-        raise ValueError("Missing Google Oauth environment variables!")
+        raise ValueError("Missing Google OAuth environment variables!")
 
 if SETTINGS.github_oauth:
     if not (SETTINGS.github_client_id and SETTINGS.github_client_secret):
-        raise ValueError("Missing Github Oauth environment variables!")
+        raise ValueError("Missing Github OAuth environment variables!")
 
 
 if SETTINGS.google_oauth or SETTINGS.github_oauth:
