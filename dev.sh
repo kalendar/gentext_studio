@@ -11,8 +11,19 @@ if [ ! -f ".git/hooks/pre-commit" ]; then
     pre-commit install
 fi
 
-# Start tailwindcss in a new terminal window
-osascript -e 'tell app "Terminal" to do script "cd \"'$(pwd)'\" && source .venv/bin/activate && npx tailwindcss -i ./src/treebeard/static/css/src/input.css -o ./src/treebeard/static/css/main.css -w"'
+# Start Tailwind CSS in the background
+npm ci
+npx tailwindcss -i ./src/treebeard/static/css/src/input.css -o ./src/treebeard/static/css/main.css -w &
+TAILWIND_PID=$!
 
-# Start FastAPI server in the current terminal
-fastapi dev ./src/treebeard --port 5080
+# Cleanup function
+cleanup() {
+    echo "Stopping Tailwind CSS watcher..."
+    kill $TAILWIND_PID
+}
+
+# Set up trap to clean up on script exit
+trap cleanup EXIT
+
+# Start FastAPI server
+fastapi dev --port 5080

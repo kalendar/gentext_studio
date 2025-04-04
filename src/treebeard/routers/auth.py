@@ -4,6 +4,7 @@ from authlib.integrations.starlette_client import OAuth  # type: ignore
 from fastapi import Request
 from fastapi.responses import RedirectResponse
 from fastapi.routing import APIRouter
+from starlette import status
 
 from treebeard.database.queries import get_user
 from treebeard.database.user import Authorizer, User
@@ -48,13 +49,18 @@ if SETTINGS.google_oauth:
 
         email: str = token["userinfo"]["email"]
 
-        user = get_user(session=session, email=email)
+        user = get_user(session=session, email=email, authorizer=Authorizer.google)
 
         if not user:
             user = User(email=email, authorizer=Authorizer.google)
             session.add(user)
 
-        return user.email
+        request.session.update({"email": email})
+
+        return RedirectResponse(
+            url=request.url_for("root"),
+            status_code=status.HTTP_302_FOUND,
+        )
 
 
 if SETTINGS.github_oauth:
@@ -77,7 +83,9 @@ if SETTINGS.github_oauth:
 
     @typing.no_type_check
     @router.get("/auth/github")
-    async def authorize_github(request: Request, session: WriteSession):
+    async def authorize_github(
+        request: Request, session: WriteSession
+    ) -> RedirectResponse:
         github = __oauth.create_client("github")
 
         token = await github.authorize_access_token(request)
@@ -95,10 +103,15 @@ if SETTINGS.github_oauth:
             emails = email_resp.json()
             email = next((e["email"] for e in emails if e["primary"]), None)
 
-        user = get_user(session=session, email=email)
+        user = get_user(session=session, email=email, authorizer=Authorizer.github)
 
         if not user:
             user = User(email=email, authorizer=Authorizer.github)
             session.add(user)
 
-        return user.email
+        request.session.update({"email": email})
+
+        return RedirectResponse(
+            url=request.url_for("root"),
+            status_code=status.HTTP_302_FOUND,
+        )

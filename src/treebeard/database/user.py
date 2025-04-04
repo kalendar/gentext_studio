@@ -15,8 +15,7 @@ class User(MappedAsDataclass, Base):
     __tablename__ = "user"
 
     email: Mapped[str] = mapped_column(primary_key=True)
-
-    authorizer: Mapped[Authorizer]
+    authorizer: Mapped[Authorizer] = mapped_column(primary_key=True)
 
     def __hash__(self) -> int:
         return hash(self.email)

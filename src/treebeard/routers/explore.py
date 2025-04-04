@@ -62,7 +62,7 @@ async def get_chat(
     return templates.TemplateResponse(
         request=request,
         name="details/chat.jinja",
-        context={"chat": chat},
+        context={"messages": chat.chat_data.messages},
     )
 
 
