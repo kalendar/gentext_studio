@@ -256,14 +256,8 @@
   .block {
     display: block;
   }
-  .block\! {
-    display: block !important;
-  }
   .contents {
     display: contents;
-  }
-  .contents\! {
-    display: contents !important;
   }
   .flex {
     display: flex;
