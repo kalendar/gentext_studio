@@ -9,7 +9,7 @@ from treebeard.database.queries import get_chat as get_chat_
 from treebeard.database.queries import get_textbook as get_textbook_
 from treebeard.dependencies import ReadSession, Templates
 
-router = APIRouter(prefix="/explore")
+router = APIRouter(prefix="/learning/explore")
 
 
 @router.get("/textbooks", response_model=None)

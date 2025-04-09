@@ -18,7 +18,7 @@ from treebeard.database.queries import get_textbook
 from treebeard.dependencies import GroqClient, ReadSession, Templates, WriteSession
 from treebeard.settings import SETTINGS
 
-router = APIRouter(prefix="/chat")
+router = APIRouter(prefix="/learning/chat")
 
 
 @router.get("/textbook/{textbook_guid}/topic/{topic_guid}/activity{activity_guid}")
