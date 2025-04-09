@@ -1,0 +1,121 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+  Create Textbook
+{% endblock %}
+
+{% block body %}
+  <div class="mt-10 mb-20 w-full">
+    <form
+      action=""
+      hx-ext="json-enc"
+      hx-post="{{ request.url_for('create_topic_post') }}"
+      class="mx-auto flex w-[65ch] flex-col gap-5">
+      <div>
+        <label for="name" class="text-lg font-bold"
+          >Topic Name
+          <Tooltip>
+            This is the name of the topic. It will be shown to learners.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextInput
+          name="name"
+          id="name"
+          required
+          :value="{{ topic.name if topic }}"
+          placeholder="This is the name of the topic. It will be shown to learners." />
+      </div>
+      <input
+        type="text"
+        name="textbook_guid"
+        id="text"
+        required
+        hidden
+        value="{{ textbook_ident }}" />
+      <div>
+        <label for="outcomes" class="text-lg font-bold"
+          >Topic Outcomes
+          <Tooltip>
+            List the knowledge and skills learners should develop when studying
+            this topic. List one outcome per line. Learners may see the items in
+            this list. You can reference this content in Activity Prompts as the
+            information enclosed in the &lt;outcomes&gt; tag.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="outcomes"
+          id="outcomes"
+          required
+          placeholder="* Outcome 1\n* Outcome 2\n* Outcome 3"
+          :text="topic.outcomes if topic else ''" />
+      </div>
+      <div>
+        <label for="summary" class="text-lg font-bold"
+          >Topic Summary
+          <Tooltip>
+            Provide a detailed exposition of the knowledge and skills learners
+            need to develop. This content will not be shown to learners. The
+            purpose of this material is to provide the LLM with the information
+            it needs to provide accurate responses during its interaction with
+            learners. This content should read more like a detailed chapter
+            summary and less like an entire textbook chapter. If your work is
+            based on an existing OER textbook chapter, you might consider using
+            AI to draft a summary. You might consider including a list of key
+            vocabulary and definitions. You can reference this content in
+            Activity Prompts as the information enclosed in the &lt;content&gt;
+            tag.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="summary"
+          id="summary"
+          required
+          placeholder="Provide a detailed exposition of the knowledge and skills learners need to develop. This content will not be shown to learners. The purpose of this material is to provide the LLM with the information it needs to provide accurate responses during its interaction with learners. This content should read more like a detailed chapter summary and less like an entire textbook chapter. If your work is based on an existing OER textbook chapter, you might consider using AI to draft a summary. You might consider including a list of key vocabulary and definitions. You can reference this content in Activity Prompts as the information enclosed in the &lt;content&gt; tag."
+          :text="topic.summary if topic else ''" />
+      </div>
+      <div>
+        <label for="sources" class="text-lg font-bold"
+          >Topic Sources
+          <Tooltip>
+            Here you can optionally include any sources you referenced in the
+            creation of this Topic. If you're attributing an OER, make sure to
+            include a Title, Author, Source (URL), and License as per the
+            Creative Commons best practices for attribution.
+          </Tooltip>
+        </label>
+        <br />
+
+        <form.TextArea
+          name="sources"
+          id="sources"
+          placeholder="Here you can optionally include any sources you referenced in the creation of this Topic.
+        If you're attributing an OER, make sure to include a Title, Author, Source (URL), and License as per the Creative Commons best practices for attribution."
+          :text="topic.sources if topic else ''" />
+      </div>
+      <div>
+        <label for="authors" class="text-lg font-bold"
+          >Topic Authors
+          <Tooltip>
+            List all the authors who contributed to this Topic. One name per
+            line.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="authors"
+          id="authors"
+          required
+          placeholder="FirstName LastName\nFirstName LastName"
+          :text="topic.authors if topic else ''" />
+      </div>
+      <input
+        type="submit"
+        value="Create Topic"
+        class="rounded border-2 border-sky-500 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
+      <BackButton />
+    </form>
+  </div>
+{% endblock %}

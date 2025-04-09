@@ -6,7 +6,9 @@ from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
 
 from treebeard.middleware import AuthMiddleware
-from treebeard.routers import auth, chat, explore, import_
+from treebeard.routers import auth, import_
+from treebeard.routers.authoring import activity, textbook, topic
+from treebeard.routers.interaction import chat, explore
 from treebeard.settings import SETTINGS
 
 __middlewares: list[Middleware] = []
@@ -47,6 +49,10 @@ app.mount(
 app.include_router(explore.router)
 app.include_router(import_.router)
 app.include_router(chat.router)
+app.include_router(activity.router)
+app.include_router(textbook.router)
+app.include_router(topic.router)
+
 
 if SETTINGS.google_oauth or SETTINGS.github_oauth:
     app.include_router(auth.router)

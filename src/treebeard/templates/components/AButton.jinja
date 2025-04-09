@@ -1,0 +1,28 @@
+{# def text="", icon="", color="blue" #}
+{# 
+  This component has some predefined colors and icons:
+    Colors: red, green, blue
+    Icons: create, edit, delete. 
+#}
+{% set icon = icon.strip().lower() %}
+{% set color = color.strip().lower() %}
+{% if icon == 'edit' %}
+  {% set icon = 'fa-solid fa-pen-to-square' %}
+{% elif icon == 'create' %}
+  {% set icon = 'fa-solid fa-plus' %}
+{% elif icon == 'delete' %}
+  {% set icon = 'fa-solid fa-xmark' %}
+{% endif %}
+{% if color == 'green' %}
+  {% set color = 'border-green-600 bg-green-600 hover:bg-green-500' %}
+{% elif color == 'blue' %}
+  {% set color = 'border-sky-600 bg-sky-600 hover:bg-sky-500' %}
+{% elif color == 'red' %}
+  {% set color = 'border-red-400 bg-red-400 hover:bg-red-700' %}
+{% endif %}
+
+<a
+  {{ attrs.render() }}
+  class="{{ icon }} {{ color }} cursor-pointer rounded px-2 py-1 text-sm text-white transition duration-100">
+  {{ text }}</a
+>

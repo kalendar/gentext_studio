@@ -1,9 +1,8 @@
 {# def request #}
 
 <nav
-  class="flex h-(--nav-height) items-center justify-between gap-5 bg-sky-600 px-5"
-  hx-boost="true"
->
+  class="flex h-nav-height items-center justify-between gap-5 bg-sky-600 px-5"
+  hx-boost="true">
   <ul>
     <strong>
       <a class="text-white" href="{{ request.url_for('get_textbooks') }}"

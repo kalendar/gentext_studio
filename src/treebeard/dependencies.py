@@ -23,7 +23,10 @@ __TEMPLATES.env.globals.update(  # type: ignore
     }
 )
 __CATALOG = jinjax.Catalog(jinja_env=__TEMPLATES.env)  # type: ignore
-__CATALOG.add_folder(root_path=str(__TREEBEARD_ROOT / "templates/components"))
+__CATALOG.add_folder(
+    root_path=str(__TREEBEARD_ROOT / "templates/components"),
+    prefix="",
+)
 
 __SESSIONMAKER = get_sessionmaker(
     database_url=f"sqlite:///{SETTINGS.sqlite_database_path}"

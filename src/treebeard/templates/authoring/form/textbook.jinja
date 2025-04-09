@@ -1,0 +1,131 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+  Create Textbook
+{% endblock %}
+
+{% block body %}
+  <div class="mt-10 mb-20 w-full">
+    <form
+      action=""
+      hx-post="{{ request.url_for('create_textbook_post') }}"
+      hx-ext="json-enc"
+      class="mx-auto flex w-[65ch] flex-col gap-5">
+      <div>
+        <label for="name" class="text-lg font-bold"
+          >Title
+          <Tooltip>
+            This is the title of your textbook. It will be shown to learners.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextInput
+          name="title"
+          id="title"
+          required
+          :value="textbook.title if textbook else ''"
+          placeholder="This is the title of your textbook. It will be shown to learners." />
+      </div>
+      <div>
+        <label for="status" class="text-lg font-bold"
+          >Status
+          <Tooltip>
+            This is the publishing status of your textbook. Draft is private,
+            published is public.
+          </Tooltip>
+        </label>
+        <br />
+        <select name="status" id="status">
+          <option
+            value="draft"
+            {{ 'selected' if textbook and textbook.status == 'draft' else '' }}>
+            Draft
+          </option>
+          <option
+            value="published"
+            {{ 'selected' if textbook and textbook.status == 'published' else '' }}>
+            Published
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="edition" class="text-lg font-bold"
+          >Edition
+          <Tooltip>
+            This is the edition of your textbook. It will be shown to learners.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextInput
+          name="edition"
+          id="edition"
+          required
+          :value="textbook.edition if textbook and textbook.edition else ''"
+          placeholder="First Edition" />
+      </div>
+      <div>
+        <label for="prompt" class="text-lg font-bold"
+          >System Prompt Stub
+          <Tooltip>
+            This is the system prompt stub. This language will be included in
+            every prompt sent to the LLM, so should not include details about
+            specific topics or pedagogies. It might include information about
+            the overall course topic, as well as information about personality,
+            voice, and tone. For example, "You are an empathetic, caring,
+            supportive tutor for an undergraduate Introduction to Psychology
+            course."
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="prompt"
+          id="prompt"
+          required
+          placeholder="This is the system prompt stub. This language will be included in every prompt sent to the LLM, so should not include details about specific topics or pedagogies. It might include information about the overall course topic, as well as information about personality, voice, and tone. For example, 'You are an empathetic, caring, supportive tutor for an undergraduate Introduction to Psychology course.'"
+          :text="textbook.prompt if textbook else ''" />
+      </div>
+      <div>
+        <label for="authors" class="text-lg font-bold"
+          >Authors
+          <Tooltip>
+            List the authors who contributed to this generative textbook. One
+            name per line.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="authors"
+          id="authors"
+          required
+          placeholder="FirstName LastName\nFirstName LastName"
+          :text="textbook.authors if textbook else ''"
+          placeholder="* FirstName LastName\n* FirstName LastName"
+          :text="textbook.authors if textbook and textbook.authors else ''" />
+      </div>
+      <div>
+        <label for="reviewers" class="text-lg font-bold"
+          >Peer Reviewers
+          <Tooltip>
+            List the people who peer reviewed this generative textbook. One name
+            per line.
+          </Tooltip>
+        </label>
+
+        <form.TextArea
+          name="reviewers"
+          id="reviewers"
+          required
+          placeholder="No Reviewers Yet"
+          :text="textbook.reviewers if textbook else ''"
+          placeholder="FirstName LastName\nFirstName LastName"
+          :text="textbook.reviewers if textbook and textbook.reviewers else ''" />
+      </div>
+
+      <input
+        type="submit"
+        value="Create Textbook"
+        class="rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
+      <BackButton />
+    </form>
+  </div>
+{% endblock %}

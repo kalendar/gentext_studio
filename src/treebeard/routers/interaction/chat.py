@@ -91,7 +91,7 @@ async def get_chat(
 
     return templates.TemplateResponse(
         request=request,
-        name="chat/chat.jinja",
+        name="interaction/chat/chat.jinja",
         context={
             "chat_guid": chat.guid,
             "activity_guid": activity_guid,
@@ -142,7 +142,7 @@ async def post_chat(
 
     return templates.TemplateResponse(
         request=request,
-        name="chat/messages.jinja",
+        name="interaction/chat/messages.jinja",
         context={
             "messages": new_messages,
         },

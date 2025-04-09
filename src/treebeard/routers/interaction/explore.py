@@ -22,7 +22,7 @@ async def get_textbooks(
 
     return templates.TemplateResponse(
         request=request,
-        name="explore/textbooks.jinja",
+        name="interaction/explore/textbooks.jinja",
         context={"textbooks": textbooks},
     )
 
@@ -38,7 +38,7 @@ async def get_textbook(
 
     return templates.TemplateResponse(
         request=request,
-        name="details/textbook.jinja",
+        name="interaction/details/textbook.jinja",
         context={"textbook": textbook},
     )
 
@@ -61,7 +61,7 @@ async def get_chat(
 
     return templates.TemplateResponse(
         request=request,
-        name="details/chat.jinja",
+        name="interaction/details/chat.jinja",
         context={"messages": chat.chat_data.messages},
     )
 
@@ -77,7 +77,7 @@ async def get_textbook_topics(
 
     return templates.TemplateResponse(
         request=request,
-        name="explore/textbook_topics.jinja",
+        name="interaction/explore/textbook_topics.jinja",
         context={"textbook": textbook},
     )
 
@@ -103,7 +103,7 @@ async def get_textbook_activities(
 
     return templates.TemplateResponse(
         request=request,
-        name="explore/topic_activities.jinja",
+        name="interaction/explore/topic_activities.jinja",
         context={
             "textbook": textbook,
             "topic": topic,

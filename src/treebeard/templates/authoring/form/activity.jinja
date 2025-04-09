@@ -1,0 +1,139 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+  Create Textbook
+{% endblock %}
+
+{% block body %}
+  <div class="mt-10 mb-20 w-full">
+    <form
+      action=""
+      hx-ext="json-enc"
+      hx-post="{{ request.url_for('create_activity_post') }}"
+      class="mx-auto flex w-[65ch] flex-col gap-5">
+      <div>
+        <label for="name" class="text-lg font-bold"
+          >Activity Name
+          <Tooltip>
+            This is the name of the activity. It will be shown to learners.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextInput
+          name="name"
+          id="name"
+          required
+          :value="{{ activity.name if activity }}"
+          placeholder="This is the name of the activity. It will be shown to learners." />
+      </div>
+      <input
+        type="text"
+        name="textbook_guid"
+        id="name"
+        required
+        hidden
+        value="{{ textbook_ident }}" />
+      <div>
+        <label for="description" class="text-lg font-bold"
+          >Activity Description
+          <Tooltip>
+            This is the description of the activity. It will be shown to
+            learners.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="description"
+          id="description"
+          rows="10"
+          required
+          placeholder="This is the description of the activity. It will be shown to learners."
+          :text="activity.description if activity else ''" />
+      </div>
+      <div>
+        <label for="prompt" class="text-lg font-bold"
+          >Activity Prompt
+          <Tooltip>
+            These instructions will be added to the system prompt stub and sent
+            to the LLM. They will not be shown to learners. The instructions
+            should describe an evidence-based teaching or study practice in
+            enough detail for the LLM to be able to faithfully implement the
+            practice with learners.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="prompt"
+          id="prompt"
+          rows="10"
+          required
+          placeholder="These instructions will be added to the system prompt stub and sent to the LLM. They will not be shown to learners. The instructions should describe an evidence-based teaching or study practice in enough detail for the LLM to be able to faithfully implement the practice with learners."
+          :text="activity.prompt if activity else ''" />
+      </div>
+      <div>
+        <label for="sources" class="text-lg font-bold"
+          >Activity Sources
+          <Tooltip>
+            Here you can optionally include any sources you referenced in the
+            creation of this Activity. If you're attributing an OER, make sure
+            to include a Title, Author, Source (URL), and License as per the
+            Creative Commons best practices for attribution.
+          </Tooltip>
+        </label>
+        <br />
+
+        <form.TextArea
+          name="sources"
+          id="sources"
+          placeholder="Here you can optionally include any sources you referenced in the creation of this Activity.
+        If you're attributing an OER, make sure to include a Title, Author, Source (URL), and License as per the Creative Commons best practices for attribution."
+          :text="activity.sources if activity else ''" />
+      </div>
+      <div>
+        <label for="authors" class="text-lg font-bold"
+          >Activity Authors
+          <Tooltip>
+            List all the authors who contributed to this Activity. One name per
+            line.
+          </Tooltip>
+        </label>
+        <br />
+        <form.TextArea
+          name="authors"
+          id="authors"
+          required
+          placeholder="FirstName LastName\nFirstName LastName"
+          :text="activity.authors if activity else ''" />
+      </div>
+
+      <div>
+        <label for="Topics" class="text-lg font-bold"
+          >Compatible Topics
+          <Tooltip>
+            Select the topics this activity is compatible with.
+          </Tooltip>
+        </label>
+        <br />
+        <select
+          name="topic_guids"
+          id="topic_guids"
+          multiple
+          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
+          {% for topic in topics %}
+            <option
+              value="{{ topic.guid }}"
+              class="px-2 focus:bg-gray-100"
+              {{ 'selected' if activity and topic in activity.topics }}>
+              {{ topic.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <input
+        type="submit"
+        value="Create Activity"
+        class="rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
+      <BackButton />
+    </form>
+  </div>
+{% endblock %}
