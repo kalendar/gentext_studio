@@ -32,7 +32,10 @@ def create_topic_get(
     return templates.TemplateResponse(
         request=request,
         name="authoring/form/topic.jinja",
-        context={"textbook_ident": textbook_ident},
+        context={
+            "textbook_ident": textbook_ident,
+            "hx_post": request.url_for("create_topic_post"),
+        },
     )
 
 
@@ -82,6 +85,8 @@ def update_topic_get(
         context={
             "topic": topic,
             "textbook_ident": textbook_ident,
+            "hx_post": request.url_for("update_topic_post", ident=topic_ident),
+            "submission_text": "Update Topic",
         },
     )
 

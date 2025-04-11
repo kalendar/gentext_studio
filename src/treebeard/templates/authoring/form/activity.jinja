@@ -9,7 +9,7 @@
     <form
       action=""
       hx-ext="json-enc"
-      hx-post="{{ request.url_for('create_activity_post') }}"
+      hx-post="{{ hx_post }}"
       class="mx-auto flex w-[65ch] flex-col gap-5">
       <div>
         <label for="name" class="text-lg font-bold"
@@ -131,7 +131,7 @@
       </div>
       <input
         type="submit"
-        value="Create Activity"
+        value="{{ 'Create Activity' if not submission_text else submission_text }}"
         class="rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
       <BackButton />
     </form>

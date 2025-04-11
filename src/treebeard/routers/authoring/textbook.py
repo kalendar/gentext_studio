@@ -65,6 +65,7 @@ def create_textbook_get(
     return templates.TemplateResponse(
         request=request,
         name="authoring/form/textbook.jinja",
+        context={"hx_post": request.url_for("create_textbook_post")},
     )
 
 
@@ -91,7 +92,11 @@ def update_textbook_get(
     return templates.TemplateResponse(
         request=request,
         name="authoring/form/textbook.jinja",
-        context={"textbook": textbook},
+        context={
+            "textbook": textbook,
+            "hx_post": request.url_for("update_textbook_post", ident=ident),
+            "submission_text": "Update Textbook",
+        },
     )
 
 

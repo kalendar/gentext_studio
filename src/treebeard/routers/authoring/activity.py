@@ -39,7 +39,11 @@ def create_activity_get(
     return templates.TemplateResponse(
         request=request,
         name="authoring/form/activity.jinja",
-        context={"textbook_ident": textbook_ident, "topics": topics},
+        context={
+            "textbook_ident": textbook_ident,
+            "topics": topics,
+            "hx_post": request.url_for("create_activity_post"),
+        },
     )
 
 
@@ -107,6 +111,8 @@ def update_activity_get(
             "activity": activity,
             "textbook_ident": textbook_ident,
             "topics": topics,
+            "hx_post": request.url_for("update_activity_post", ident=activity_ident),
+            "submission_text": "Update Activity",
         },
     )
 
