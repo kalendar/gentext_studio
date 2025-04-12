@@ -1,11 +1,11 @@
 {% extends "base.jinja" %}
 
-{% block title %}Select Activity{% endblock %}
+{% block title %}Select an Activity{% endblock %}
 
 {% block body %}
   <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
     <div class="flex w-full items-center justify-between">
-      <h1>Select a Activity</h1>
+      <h1>Select an Activity</h1>
       <p>
         <a
           class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
@@ -23,7 +23,7 @@
           hx-target="body"
           hx-push-url="true"
           clickable>
-          <p class="mt-1">
+          <p class="mt-2">
             {{ markdown_to_html(activity.description) | safe }}
           </p>
         </Card>

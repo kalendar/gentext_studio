@@ -24,7 +24,7 @@
       {% include "interaction/chat/messages.jinja" %}
     </div>
     <form
-      class="relative w-full rounded-3xl border border-gray-200 p-4"
+      class="relative w-full rounded-3xl border bg-white border-gray-200 p-4"
       hx-post="{{ request.url_for('post_chat') }}"
       hx-target="#chatWindow"
       hx-swap="beforeend"
@@ -34,12 +34,12 @@
       <input type="hidden" name="textbook_guid" value="{{ textbook_guid }}" />
       <input type="hidden" name="topic_guid" value="{{ topic_guid }}" />
       <input type="hidden" name="activity_guid" value="{{ activity_guid }}" />
-      <div class="flex w-full flex-col gap-3">
+      <div class="flex w-full flex-col gap-3 bg-white">
         <textarea
           id="message-input"
           class="scrollbar max-h-[20ch] w-full resize-none overflow-y-scroll focus:border-0 focus-visible:outline-0"
           name="message"
-          placeholder="Type your message... (Shift+Enter for new line, Enter to send)"
+          placeholder="Enter your message..."
           required
           rows="3"
           onkeydown="submitChatMessage(event, this)"></textarea>

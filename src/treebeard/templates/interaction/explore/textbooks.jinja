@@ -1,10 +1,10 @@
 {% extends "base.jinja" %}
 
-{% block title %}Select a Textbook{% endblock %}
+{% block title %}Select a Course{% endblock %}
 
 {% block body %}
   <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
-    <h1>Select a Textbook</h1>
+    <h1>Select a Course</h1>
     <div class="mb-5">
       {% for textbook in textbooks | sort(attribute="name") %}
         <Card

@@ -1,15 +1,15 @@
 {% extends "base.jinja" %}
 
-{% block title %}Generative Textbooks{% endblock %}
+{% block title %}GOLEs{% endblock %}
 
 {% block body %}
   <div class="mx-auto my-5 w-[80%]">
     <div class="flex w-full items-center justify-between">
-      <h1>Your Generative Textbooks</h1>
+      <h1>Your GOLEs</h1>
       <a
         href="{{ request.url_for('create_textbook_get') }}"
         class="items-center rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-600"
-        >Create a New Generative Textbook</a
+        >Create a New GOLE</a
       >
     </div>
     <br />
