@@ -44,7 +44,8 @@
           icon="create" />
       </div>
       {% for topic in textbook.topics | sort(attribute="name") %}
-      <div class="{{ 'bg-gray-200' if loop.index0 % 2 == 1 else 'bg-white' }} flex justify-between p-2">
+        <div
+          class="{{ 'bg-gray-200' if loop.index0 % 2 == 1 else 'bg-white' }} flex justify-between p-2">
           <a
             class="text-sky-600 underline"
             href="{{ request.url_for('update_topic_get', topic_ident=topic.guid, textbook_ident=topic.textbook_guid) }}"

@@ -3,30 +3,22 @@
 {% block title %}Select an Activity{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
-    <div class="flex w-full items-center justify-between">
+  <div class="central-content">
+    <div class="mb-5 flex w-full items-center justify-between">
       <h1>Select an Activity</h1>
-      <p>
-        <a
-          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-          href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}"
-          >Return to Topics</a
-        >
-      </p>
+      <a
+        class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+        href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}"
+        >Return to Topics</a
+      >
     </div>
-
-    <div class="mb-5">
-      {% for activity in topic.activities %}
-        <Card
-          :title="activity.name"
-          :hx-get="request.url_for('get_chat', textbook_guid=textbook.guid, topic_guid=topic.guid, activity_guid=activity.guid)"
-          hx-target="body"
-          hx-push-url="true"
-          clickable>
-          <p class="mt-2">
-            {{ markdown_to_html(activity.description) | safe }}
-          </p>
-        </Card>
+    <div class="vertical-list">
+      {% for activity in topic.activities | sort(attribute="name") %}
+        <card.Activity
+          :activity="activity"
+          :textbook="textbook"
+          :topic="topic"
+          :request="request" />
       {% endfor %}
     </div>
   </div>

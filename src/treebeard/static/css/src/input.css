@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
   --color-background: #eceff1; /* #f3f4f6; /* Very light gray for calm readability */
@@ -25,6 +25,16 @@
   .grid-cols-adaptive {
     @apply grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@layer components {
+  .central-content {
+    @apply mx-auto my-10 w-[80ch];
+  }
+
+  .vertical-list {
+    @apply flex flex-col gap-2;
   }
 }
 

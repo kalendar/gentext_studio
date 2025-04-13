@@ -1,15 +1,16 @@
 {% extends "base.jinja" %}
 
-{% block title %}Select a Course{% endblock %}
+{% block title %}User Textbooks{% endblock %}
 
 {% block body %}
   <div class="central-content">
-    <div class="mb-5 flex w-full items-center justify-between">
-      <h1>Select a Course</h1>
-    </div>
+    <h1 class="mb-5">Your Saved Textbooks</h1>
     <div class="vertical-list">
       {% for textbook in textbooks | sort(attribute="title") %}
-        <card.Textbook :textbook="textbook" :request="request" />
+        <card.Textbook
+          :textbook="textbook"
+          :request="request"
+          :show_add="False" />
       {% endfor %}
     </div>
   </div>

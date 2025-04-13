@@ -1,0 +1,8 @@
+{# def topic, textbook, request #}
+
+<Card
+  :title="topic.name"
+  :hx-get="request.url_for('get_textbook_activities', textbook_guid=textbook.guid, topic_guid=topic.guid)"
+  hx-target="body"
+  hx-push-url="true"
+  clickable />

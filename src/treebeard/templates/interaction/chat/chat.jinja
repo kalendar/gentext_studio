@@ -24,7 +24,7 @@
       {% include "interaction/chat/messages.jinja" %}
     </div>
     <form
-      class="relative w-full rounded-3xl border bg-white border-gray-200 p-4"
+      class="relative w-full rounded-3xl border border-gray-200 bg-white p-4"
       hx-post="{{ request.url_for('post_chat') }}"
       hx-target="#chatWindow"
       hx-swap="beforeend"

@@ -1,0 +1,12 @@
+{% extends "base.jinja" %}
+
+{% block title %}User Page{% endblock %}
+
+{% block body %}
+  <div class="central-content">
+    <h1>User Page</h1>
+
+    <a href="{{ request.url_for('saved_textbooks') }}">Saved Textbooks</a>
+    <a href="{{ request.url_for('owned_textbooks') }}">Owned Textbooks</a>
+  </div>
+{% endblock %}

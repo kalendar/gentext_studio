@@ -1,0 +1,10 @@
+{# def activity, textbook, topic, request #}
+
+<Card
+  :title="activity.name"
+  :hx-get="request.url_for('get_chat', textbook_guid=textbook.guid, topic_guid=topic.guid, activity_guid=activity.guid)"
+  hx-target="body"
+  hx-push-url="true"
+  clickable>
+  <p class="mt-2">{{ markdown_to_html(activity.description) | safe }}</p>
+</Card>

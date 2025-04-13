@@ -3,8 +3,8 @@
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-sans: ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
     --color-red-400: oklch(70.4% 0.191 22.216);
@@ -233,9 +233,6 @@
   .my-5 {
     margin-block: calc(var(--spacing) * 5);
   }
-  .mt-1 {
-    margin-top: calc(var(--spacing) * 1);
-  }
   .mt-2 {
     margin-top: calc(var(--spacing) * 2);
   }
@@ -247,9 +244,6 @@
   }
   .mt-10 {
     margin-top: calc(var(--spacing) * 10);
-  }
-  .mb-3 {
-    margin-bottom: calc(var(--spacing) * 3);
   }
   .mb-5 {
     margin-bottom: calc(var(--spacing) * 5);
@@ -698,6 +692,18 @@
   .grid-cols-adaptive {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+@layer components {
+  .central-content {
+    margin-inline: auto;
+    margin-block: calc(var(--spacing) * 10);
+    width: 80ch;
+  }
+  .vertical-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
   }
 }
 h1 {
