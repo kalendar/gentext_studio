@@ -22,6 +22,7 @@ __TEMPLATES.env.add_extension(jinjax.JinjaX)  # type: ignore
 __TEMPLATES.env.add_extension("jinja2.ext.do")  # type: ignore
 __TEMPLATES.env.globals.update(  # type: ignore
     {
+        "SETTINGS": SETTINGS,
         "len": len,
         "sorted": sorted,
         "markdown_to_html": markdown_to_html,

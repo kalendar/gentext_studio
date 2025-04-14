@@ -23,5 +23,21 @@ class __Settings(BaseSettings):
     github_client_id: str | None = Field(default=None)
     github_client_secret: str | None = Field(default=None)
 
+    authorization: bool = Field(default=False)
+
 
 SETTINGS = __Settings()  # type: ignore
+
+if SETTINGS.google_oauth:
+    if not (SETTINGS.google_client_id and SETTINGS.google_client_secret):
+        raise ValueError("Missing Google OAuth environment variables!")
+
+if SETTINGS.github_oauth:
+    if not (SETTINGS.github_client_id and SETTINGS.github_client_secret):
+        raise ValueError("Missing Github OAuth environment variables!")
+
+if SETTINGS.github_oauth or SETTINGS.google_oauth:
+    SETTINGS.authorization = True
+
+if SETTINGS.authorization and not SETTINGS.session_key:
+    raise ValueError("Missing session key environment variable!")

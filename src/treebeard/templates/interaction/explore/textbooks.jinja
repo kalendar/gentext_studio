@@ -8,8 +8,12 @@
       <h1>Select a Course</h1>
     </div>
     <div class="vertical-list">
+      {{ SETTINGS.authorization }}
       {% for textbook in textbooks | sort(attribute="title") %}
-        <card.Textbook :textbook="textbook" :request="request" />
+        <card.Textbook
+          :textbook="textbook"
+          :request="request"
+          :show_add="SETTINGS.authorization" />
       {% endfor %}
     </div>
   </div>
