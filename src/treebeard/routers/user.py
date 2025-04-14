@@ -34,7 +34,7 @@ async def saved_textbooks(
     return templates.TemplateResponse(
         request=request,
         name="user/textbooks.jinja",
-        context={"textbooks": textbooks, "__globals": {"request": request}},
+        context={"textbooks": textbooks},
     )
 
 
@@ -50,7 +50,7 @@ async def owned_textbooks(
     return templates.TemplateResponse(
         request=request,
         name="interaction/explore/textbooks.jinja",
-        context={"textbooks": textbooks, "__globals": {"request": request}},
+        context={"textbooks": textbooks},
     )
 
 
