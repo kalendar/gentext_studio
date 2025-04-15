@@ -28,5 +28,9 @@ class User(MappedAsDataclass, Base):
         default_factory=set,
     )
 
+    chat_whitelisted: Mapped[bool] = mapped_column(default=False)
+
+    used_tokens: Mapped[int] = mapped_column(default=0)
+
     def __hash__(self) -> int:
         return hash(self.email)

@@ -26,9 +26,11 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "build>=1.2.2.post1",
     "hatchling>=1.27.0",
     "pre-commit>=4.2.0",
     "treebeard",
+    "twine>=6.1.0",
 ]
 
 
@@ -44,7 +46,4 @@ build-backend = "hatchling.build"
 
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/other"]
-
-[tool.uv.sources]
-treebeard = { workspace = true }
+packages = ["src/treebeard"]

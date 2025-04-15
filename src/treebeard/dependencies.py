@@ -61,7 +61,7 @@ async def __get_write_session():
 
 
 async def __get_current_user(request: Request):
-    read_session = await anext(__get_read_session())
+    session = await anext(__get_read_session())
 
     try:
         request_session = RequestSession.model_validate(
@@ -74,7 +74,25 @@ async def __get_current_user(request: Request):
         return None
 
     return get_user(
-        session=read_session,
+        session=session,
+        email=request_session.user_email,
+        authorizer=request_session.user_authorizer,
+    )
+
+
+async def get_current_user(request: Request, session: SQLASession):
+    try:
+        request_session = RequestSession.model_validate(
+            request.session, from_attributes=True
+        )
+    except ValidationError:
+        return None
+
+    if not request_session.user_email or not request_session.user_authorizer:
+        return None
+
+    return get_user(
+        session=session,
         email=request_session.user_email,
         authorizer=request_session.user_authorizer,
     )

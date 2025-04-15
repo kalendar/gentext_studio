@@ -12,6 +12,7 @@ class __Settings(BaseSettings):
     root_path: Path = Path(__file__).parent.resolve()
     groq_api_key: str
     groq_model: str
+    groq_max_tokens_per_user: int = Field(default=50_000)
 
     session_key: str | None = Field(min_length=20, default=None)
 
