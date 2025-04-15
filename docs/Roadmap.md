@@ -1,21 +1,24 @@
 [⬅Back](/README.md)
-# 📌 OELMs Roadmap
-_Last Updated: 5 February 2025_
+# 📌 GOLE Studio Roadmap
+_Last Updated: 15 April 2025_
 
 💬 **Community Discussions:** [Discord](https://discord.gg/vSPvgyVxJ7)  
 
 ## 🎯 Vision Statement
-Open Educational Language Models (OELMs, pronounced like the tree "elms") combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful. While the first OELMs will access LLMs running in the cloud, eventually OELMs should run completely locally on learners' devices.
+Generative open learning environments (GOLEs) combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful. While the first GOLEs will access LLMs running in the cloud, eventually GOLEs will run locally on learners' devices.
 
 ## 🚀 Roadmap Overview
 We welcome contributions — whether it's code, documentation, or ideas! If you're interested, check out our **[Guide to Contributing](CONTRIBUTING.md)** below.  
 
 ### ✅ Completed
 🎉 Features we've shipped!  
-- Simple mobile-first web UI
-- Separation of system prompt stub, content, and activity instructions as text files so non-technical instructors can contribute
-- Aggregation of system prompt stub, content, and activity instructions into system prompt
-- Working chat via Groq API
+- Mobile-first UI for studying and learning with GOLEs
+- Sharing learning activity transcripts
+- No-code authoring including system prompt stub, open content for context augmentation, and learning activity prompts for creating GOLEs
+- GOLE metadata including authors, peer reviewers, and sources (e.g., for attributing OER)
+- Importing and exporting GOLEs between instances of GOLE Studio
+- Flexible access to a wide range of open weights models via the [Groq API](https://groq.com/)
+- Login with GitHub
 
 ## 🔨 In Progress (Next Release)
 We’re actively working on these features. Please contribute!  
@@ -27,22 +30,24 @@ We’re actively working on these features. Please contribute!
 ## 📌 Upcoming
 These are features we're planning. Share your feedback or vote on priorities in [Discussions](/discussions).  
 
-**Initial Research Infrastructure**
+**Overall Enhancements**
+- Login with Google
+
+**Learner Tools**
+- Add multimodal capabilities
+
+**Instructor Tools**
+- Create a shareable link to a specific topic + learning activity
+
+**Research Infrastructure**
 - Capture user feedback (e.g., thumbs up / thumbs down)
-- Capture anonymized chat transcripts  
 
-**Authoring Enhancements**
-- Web-based authoring interface for creating courses
-- Change course storage from text files to sqlite database
-- Create a system for instructors to upload a zip file, verify its structure, and import into the sqlite db
+**LMS Integration** 
+- Make GOLE Studio an LTI Provider
+- Write activity completion (i.e., participation scores) to the LMS
 
-**LTI Provider (LTI tool) Functionality**
-- Authenticate users
-- Group users by LMS section
-
-**Initial Instructor Tools**
-- Select a combination of content and activity and receive a URL students can use to bypass the TOC-TOP views and go straight to the chat
-- See an OELM-generated synthesis of student conversations for a given chapter, in order to adapt outside-of-OELM instruction according to students’ understanding
+**Sustainability**
+- Allow users to bring their own API key
 
 ## 💡 Ideas & Community Wishlist
 Suggest new feature ideas in [Discussions](/discussions)!
@@ -50,7 +55,7 @@ Suggest new feature ideas in [Discussions](/discussions)!
 ## 🤝 Contribution Guide
 Want to contribute? Follow these steps:  
 
-1. **Check Issues:** Look for a "good first issue" tag in [Issues](https://github.com/kalendar/oelm/issues).
+1. **Check Issues:** Look for a "good first issue" tag in [Issues](https://github.com/kalendar/gole_studio/issues).
 2. **Join Discussions:** Share your ideas in our [Discord](https://discord.gg/vSPvgyVxJ7).
 3. **Fork & Code:** Follow our [Guide to Contributing](CONTRIBUTING.md) to submit pull requests.
 4. **Get Recognized:** We highlight top contributors in our release notes! 🎉  

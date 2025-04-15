@@ -1,7 +1,7 @@
 [⬅Back](/README.md)
-# 🛠 Contributing to OELMs
+# 🛠 Contributing to GOLE Studio
 
-Thank you for considering contributing to **OELMs**! 🎉  
+Thank you for considering contributing to **GOLE Studio**! 🎉  
 We welcome all types of contributions, including **bug fixes, new features, documentation improvements, and ideas**.  
 
 ---
@@ -12,7 +12,7 @@ We welcome all types of contributions, including **bug fixes, new features, docu
 2. **Fork the repo**: Click the **Fork** button on the top right.
 3. **Clone your fork**:
    ```sh
-   git clone https://github.com/kalendar/oelm.git
+   git clone https://github.com/kalendar/gole_studio.git
    ```
 4. **Create a new branch**:
    ```sh
@@ -62,4 +62,4 @@ If you find a bug or want to request a feature:
 
 ---
 
-🚀 **Thank you for contributing to OELMs! Your support makes this project better.** 🎉
+🚀 **Thank you for contributing to GOLE Studio! Your support makes this project better.** 🎉
