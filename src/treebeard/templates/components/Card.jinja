@@ -1,7 +1,15 @@
 {# def title = None, clickable = False #}
-{% do attrs.set(class="w-full rounded-xl border-1 border-gray-300 bg-gray-50 p-3") %}
-{% if clickable %}
+{% do attrs.set(class="w-full rounded-xl border border-gray-300 bg-gray-50 p-3") %}
+
+{% if clickable or attrs.get("href") %}
   {% do attrs.set(class="hover:scale-[101%] transition-all duration-75 cursor-pointer") %}
+{% endif %}
+
+{% if attrs.get("href") %}
+  {% do attrs.set(hx_get=attrs.get('href')) %}
+  {% do attrs.set(hx_target="body") %}
+  {% do attrs.set(hx_push_url="true") %}
+  {% do attrs._remove("href") %}
 {% endif %}
 
 <div {{ attrs.render() }}>

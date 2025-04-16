@@ -6,23 +6,35 @@
 #}
 {% set icon = icon.strip().lower() %}
 {% set color = color.strip().lower() %}
+{% set div_attrs = HTMLAttrs({"class":attrs.get("class")}) %}
+{% do div_attrs.set(class="cursor-pointer rounded px-2 py-1 text-sm text-white transition duration-100 border flex items-center justify-center") %}
+
 {% if icon == 'edit' %}
-  {% set icon = 'fa-solid fa-pen-to-square' %}
+  {% do attrs.set(class="fa-solid fa-pen-to-square") %}
 {% elif icon == 'create' %}
-  {% set icon = 'fa-solid fa-plus' %}
+  {% do attrs.set(class="fa-solid fa-plus") %}
 {% elif icon == 'delete' %}
-  {% set icon = 'fa-solid fa-xmark' %}
-{% endif %}
-{% if color == 'green' %}
-  {% set color = 'border-green-600 bg-green-600 hover:bg-green-500' %}
-{% elif color == 'blue' %}
-  {% set color = 'border-sky-600 bg-sky-600 hover:bg-sky-500' %}
-{% elif color == 'red' %}
-  {% set color = 'border-red-400 bg-red-400 hover:bg-red-700' %}
+  {% do attrs.set(class="fa-solid fa-xmark") %}
 {% endif %}
 
-<a
-  {{ attrs.render() }}
-  class="{{ icon }} {{ color }} cursor-pointer rounded px-2 py-1 text-sm text-white transition duration-100">
-  {{ text }}</a
->
+{% if color == 'green' %}
+  {% do div_attrs.set(class="border-green-700 bg-green-600 hover:bg-green-500") %}
+{% elif color == 'blue' %}
+  {% do div_attrs.set(class="border-sky-700 bg-sky-600 hover:bg-sky-500") %}
+{% elif color == 'red' %}
+  {% do div_attrs.set(class="border-red-500 bg-red-400 hover:bg-red-600") %}
+{% elif color == 'gray' %}
+  {% do div_attrs.set(class="border-gray-400 bg-gray-200 hover:bg-gray-300") %}
+{% endif %}
+
+{% if text == '' and content == "" %}
+  {% do div_attrs.set(class="aspect-square") %}
+{% endif %}
+
+<div
+  {{ div_attrs.render() }}
+  {% if attrs.get("href") %}
+    onclick="window.location.replace('{{ attrs.get("href") }}')"
+  {% endif %}>
+  <a {{ attrs.render() }}> {{ text }} {{ content }}</a>
+</div>
