@@ -6,23 +6,21 @@
   <div class="mx-auto my-5 w-[80%]">
     <div class="flex w-full items-center justify-between">
       <h1>Your GOLEs</h1>
-      <a
-        href="{{ request.url_for('create_textbook_get') }}"
-        class="items-center rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-600"
-        >Create a New GOLE</a
-      >
+      <AButton :href="{{ request.url_for('create_textbook_get') }}" class=""
+        >Create a New GOLE
+      </AButton>
     </div>
     <br />
     <div class="grid-cols-adaptive gap-5">
       {% for textbook in textbooks %}
-        <a
-          href="{{ request.url_for('textbook_details', ident=textbook.guid) }}"
-          class="rounded-2xl border-2 border-gray-300 bg-slate-100 p-5 transition-all duration-75 hover:scale-105">
+        <Card
+          :href="{{ request.url_for('textbook_details', ident=textbook.guid) }}"
+          class="">
           <h2 class="mb-5">{{ textbook.title }}</h2>
           <hr />
           <p class="mt-5">Topics: {{ len(textbook.topics) }}</p>
           <p>Activities: {{ len(textbook.activities) }}</p>
-        </a>
+        </Card>
       {% endfor %}
     </div>
   </div>

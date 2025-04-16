@@ -5,11 +5,10 @@
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
-  --color-background: #eceff1; /* #f3f4f6; /* Very light gray for calm readability */
 }
 
-.bg-theme {
-  background-color: var(--color-background);
+@theme inline {
+  --color-background: oklch(0.95 0.0042 236.5);
 }
 
 @theme inline {
@@ -36,6 +35,14 @@
   .vertical-list {
     @apply flex flex-col gap-2;
   }
+
+  .underlined {
+    @apply no-underline;
+
+    &:hover {
+      @apply underline decoration-sky-500 decoration-3;
+    }
+  }
 }
 
 h1 {
@@ -52,4 +59,13 @@ h3 {
 
 code {
   @apply inline-block w-fit max-w-full overflow-x-scroll rounded-lg border border-gray-200 bg-gray-100 p-2;
+}
+
+.underlined2::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+
+  background-color: red;
 }
