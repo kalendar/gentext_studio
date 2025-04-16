@@ -14,7 +14,7 @@ We welcome contributions — whether it's code, documentation, or ideas! If you'
 🎉 Features we've shipped!  
 - Mobile-first UI for studying and learning with GOLEs
 - Sharing learning activity transcripts
-- No-code authoring including system prompt stub, open content for context augmentation, and learning activity prompts for creating GOLEs
+- No-code authoring of GOLEs
 - GOLE metadata including authors, peer reviewers, and sources (e.g., for attributing OER)
 - Importing and exporting GOLEs between instances of GOLE Studio
 - Flexible access to a wide range of open weights models via the [Groq API](https://groq.com/)
@@ -23,9 +23,7 @@ We welcome contributions — whether it's code, documentation, or ideas! If you'
 ## 🔨 In Progress (Next Release)
 We’re actively working on these features. Please contribute!  
 
-📝 **Documentation Updates**  
-- [Installation Guide](/issues/2)
-- [OELMs Content Creation Guide](/issues/3)
+
 
 ## 📌 Upcoming
 These are features we're planning. Share your feedback or vote on priorities in [Discussions](/discussions).  
@@ -34,7 +32,8 @@ These are features we're planning. Share your feedback or vote on priorities in 
 - Login with Google
 
 **Learner Tools**
-- Add multimodal capabilities
+- Run locally with [ollama](https://ollama.com/)
+- Add multimodal capabilities as they become available in new models
 
 **Instructor Tools**
 - Create a shareable link to a specific topic + learning activity
@@ -49,6 +48,10 @@ These are features we're planning. Share your feedback or vote on priorities in 
 **Sustainability**
 - Allow users to bring their own API key
 
+📝 **Documentation Updates**  
+- [Installation Guide](/issues/2)
+- [GOLE Content Creation Guide](/issues/3)
+
 ## 💡 Ideas & Community Wishlist
 Suggest new feature ideas in [Discussions](/discussions)!
 
@@ -59,10 +62,3 @@ Want to contribute? Follow these steps:
 2. **Join Discussions:** Share your ideas in our [Discord](https://discord.gg/vSPvgyVxJ7).
 3. **Fork & Code:** Follow our [Guide to Contributing](CONTRIBUTING.md) to submit pull requests.
 4. **Get Recognized:** We highlight top contributors in our release notes! 🎉  
-
-<!--//
-## 📢 Stay Updated
-🔹 Follow us on **[Twitter/LinkedIn/GitHub](Link)** for updates.  
-📩 Join our **[newsletter](Link)** to get release notes.  
-📆 Attend our **monthly community call** ([sign up](Link)).  
-//-->
