@@ -7,5 +7,6 @@
         "parser": "jinja-template"
       }
     }
-  ]
+  ],
+  "bracketSameLine": true
 }

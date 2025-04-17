@@ -1,0 +1,59 @@
+{# def text="", icon="", color="blue", circular=False #}
+{# 
+  This component has some predefined colors and icons:
+    Colors: red, green, blue
+    Icons: create, edit, delete. 
+#}
+{% set icon = icon.strip().lower() %}
+{% set color = color.strip().lower() %}
+{% set text_color = "text-white" %}
+
+{% if attrs.__classes %}
+  {% for class_name in attrs.__classes %}
+    {% if class_name.startswith('text-') %}
+      {% set text_color = class_name %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+{% set div_attrs = HTMLAttrs({"class":attrs.get("class")}) %}
+{% do div_attrs.set(class="overflow-clip cursor-pointer text-sm transition duration-100 border-2 flex items-center justify-center") %}
+{% do div_attrs.set(class=text_color) %}
+
+{% if icon == 'edit' %}
+  {% do attrs.set(data_lucide="square-pen") %}
+{% elif icon == 'create' %}
+  {% do attrs.set(data_lucide="plus") %}
+{% elif icon == 'delete' %}
+  {% do attrs.set(data_lucide="x") %}
+{% endif %}
+
+{% if color == 'green' %}
+  {% do div_attrs.set(class="border-green-700 bg-green-600 hover:bg-green-500") %}
+{% elif color == 'blue' %}
+  {% do div_attrs.set(class="border-sky-700 bg-sky-600 hover:bg-sky-500") %}
+{% elif color == 'red' %}
+  {% do div_attrs.set(class="border-red-500 bg-red-400 hover:bg-red-600") %}
+{% elif color == 'gray' %}
+  {% do div_attrs.set(class="border-gray-400 bg-gray-200 hover:bg-gray-300") %}
+{% endif %}
+
+{% if text == '' and content == "" %}
+  {% do div_attrs.set(class="aspect-square") %}
+  {% do attrs.set(class="m-0.5") %}
+{% else %}
+  {% do div_attrs.set(class="px-2 py-1") %}
+{% endif %}
+
+{% if circular %}
+  {% do div_attrs.set(class="rounded-[100%]") %}
+{% else %}
+  {% do div_attrs.set(class="rounded-lg") %}
+{% endif %}
+
+<div
+  {{ div_attrs.render() }}
+  {% if attrs.get("href") %}
+    onclick="window.location.replace('{{ attrs.get("href") }}')"
+  {% endif %}>
+  <a {{ attrs.render() }}> {{ text }} {{ content }}</a>
+</div>

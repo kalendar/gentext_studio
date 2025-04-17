@@ -1,0 +1,33 @@
+{% extends "base.jinja" %}
+
+{% block title %}GOLE Studio{% endblock %}
+
+{% block body %}
+  <div class="central-content">
+    <h1>GOLE Studio</h1>
+    <p class="font-light text-gray-500">
+      Currently logged in as: {{ request.session.get("user_email") }}
+    </p>
+
+    <br />
+
+    <div class="grid grid-cols-3 gap-5">
+      <Card :href="{{ request.url_for('get_textbooks') }}">
+        <p class="underlined">All GOLEs</p>
+      </Card>
+
+      <Card :href="{{ request.url_for('saved_textbooks') }}">
+        <p class="underlined">Saved GOLEs</p>
+      </Card>
+
+      <Card :href="{{ request.url_for('textbooks') }}">
+        <p class="underlined">Create GOLE</p>
+      </Card>
+    </div>
+    <!--
+    <a class="underlined" href="{{ request.url_for('owned_textbooks') }}"
+      >Owned Courses</a
+    >
+    -->
+  </div>
+{% endblock %}

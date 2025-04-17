@@ -1,14 +1,48 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+@theme inline {
+  --color-background: oklch(0.95 0.0042 236.5);
+}
+
+@theme inline {
+  --spacing-nav-height: calc(var(--spacing) * 10);
+  --spacing-content-height: calc(100vh - var(--spacing-nav-height));
+}
+
 @layer utilities {
   .scrollbar {
     scrollbar-color: var(--color-gray-200) #ffffff00;
   }
+
+  .grid-cols-adaptive {
+    @apply grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
 }
 
-:root {
-  --nav-height: calc(var(--spacing) * 10);
-  --content-height: calc(100vh - var(--nav-height));
+@layer components {
+  .central-content {
+    @apply mx-auto my-10 w-[80ch];
+  }
+
+  .vertical-list {
+    @apply flex flex-col gap-2;
+  }
+
+  .underlined {
+    @apply no-underline;
+
+    &:hover {
+      @apply underline decoration-sky-500 decoration-3;
+    }
+  }
 }
 
 h1 {
@@ -25,4 +59,10 @@ h3 {
 
 code {
   @apply inline-block w-fit max-w-full overflow-x-scroll rounded-lg border border-gray-200 bg-gray-100 p-2;
+}
+
+input:not([type="submit"]),
+select,
+textarea {
+  @apply rounded border border-gray-400 bg-gray-100 p-2;
 }

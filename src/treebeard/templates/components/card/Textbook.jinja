@@ -1,0 +1,33 @@
+{# def textbook, request, show_details = True, show_add = True #}
+
+<Card
+  :hx-get="request.url_for('get_textbook_topics', textbook_guid=textbook.guid)"
+  hx-target="body"
+  hx-push-url="true"
+  clickable>
+  <div class="flex justify-between">
+    <h2>{{ textbook.title }}</h2>
+    <div>
+      {% if show_details %}
+        <a
+          href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
+          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+          >Details <i data-lucide="info"></i
+        ></a>
+      {% endif %}
+      {% if show_add %}
+        <span
+          hx-post="{{ request.url_for('save_textbook', textbook_guid=textbook.guid) }}"
+          hx-swap="none"
+          hx-push-url="false"
+          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+          onclick="event.stopPropagation();">
+          Add to library
+        </span>
+      {% endif %}
+    </div>
+  </div>
+  <p>By: {{ (textbook.authors) }}</p>
+  <p>Topics: {{ len(textbook.topics) }}</p>
+  <p>Activities: {{ len(textbook.activities) }}</p>
+</Card>

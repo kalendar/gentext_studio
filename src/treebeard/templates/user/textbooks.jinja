@@ -1,0 +1,17 @@
+{% extends "base.jinja" %}
+
+{% block title %}User GOLEs{% endblock %}
+
+{% block body %}
+  <div class="central-content">
+    <h1 class="mb-5">Your Saved GOLEs</h1>
+    <div class="vertical-list">
+      {% for textbook in textbooks | sort(attribute="title") %}
+        <card.Textbook
+          :textbook="textbook"
+          :request="request"
+          :show_add="False" />
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

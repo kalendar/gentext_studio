@@ -26,7 +26,7 @@ def get_chat(session: Session, guid: uuid.UUID) -> Chat | None:
     return session.get(entity=Chat, ident=guid)
 
 
-def get_user(session: Session, email: str, authorizer: Authorizer) -> User | None:
+def get_user(session: Session, email: str, authorizer: Authorizer | str) -> User | None:
     return session.scalar(
         select(User).where(User.email == email and User.authorizer == authorizer)
     )

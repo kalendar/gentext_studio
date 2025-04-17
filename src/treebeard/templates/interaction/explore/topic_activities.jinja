@@ -1,0 +1,25 @@
+{% extends "base.jinja" %}
+
+{% block title %}Select an Activity{% endblock %}
+
+{% block body %}
+  <div class="central-content">
+    <div class="mb-5 flex w-full items-center justify-between">
+      <h1>Select an Activity</h1>
+      <a
+        class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+        href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}"
+        >Return to Topics</a
+      >
+    </div>
+    <div class="vertical-list">
+      {% for activity in topic.activities | sort(attribute="name") %}
+        <card.Activity
+          :activity="activity"
+          :textbook="textbook"
+          :topic="topic"
+          :request="request" />
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

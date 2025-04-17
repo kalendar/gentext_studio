@@ -1,0 +1,21 @@
+{% extends "base.jinja" %}
+
+{% block title %}Select a Topic{% endblock %}
+
+{% block body %}
+  <div class="central-content">
+    <div class="mb-5 flex w-full items-center justify-between">
+      <h1>Select a Topic</h1>
+      <a
+        class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+        href="{{ request.url_for('get_textbooks') }}"
+        >Return to GOLEs</a
+      >
+    </div>
+    <div class="vertical-list">
+      {% for topic in textbook.topics | sort(attribute="name") %}
+        <card.Topic :topic="topic" :textbook="textbook" :request="request" />
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

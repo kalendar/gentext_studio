@@ -1,0 +1,27 @@
+{% extends "base.jinja" %}
+
+{% block title %}GOLEs{% endblock %}
+
+{% block body %}
+  <div class="mx-auto my-5 w-[80%]">
+    <div class="flex w-full items-center justify-between">
+      <h1>Your GOLEs</h1>
+      <AButton :href="{{ request.url_for('create_textbook_get') }}" class=""
+        >Create a New GOLE
+      </AButton>
+    </div>
+    <br />
+    <div class="grid-cols-adaptive gap-5">
+      {% for textbook in textbooks %}
+        <Card
+          :href="{{ request.url_for('textbook_details', ident=textbook.guid) }}"
+          class="">
+          <h2 class="mb-5">{{ textbook.title }}</h2>
+          <hr />
+          <p class="mt-5">Topics: {{ len(textbook.topics) }}</p>
+          <p>Activities: {{ len(textbook.activities) }}</p>
+        </Card>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

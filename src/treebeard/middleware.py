@@ -16,9 +16,9 @@ class AuthMiddleware(BaseHTTPMiddleware):
         if "session" not in request.scope:
             raise RuntimeError("SessionMiddleware did not process this request!")
 
-        email = request.session.get("email", False)
+        user_email = request.session.get("user_email", False)
 
-        if email:
+        if user_email:
             return await call_next(request)
         else:
             return RedirectResponse(

@@ -26,6 +26,13 @@ async def login(request: Request, templates: Templates):
     )
 
 
+@router.get("/logout")
+async def logout(request: Request):
+    request.session.clear()
+
+    return RedirectResponse(request.url_for("login"))
+
+
 if SETTINGS.google_oauth:
     __oauth.register(  # type: ignore
         "google",
@@ -55,7 +62,12 @@ if SETTINGS.google_oauth:
             user = User(email=email, authorizer=Authorizer.google)
             session.add(user)
 
-        request.session.update({"email": email})
+        request.session.update(
+            {
+                "user_email": email,
+                "user_authorizer": Authorizer.google,
+            }
+        )
 
         return RedirectResponse(
             url=request.url_for("root"),
@@ -109,7 +121,12 @@ if SETTINGS.github_oauth:
             user = User(email=email, authorizer=Authorizer.github)
             session.add(user)
 
-        request.session.update({"email": email})
+        request.session.update(
+            {
+                "user_email": email,
+                "user_authorizer": Authorizer.github,
+            }
+        )
 
         return RedirectResponse(
             url=request.url_for("root"),

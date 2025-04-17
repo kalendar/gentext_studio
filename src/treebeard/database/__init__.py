@@ -4,6 +4,10 @@ from sqlalchemy.orm import Session, sessionmaker
 
 # Force load
 from treebeard.database.chat import Base, Chat  # type: ignore  # noqa: F401
+from treebeard.database.joins import (
+    UsersOwnedTextbooks,  # type: ignore  # noqa: F401
+    UsersSavedTextbooks,  # type: ignore  # noqa: F401
+)
 from treebeard.database.user import User  # type: ignore  # noqa: F401
 
 

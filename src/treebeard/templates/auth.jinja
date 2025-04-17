@@ -3,24 +3,25 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-10 grid w-[80ch] grid-cols-1 gap-2">
-    <h1>Login With:</h1>
+  <div class="mx-auto mt-10 grid w-[40ch] grid-cols-1 gap-2">
+    <h1 class="w-full text-center">Login With</h1>
+    <br />
     {% if SETTINGS.google_oauth %}
-      <a
-        href="/login/google"
-        class="w-full cursor-pointer rounded-2xl border border-gray-400 bg-gray-200 p-3 text-center text-lg font-semibold hover:border-gray-500 hover:bg-gray-300"
-      >
+      <AButton
+        :href="{{ request.url_for('login_via_google') }}"
+        class="rounded-xl p-5 text-xl font-semibold text-black"
+        color="gray">
         Google
-      </a>
+      </AButton>
     {% endif %}
 
     {% if SETTINGS.github_oauth %}
-      <a
-        href="/login/github"
-        class="w-full cursor-pointer rounded-2xl border border-gray-400 bg-gray-200 p-3 text-center text-lg font-semibold hover:border-gray-500 hover:bg-gray-300"
-      >
+      <AButton
+        :href="{{ request.url_for('login_via_github') }}"
+        class="rounded-xl p-5 text-xl font-semibold text-black"
+        color="gray">
         Github
-      </a>
+      </AButton>
     {% endif %}
   </div>
 {% endblock %}

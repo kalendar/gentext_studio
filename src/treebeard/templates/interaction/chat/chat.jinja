@@ -4,66 +4,58 @@
 
 {% block body %}
   <div
-    class="mx-auto flex h-(--content-height) max-h-(--content-height) w-[80ch] flex-col gap-4 py-4"
-  >
-
+    class="h-content-height max-h-content-height mx-auto flex w-[80ch] flex-col gap-4 py-4">
     <div class="flex w-full items-center justify-between">
-        <h2>Conversation</h2>
-          <p>
-            <a
-              id="share-button"
-              class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-              href="{{ request.url_for('get_chat', chat_guid=chat_guid) }}"
-              onclick="copyToClipboard(event, this)"
-              >Share This Chat</a
-            >
-          </p>
+      <h2>Conversation</h2>
+      <p>
+        <a
+          id="share-button"
+          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+          href="{{ request.url_for('get_chat', chat_guid=chat_guid) }}"
+          onclick="copyToClipboard(event, this)"
+          >Share This Chat</a
+        >
+      </p>
     </div>
 
     <div
       id="chatWindow"
-      class="scrollbar flex grow flex-col gap-4 overflow-x-hidden overflow-y-auto rounded-2xl border border-gray-200 p-5"
-    >
-      {% include "chat/messages.jinja" %}
+      class="scrollbar flex grow flex-col gap-4 overflow-x-hidden overflow-y-auto rounded-2xl border border-gray-200 p-5">
+      {% include "interaction/chat/messages.jinja" %}
     </div>
     <form
-      class="relative w-full rounded-3xl border border-gray-200 p-4"
+      class="relative w-full rounded-3xl border border-gray-200 bg-white p-4"
       hx-post="{{ request.url_for('post_chat') }}"
       hx-target="#chatWindow"
       hx-swap="beforeend"
       hx-trigger="submit, submit-chat-message from:body"
-      hx-indicator="#loading-spinner"
-    >
+      hx-indicator="#loading-spinner">
       <input type="hidden" name="chat_guid" value="{{ chat_guid }}" />
       <input type="hidden" name="textbook_guid" value="{{ textbook_guid }}" />
       <input type="hidden" name="topic_guid" value="{{ topic_guid }}" />
       <input type="hidden" name="activity_guid" value="{{ activity_guid }}" />
-      <div class="flex w-full flex-col gap-3">
+      <div class="flex w-full flex-col gap-3 bg-white">
         <textarea
           id="message-input"
           class="scrollbar max-h-[20ch] w-full resize-none overflow-y-scroll focus:border-0 focus-visible:outline-0"
           name="message"
-          placeholder="Type your message... (Shift+Enter for new line, Enter to send)"
+          placeholder="Enter your message..."
           required
           rows="3"
-          onkeydown="submitChatMessage(event, this)"
-        ></textarea>
+          onkeydown="submitChatMessage(event, this)"></textarea>
         <div class="ml-auto flex items-center gap-2">
           <div id="loading-spinner" class="htmx-indicator flex items-center">
             <div
-              class="h-6 w-6 animate-spin rounded-full border-3 border-gray-300 border-t-blue-500"
-            ></div>
+              class="h-6 w-6 animate-spin rounded-full border-3 border-gray-300 border-t-blue-500"></div>
           </div>
           <button
             type="submit"
-            class="h-10 w-10 overflow-clip rounded-4xl border border-gray-400 bg-white opacity-50 transition-all duration-75 hover:w-24 hover:scale-105 hover:bg-gray-100 hover:shadow"
-          >
+            class="h-10 w-10 overflow-clip rounded-4xl border border-gray-400 bg-white opacity-50 transition-all duration-75 hover:w-24 hover:scale-105 hover:bg-gray-100 hover:shadow">
             <div class="ml-[calc(var(--spacing)_*_1.75)] flex gap-2">
               <img
                 src="/static/svg/arrow-up.svg"
                 alt="Send"
-                class="opacity-50"
-              />
+                class="opacity-50" />
               <p class="font-semibold opacity-50">Send</p>
             </div>
           </button>
@@ -106,7 +98,7 @@
     async function copyToClipboard(event, element) {
       event.preventDefault();
       const url = element.href;
-      
+
       try {
         await navigator.clipboard.writeText(url);
         const originalText = element.textContent;
@@ -117,7 +109,6 @@
           element.textContent = originalText;
           element.classList.remove("bg-green-600");
           element.classList.add("bg-blue-400");
-
         }, 2000);
       } catch (err) {
         console.error("Failed to copy text: ", err);

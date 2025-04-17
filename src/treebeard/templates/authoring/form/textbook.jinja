@@ -1,0 +1,128 @@
+{% extends "base.jinja" %}
+
+{% block title %}
+  Create GOLE
+{% endblock %}
+
+{% block body %}
+  <div class="mt-10 mb-20 w-full">
+    <form
+      action=""
+      hx-post="{{ hx_post }}"
+      hx-ext="json-enc"
+      class="mx-auto flex w-[65ch] flex-col gap-5">
+      <div>
+        <label for="title" class="flex items-center gap-0.5 text-lg font-bold"
+          >Title
+          <Tooltip>
+            This is the title of your GOLE. It will be shown to learners.
+          </Tooltip>
+        </label>
+        <form.TextInput
+          name="title"
+          id="title"
+          required
+          :value="textbook.title if textbook else ''"
+          placeholder="This is the title of your textbook. It will be shown to learners." />
+      </div>
+      <div>
+        <label for="status" class="flex items-center gap-0.5 text-lg font-bold"
+          >Status
+          <Tooltip>
+            This is the publishing status of your GOLE. Draft is private,
+            published is public.
+          </Tooltip>
+        </label>
+        <select name="status" id="status">
+          <option
+            value="draft"
+            {{ 'selected' if textbook and textbook.status == 'draft' else '' }}>
+            Draft
+          </option>
+          <option
+            value="published"
+            {{ 'selected' if textbook and textbook.status == 'published' else '' }}>
+            Published
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="edition" class="flex items-center gap-0.5 text-lg font-bold"
+          >Edition
+          <Tooltip>
+            This is the edition of your GOLE. It will be shown to learners.
+          </Tooltip>
+        </label>
+        <form.TextInput
+          name="edition"
+          id="edition"
+          required
+          :value="textbook.edition if textbook and textbook.edition else ''"
+          placeholder="First Edition" />
+      </div>
+      <div>
+        <label for="prompt" class="flex items-center gap-0.5 text-lg font-bold"
+          >System Prompt Stub
+          <Tooltip>
+            This is the system prompt stub. This language will be included in
+            every prompt sent to the LLM, so should not include details about
+            specific topics or pedagogies. It might include information about
+            the overall course topic, as well as information about personality,
+            voice, and tone. For example, "You are an empathetic, caring,
+            supportive tutor for an undergraduate Introduction to Psychology
+            course."
+          </Tooltip>
+        </label>
+        <form.TextArea
+          name="prompt"
+          id="prompt"
+          required
+          placeholder="This is the system prompt stub. This language will be included in every prompt sent to the LLM, so should not include details about specific topics or pedagogies. It might include information about the overall course topic, as well as information about personality, voice, and tone. For example, 'You are an empathetic, caring, supportive tutor for an undergraduate Introduction to Psychology course.'"
+          :text="textbook.prompt if textbook else ''" />
+      </div>
+      <div>
+        <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
+          >Authors
+          <Tooltip>
+            List the authors who contributed to this GOLE. One
+            name per line.
+          </Tooltip>
+        </label>
+        <form.TextArea
+          name="authors"
+          id="authors"
+          required
+          placeholder="FirstName LastName\nFirstName LastName"
+          :text="textbook.authors if textbook else ''"
+          placeholder="* FirstName LastName\n* FirstName LastName"
+          :text="textbook.authors if textbook and textbook.authors else ''" />
+      </div>
+      <div>
+        <label
+          for="reviewers"
+          class="flex items-center gap-0.5 text-lg font-bold"
+          >Peer Reviewers
+          <Tooltip>
+            List the people who peer reviewed this GOLE. One name
+            per line.
+          </Tooltip>
+        </label>
+
+        <form.TextArea
+          name="reviewers"
+          id="reviewers"
+          required
+          placeholder="No Reviewers Yet"
+          :text="textbook.reviewers if textbook else ''"
+          placeholder="* FirstName LastName\n* FirstName LastName"
+          :text="textbook.reviewers if textbook and textbook.reviewers else ''" />
+      </div>
+
+      <input
+        type="submit"
+        value="{{ 'Create GOLE' if not submission_text else submission_text }}"
+        class="cursor-pointer rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
+      <BackButton />
+    </form>
+  </div>
+{% endblock %}
