@@ -5,6 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.routing import APIRouter
 from leaflock.sqlalchemy_tables.topic import Topic
 from pydantic import BaseModel
+from starlette import status
 
 from treebeard.dependencies import ReadSession, Templates, WriteSession
 
@@ -142,3 +143,21 @@ def delete_topic(
             "HX-Location": str(request.url_for("textbook_details", ident=textbook_guid))
         }
     )
+
+
+@router.post("/reorder/topics/", response_class=HTMLResponse)
+def reorder_topics(
+    request: Request,
+    session: WriteSession,
+    topic_idents: list[uuid.UUID],
+):
+    for index, topic_ident in enumerate(topic_idents):
+        topic = session.get(Topic, topic_ident)
+
+        if not topic:
+            continue
+
+        topic.position = index
+        session.add(topic)
+
+    return HTMLResponse(content="Successful reordering", status_code=status.HTTP_200_OK)

@@ -8,6 +8,7 @@ from leaflock.sqlalchemy_tables.activity import Activity
 from leaflock.sqlalchemy_tables.topic import Topic
 from pydantic import BaseModel
 from sqlalchemy import select
+from starlette import status
 
 from treebeard.dependencies import ReadSession, Templates, WriteSession
 
@@ -178,3 +179,21 @@ def delete_activity(
             "HX-Location": str(request.url_for("textbook_details", ident=textbook_guid))
         }
     )
+
+
+@router.post("/reorder/activities/", response_class=HTMLResponse)
+def reorder_activities(
+    request: Request,
+    session: WriteSession,
+    activity_idents: list[uuid.UUID],
+):
+    for index, activity_ident in enumerate(activity_idents):
+        topic = session.get(Activity, activity_ident)
+
+        if not topic:
+            continue
+
+        topic.position = index
+        session.add(topic)
+
+    return HTMLResponse(content="Successful reordering", status_code=status.HTTP_200_OK)

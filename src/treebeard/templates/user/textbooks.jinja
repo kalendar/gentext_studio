@@ -1,10 +1,10 @@
 {% extends "base.jinja" %}
 
-{% block title %}User Textbooks{% endblock %}
+{% block title %}User GOLEs{% endblock %}
 
 {% block body %}
   <div class="central-content">
-    <h1 class="mb-5">Your Saved Textbooks</h1>
+    <h1 class="mb-5">Your Saved GOLEs</h1>
     <div class="vertical-list">
       {% for textbook in textbooks | sort(attribute="title") %}
         <card.Textbook

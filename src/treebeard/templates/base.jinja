@@ -14,7 +14,8 @@
       integrity="sha256-VCHx3GCDnd156mCM5EM9bJTj7mhMrrwg2tAab9B1vQs="
       crossorigin="anonymous"></script>
     <script
-      src="https://kit.fontawesome.com/ef85783db9.js"
+      src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"
+      integrity="sha256-bQqDH8GbS66FF5etM5MVfoYa+3hiRZwRImNZsn4sQzc="
       crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,6 +31,10 @@
       {% endblock %}
     </main>
   </body>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
   {% block script %}
   {% endblock %}
 </html>

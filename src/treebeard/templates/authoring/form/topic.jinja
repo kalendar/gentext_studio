@@ -1,7 +1,7 @@
 {% extends "base.jinja" %}
 
 {% block title %}
-  Create Textbook
+  Create Topic
 {% endblock %}
 
 {% block body %}
@@ -12,13 +12,12 @@
       hx-post="{{ hx_post }}"
       class="mx-auto flex w-[65ch] flex-col gap-5">
       <div>
-        <label for="name" class="text-lg font-bold"
+        <label for="name" class="flex items-center gap-0.5 text-lg font-bold"
           >Topic Name
           <Tooltip>
             This is the name of the topic. It will be shown to learners.
           </Tooltip>
         </label>
-        <br />
         <form.TextInput
           name="name"
           id="name"
@@ -34,7 +33,9 @@
         hidden
         value="{{ textbook_ident }}" />
       <div>
-        <label for="outcomes" class="text-lg font-bold"
+        <label
+          for="outcomes"
+          class="flex items-center gap-0.5 text-lg font-bold"
           >Topic Outcomes
           <Tooltip>
             List the knowledge and skills learners should develop when studying
@@ -43,7 +44,6 @@
             information enclosed in the &lt;outcomes&gt; tag.
           </Tooltip>
         </label>
-        <br />
         <form.TextArea
           name="outcomes"
           id="outcomes"
@@ -68,7 +68,6 @@
             tag.
           </Tooltip>
         </label>
-        <br />
         <form.TextArea
           name="summary"
           id="summary"
@@ -77,7 +76,7 @@
           :text="topic.summary if topic else ''" />
       </div>
       <div>
-        <label for="sources" class="text-lg font-bold"
+        <label for="sources" class="flex items-center gap-0.5 text-lg font-bold"
           >Topic Sources
           <Tooltip>
             Here you can optionally include any sources you referenced in the
@@ -86,8 +85,6 @@
             Creative Commons best practices for attribution.
           </Tooltip>
         </label>
-        <br />
-
         <form.TextArea
           name="sources"
           id="sources"
@@ -96,14 +93,13 @@
           :text="topic.sources if topic else ''" />
       </div>
       <div>
-        <label for="authors" class="text-lg font-bold"
+        <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
           >Topic Authors
           <Tooltip>
             List all the authors who contributed to this Topic. One name per
             line.
           </Tooltip>
         </label>
-        <br />
         <form.TextArea
           name="authors"
           id="authors"
@@ -114,7 +110,7 @@
       <input
         type="submit"
         value="{{ 'Create Topic' if not submission_text else submission_text }}"
-        class="rounded border-2 border-sky-500 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
+        class="cursor-pointer rounded border-2 border-sky-500 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
       <BackButton />
     </form>
   </div>

@@ -61,11 +61,8 @@ code {
   @apply inline-block w-fit max-w-full overflow-x-scroll rounded-lg border border-gray-200 bg-gray-100 p-2;
 }
 
-.underlined2::after {
-  content: "";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-
-  background-color: red;
+input:not([type="submit"]),
+select,
+textarea {
+  @apply rounded border border-gray-400 bg-gray-100 p-2;
 }

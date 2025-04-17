@@ -1,7 +1,7 @@
 {% extends "base.jinja" %}
 
 {% block title %}
-  Create Textbook
+  Create Activity
 {% endblock %}
 
 {% block body %}
@@ -12,13 +12,12 @@
       hx-post="{{ hx_post }}"
       class="mx-auto flex w-[65ch] flex-col gap-5">
       <div>
-        <label for="name" class="text-lg font-bold"
+        <label for="name" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Name
           <Tooltip>
             This is the name of the activity. It will be shown to learners.
           </Tooltip>
         </label>
-        <br />
         <form.TextInput
           name="name"
           id="name"
@@ -34,14 +33,15 @@
         hidden
         value="{{ textbook_ident }}" />
       <div>
-        <label for="description" class="text-lg font-bold"
+        <label
+          for="description"
+          class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Description
           <Tooltip>
             This is the description of the activity. It will be shown to
             learners.
           </Tooltip>
         </label>
-        <br />
         <form.TextArea
           name="description"
           id="description"
@@ -51,7 +51,7 @@
           :text="activity.description if activity else ''" />
       </div>
       <div>
-        <label for="prompt" class="text-lg font-bold"
+        <label for="prompt" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Prompt
           <Tooltip>
             These instructions will be added to the system prompt stub and sent
@@ -61,7 +61,6 @@
             practice with learners.
           </Tooltip>
         </label>
-        <br />
         <form.TextArea
           name="prompt"
           id="prompt"
@@ -71,7 +70,7 @@
           :text="activity.prompt if activity else ''" />
       </div>
       <div>
-        <label for="sources" class="text-lg font-bold"
+        <label for="sources" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Sources
           <Tooltip>
             Here you can optionally include any sources you referenced in the
@@ -80,8 +79,6 @@
             Creative Commons best practices for attribution.
           </Tooltip>
         </label>
-        <br />
-
         <form.TextArea
           name="sources"
           id="sources"
@@ -90,14 +87,13 @@
           :text="activity.sources if activity else ''" />
       </div>
       <div>
-        <label for="authors" class="text-lg font-bold"
+        <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Authors
           <Tooltip>
             List all the authors who contributed to this Activity. One name per
             line.
           </Tooltip>
         </label>
-        <br />
         <form.TextArea
           name="authors"
           id="authors"
@@ -107,13 +103,12 @@
       </div>
 
       <div>
-        <label for="Topics" class="text-lg font-bold"
+        <label for="Topics" class="flex items-center gap-0.5 text-lg font-bold"
           >Compatible Topics
           <Tooltip>
             Select the topics this activity is compatible with.
           </Tooltip>
         </label>
-        <br />
         <select
           name="topic_guids"
           id="topic_guids"
@@ -132,7 +127,7 @@
       <input
         type="submit"
         value="{{ 'Create Activity' if not submission_text else submission_text }}"
-        class="rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
+        class="cursor-pointer rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
       <BackButton />
     </form>
   </div>

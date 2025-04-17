@@ -184,9 +184,9 @@ jinjax==0.55 \
 keyring==25.6.0 ; platform_machine != 'ppc64le' and platform_machine != 's390x' \
     --hash=sha256:0b39998aa941431eb3d9b0d4b2460bc773b9df6fed7621c2dfb291a7e0187a66 \
     --hash=sha256:552a3f7af126ece7ed5c89753650eec89c7eaae8617d0aa4d9ad2b75111266bd
-leaflock==0.2.1 \
-    --hash=sha256:7343ea50ebbb9ed0feb325a153c0bfa3bc49cbf26d7fdcb6b5bb784f802b07f7 \
-    --hash=sha256:eda8f71e44df14fe081716daafe3d8ab3f1cdf1bdbec94a7e4e8c974bc87961f
+leaflock==0.2.2 \
+    --hash=sha256:66623a1c098a792331d09b94d7028091eed94e2dee7e8bf1f211bc21f1c15688 \
+    --hash=sha256:abf33893f1aa632321f5082f27a636334ae08eddca1e4540459a14a470db4b83
 mako==1.3.10 \
     --hash=sha256:99579a6f39583fa7e5630a28c3c1f440e4e97a414b80372649c0ce338da2ea28 \
     --hash=sha256:baef24a52fc4fc514a0887ac600f9f1cff3d82c61d4d700a1fa84d597b88db59
