@@ -5,12 +5,8 @@
 {% endblock %}
 
 {% block body %}
-  <div class="mt-10 mb-20 w-full">
-    <form
-      action=""
-      hx-post="{{ hx_post }}"
-      hx-ext="json-enc"
-      class="mx-auto flex w-[65ch] flex-col gap-5">
+  <div class="central-content">
+    <form action="" hx-post="{{ hx_post }}" hx-ext="json-enc">
       <div>
         <label for="title" class="flex items-center gap-0.5 text-lg font-bold"
           >Title
@@ -84,8 +80,7 @@
         <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
           >Authors
           <Tooltip>
-            List the authors who contributed to this GOLE. One
-            name per line.
+            List the authors who contributed to this GOLE. One name per line.
           </Tooltip>
         </label>
         <form.TextArea
@@ -103,8 +98,7 @@
           class="flex items-center gap-0.5 text-lg font-bold"
           >Peer Reviewers
           <Tooltip>
-            List the people who peer reviewed this GOLE. One name
-            per line.
+            List the people who peer reviewed this GOLE. One name per line.
           </Tooltip>
         </label>
 

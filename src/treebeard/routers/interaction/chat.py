@@ -75,6 +75,7 @@ async def get_chat(
 """
 
         chat = Chat(
+            guid=uuid.uuid4(),
             textbook_guid=textbook_guid,
             topic_guid=topic_guid,
             activity_guid=activity_guid,
@@ -102,7 +103,6 @@ async def get_chat(
 
     write_session.add(chat)
     write_session.add(current_user)
-    write_session.flush([chat])
 
     return templates.TemplateResponse(
         request=request,

@@ -6,7 +6,7 @@ from starlette.middleware import Middleware
 from starlette.middleware.sessions import SessionMiddleware
 
 from treebeard.middleware import AuthMiddleware
-from treebeard.routers import auth, import_, user
+from treebeard.routers import auth, dev, import_, user
 from treebeard.routers.authoring import activity, textbook, topic
 from treebeard.routers.interaction import chat, explore
 from treebeard.settings import SETTINGS
@@ -45,6 +45,9 @@ app.include_router(topic.router)
 if SETTINGS.authorization:
     app.include_router(auth.router)
     app.include_router(user.router)
+
+if SETTINGS.development_mode:
+    app.include_router(dev.router)
 
 
 @app.get("/")

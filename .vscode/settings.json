@@ -4,6 +4,7 @@
   "emmet.includeLanguages": { "jinja-html": "html" },
   "cSpell.words": [
     "dotenv",
+    "enctype",
     "fastapi",
     "GOLE",
     "GOLEs",
