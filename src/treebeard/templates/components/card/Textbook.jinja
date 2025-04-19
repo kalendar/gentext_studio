@@ -11,7 +11,9 @@
       {% if show_details %}
         <a
           href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
-          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300">Details <i data-lucide="info" class="inline-block"></i></a>
+          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+          >Details <i data-lucide="info" class="inline-block"></i
+        ></a>
       {% endif %}
       {% if show_add %}
         <span
