@@ -10,11 +10,13 @@ class __Settings(BaseSettings):
     sqlite_database_path: Path = Field()
 
     root_path: Path = Path(__file__).parent.resolve()
+    session_key: str | None = Field(min_length=20, default=None)
+
+    development_mode: bool = Field(default=False)
+
     groq_api_key: str
     groq_model: str
     groq_max_tokens_per_user: int = Field(default=50_000)
-
-    session_key: str | None = Field(min_length=20, default=None)
 
     google_oauth: bool = Field(default=False)
     google_client_id: str | None = Field(default=None)

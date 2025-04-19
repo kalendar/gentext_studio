@@ -1,0 +1,41 @@
+{% extends "base.jinja" %}
+
+{% block title %}DEV Import/Export Textbook{% endblock %}
+
+{% block body %}
+  <div class="central-content vertical-list">
+    <h1>Import Textbook</h1>
+    <form
+      action="{{ request.url_for('post_import_textbook') }}"
+      method="post"
+      enctype="multipart/form-data"
+      class="vertical-list">
+      <label for="textbook_file"> Textbook File </label>
+      <br />
+      <input
+        type="file"
+        name="textbook_file"
+        id="textbook_file"
+        accept=".gole,.json"
+        class="w-full" />
+
+      <Submit text="Submit File" />
+    </form>
+
+    <h2>Export Textbook</h2>
+    <form
+      action="{{ request.url_for('post_export_textbook') }}"
+      method="post"
+      class="vertical-list">
+      <label for="textbook_ident"> Textbook GUID </label>
+      <br />
+      <input
+        type="text"
+        name="textbook_ident"
+        id="textbook_ident"
+        class="w-full" />
+
+      <Submit text="Submit GUID" />
+    </form>
+  </div>
+{% endblock %}

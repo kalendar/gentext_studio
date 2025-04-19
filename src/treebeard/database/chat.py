@@ -51,9 +51,7 @@ class ChatMessagesType(TypeDecorator):  # type: ignore
 class Chat(MappedAsDataclass, Base):
     __tablename__ = "chat"
 
-    guid: Mapped[uuid.UUID] = mapped_column(
-        init=False, primary_key=True, insert_default=uuid.uuid4
-    )
+    guid: Mapped[uuid.UUID] = mapped_column(primary_key=True, insert_default=uuid.uuid4)
 
     start_time: Mapped[datetime.datetime]
 
