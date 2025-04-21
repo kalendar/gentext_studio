@@ -10,7 +10,9 @@
   {% set homepage_url = request.url_for('get_textbooks') %}
 {% endif %}
 
-<nav class="h-nav-height bg-sky-500 px-5" hx-boost="true">
+<nav
+  class="h-nav-height border-b-2 border-b-sky-600 bg-sky-500 px-5"
+  hx-boost="true">
   <ul
     class="flex h-full items-center justify-between gap-5 text-white [&_a]:decoration-white [&_a]:decoration-2">
     <li>
@@ -42,7 +44,6 @@
           {% endif %}
         </li>
       {% endif %}
-
     </div>
   </ul>
 </nav>

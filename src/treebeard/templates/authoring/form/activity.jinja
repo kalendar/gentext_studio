@@ -6,7 +6,11 @@
 
 {% block body %}
   <div class="central-content">
-    <form action="" hx-ext="json-enc" hx-post="{{ hx_post }}">
+    <form
+      action=""
+      class="vertical-list"
+      hx-ext="json-enc"
+      hx-post="{{ hx_post }}">
       <div>
         <label for="name" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Name
@@ -78,8 +82,7 @@
         <form.TextArea
           name="sources"
           id="sources"
-          placeholder="Here you can optionally include any sources you referenced in the creation of this Activity.
-        If you're attributing an OER, make sure to include a Title, Author, Source (URL), and License as per the Creative Commons best practices for attribution."
+          placeholder="Here you can optionally include any sources you referenced in the creation of this Activity. If you're attributing an OER, make sure to include a Title, Author, Source (URL), and License as per the Creative Commons best practices for attribution."
           :text="activity.sources if activity else ''" />
       </div>
       <div>
@@ -97,7 +100,24 @@
           placeholder="FirstName LastName\nFirstName LastName"
           :text="activity.authors if activity else ''" />
       </div>
-
+      <div>
+        <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
+          >Activity License
+          <Tooltip> TODO </Tooltip>
+        </label>
+        <select
+          name="license"
+          id="license"
+          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
+          {% for license in LICENSES %}
+            <option
+              value="{{ license }}"
+              {{ 'selected' if topic and topic.license == license }}>
+              {{ LICENSE_MAP[license] }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
       <div>
         <label for="Topics" class="flex items-center gap-0.5 text-lg font-bold"
           >Compatible Topics
