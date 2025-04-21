@@ -38,7 +38,11 @@ def create_activity_get(
     session: ReadSession,
     templates: Templates,
 ):
-    topics = session.scalars(select(Topic).where(Topic.textbook_guid == textbook_ident))
+    topics = session.scalars(
+        select(Topic)
+        .where(Topic.textbook_guid == textbook_ident)
+        .order_by(Topic.position.asc())
+    )
 
     return templates.TemplateResponse(
         request=request,
@@ -105,8 +109,10 @@ def update_activity_get(
     if not activity:
         raise HTTPException(status_code=404, detail="Activity not found")
 
-    topics = session.scalars(  # type:ignore
-        select(Topic).where(Topic.textbook_guid == textbook_ident)  # type:ignore
+    topics = session.scalars(
+        select(Topic)
+        .where(Topic.textbook_guid == textbook_ident)
+        .order_by(Topic.position.asc())
     )
 
     return templates.TemplateResponse(
