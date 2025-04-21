@@ -4,7 +4,7 @@
   {% if request.session.get("user_email") %}
     {% set homepage_url = request.url_for('current_user') %}
   {% else %}
-    {% set homepage_url = request.url_for('login') %}
+    {% set homepage_url = request.url_for('get_textbooks') %}
   {% endif %}
 {% else %}
   {% set homepage_url = request.url_for('get_textbooks') %}

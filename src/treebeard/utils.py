@@ -12,7 +12,7 @@ def markdown_to_html(content: str | Markup) -> str | Markup:
 
     content = content.strip()
 
-    content = "\n".join(line for line in content.splitlines() if line.strip())
+    content = "\n\n".join(line for line in content.splitlines() if line.strip())
 
     html = nh3.clean(
         markdown2.markdown(  # type: ignore
