@@ -112,7 +112,7 @@
           {% for license in LICENSES %}
             <option
               value="{{ license }}"
-              {{ 'selected' if topic and topic.license == license }}>
+              {{ 'selected' if activity and activity.license == license }}>
               {{ LICENSE_MAP[license] }}
             </option>
           {% endfor %}
