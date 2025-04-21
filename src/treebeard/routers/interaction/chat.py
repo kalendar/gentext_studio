@@ -139,7 +139,11 @@ async def post_chat(
             context={
                 "messages": [
                     AssistantMessage(
-                        content="You've hit the trial limit! Thank you for trying out GOLE Studio!"
+                        content="""
+                        You've hit the limit of 50,000 tokens on your free trial. 
+                        Thank you for trying out GOLE Studio! If you would like to 
+                        extend your trial, please contact info@golestudio.org.
+                        """
                     )
                 ],
             },

@@ -11,19 +11,27 @@
 
     <br />
 
-    <div class="grid grid-cols-3 gap-5">
-      <Card :href="{{ request.url_for('get_textbooks') }}">
-        <p class="underlined">All GOLEs</p>
-      </Card>
-
+    <h2 class="mb-3">Study</h2>
+    <div class="grid grid-cols-2 gap-5">
       <Card :href="{{ request.url_for('saved_textbooks') }}">
-        <p class="underlined">Saved GOLEs</p>
+        <p class="underlined">Your Saved GOLEs</p>
       </Card>
 
-      <Card :href="{{ request.url_for('textbooks') }}">
-        <p class="underlined">Create GOLE</p>
+      <Card :href="{{ request.url_for('get_textbooks') }}">
+        <p class="underlined">Browse All GOLEs</p>
       </Card>
     </div>
+
+
+    <br />
+
+    <h2 class="mb-3">Author</h2>
+    <div class="grid grid-cols-2 gap-5">
+      <Card :href="{{ request.url_for('textbooks') }}">
+        <p class="underlined">Create or Update a GOLE</p>
+      </Card>
+    </div>
+
     <!--
     <a class="underlined" href="{{ request.url_for('owned_textbooks') }}"
       >Owned Courses</a

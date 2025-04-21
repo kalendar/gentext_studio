@@ -19,7 +19,7 @@
     <h2>Reviewers</h2>
     <div>{{ textbook.reviewers }}</div>
     <h2>Topics</h2>
-    <div>~
+    <div>
       {% for topic in textbook.topics|sort(attribute="name") %}
         <p>{{ topic.name }}</p>
         <p class="ml-5">By: {{ topic.authors }}</p>

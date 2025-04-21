@@ -10,7 +10,7 @@
   {% set homepage_url = request.url_for('get_textbooks') %}
 {% endif %}
 
-<nav class="h-nav-height bg-sky-600 px-5" hx-boost="true">
+<nav class="h-nav-height bg-sky-500 px-5" hx-boost="true">
   <ul
     class="flex h-full items-center justify-between gap-5 text-white [&_a]:decoration-white [&_a]:decoration-2">
     <li>
@@ -18,6 +18,17 @@
     </li>
 
     <div class="flex gap-5">
+      <li>
+        <a
+          class="underlined flex items-center gap-2"
+          href="https://github.com/kalendar/treebeard"
+          >Get Involved
+          <img
+            class="inline-block h-5"
+            src="https://cdn.simpleicons.org/github/white"
+        /></a>
+      </li>
+
       {% if SETTINGS.authorization %}
         <li>
           {% if request.session.get("user_email") %}
@@ -32,16 +43,6 @@
         </li>
       {% endif %}
 
-      <li>
-        <a
-          class="underlined flex items-center gap-2"
-          href="https://github.com/kalendar/treebeard"
-          >Get Involved
-          <img
-            class="inline-block h-5"
-            src="https://cdn.simpleicons.org/github/white"
-        /></a>
-      </li>
     </div>
   </ul>
 </nav>
