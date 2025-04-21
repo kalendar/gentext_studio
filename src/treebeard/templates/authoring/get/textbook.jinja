@@ -17,7 +17,7 @@
       </AButton>
     </div>
     <Card
-      class="group flex justify-between !rounded !border-gray-200 bg-inherit p-2 transition-colors duration-75 hover:bg-gray-100"
+      class="group flex justify-between !rounded !border-gray-300 bg-gray-50 p-2 transition-colors duration-75 hover:bg-white"
       :href="{{ request.url_for('update_textbook_get', ident=textbook.guid) }}">
       <p class="underlined">Details</p>
     </Card>
@@ -35,7 +35,7 @@
       <div id="sortable-topics" class="flex flex-col gap-1">
         {% for topic in textbook.topics %}
           <Card
-            class="group flex items-center justify-between gap-2 !rounded !border-gray-200 bg-inherit p-2 transition-colors duration-75 hover:bg-gray-100"
+            class="group flex items-center justify-between gap-2 !rounded !border-gray-200 bg-gray-50 p-2 transition-colors duration-75 hover:bg-white"
             :data-guid="topic.guid"
             :href="request.url_for('update_topic_get', topic_ident=topic.guid, textbook_ident=topic.textbook_guid)">
             <i
@@ -69,7 +69,7 @@
       <div id="sortable-activities" class="flex flex-col gap-1">
         {% for activity in textbook.activities %}
           <Card
-            class="group flex items-center justify-between gap-2 !rounded !border-gray-200 bg-inherit p-2 transition-colors duration-75 hover:bg-gray-100"
+            class="group flex items-center justify-between gap-2 !rounded !border-gray-200 bg-gray-50 p-2 transition-colors duration-75 hover:bg-white"
             :data-guid="activity.guid"
             :href="request.url_for('update_activity_get', activity_ident=activity.guid, textbook_ident=activity.textbook_guid)">
             <i

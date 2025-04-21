@@ -103,7 +103,7 @@
       <div>
         <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity License
-          <Tooltip> TODO </Tooltip>
+          <Tooltip>Choose the terms under which you wish to share this Activity.</Tooltip>
         </label>
         <select
           name="license"
@@ -129,7 +129,7 @@
           name="topic_guids"
           id="topic_guids"
           multiple
-          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
+          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2 mb-5">
           {% for topic in topics %}
             <option
               value="{{ topic.guid }}"

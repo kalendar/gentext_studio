@@ -110,12 +110,12 @@
       <div>
         <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
           >Topic License
-          <Tooltip> TODO </Tooltip>
+          <Tooltip>Choose the terms under which you wish to share this Topic.</Tooltip>
         </label>
         <select
           name="license"
           id="license"
-          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
+          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2 mb-5">
           {% for license in LICENSES %}
             <option
               value="{{ license }}"

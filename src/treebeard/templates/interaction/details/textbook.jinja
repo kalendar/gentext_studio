@@ -23,7 +23,7 @@
       {% for topic in textbook.topics|sort(attribute="name") %}
         <p>{{ topic.name }}</p>
         <p class="ml-5">By: {{ topic.authors }}</p>
-        <p class="ml-5">Sources: {{ topic.sources }}</p>
+        <p class="ml-5">License: {{ topic.license }}</p>
       {% endfor %}
     </div>
     <h2>Activities</h2>
@@ -31,7 +31,7 @@
       {% for activity in textbook.activities|sort(attribute="name") %}
         <p>{{ activity.name }}</p>
         <p class="ml-5">By: {{ activity.authors }}</p>
-        <p class="ml-5">Sources: {{ activity.sources }}</p>
+        <p class="ml-5">Sources: {{ activity.license }}</p>
       {% endfor %}
     </div>
   </div>
