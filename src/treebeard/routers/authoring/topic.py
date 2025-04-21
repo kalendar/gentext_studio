@@ -3,6 +3,7 @@ import uuid
 from fastapi import HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.routing import APIRouter
+from leaflock.licenses import License
 from leaflock.sqlalchemy_tables.topic import Topic
 from pydantic import BaseModel
 from starlette import status
@@ -20,6 +21,8 @@ class TopicModel(BaseModel):
 
     sources: str
     authors: str
+
+    license: License
 
     textbook_guid: uuid.UUID
 
@@ -52,6 +55,7 @@ def create_topic_post(
         summary=topic_model.summary,
         sources=topic_model.sources,
         authors=topic_model.authors,
+        license=topic_model.license,
     )
 
     topic.textbook_guid = topic_model.textbook_guid
@@ -110,6 +114,7 @@ def update_topic_post(
     topic.textbook_guid = topic_model.textbook_guid
     topic.authors = topic_model.authors
     topic.sources = topic_model.sources
+    topic.license = topic_model.license
 
     # Ensure dirty
     session.add(topic)

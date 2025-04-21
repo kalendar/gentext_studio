@@ -4,6 +4,7 @@ from typing import Optional
 from fastapi import HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.routing import APIRouter
+from leaflock.licenses import License
 from leaflock.sqlalchemy_tables.activity import Activity
 from leaflock.sqlalchemy_tables.topic import Topic
 from pydantic import BaseModel
@@ -23,6 +24,8 @@ class ActivityModel(BaseModel):
 
     sources: str
     authors: str
+
+    license: License
 
     textbook_guid: uuid.UUID
     topic_guids: Optional[set[uuid.UUID] | uuid.UUID] = None
@@ -60,6 +63,7 @@ def create_activity_post(
         prompt=activity_model.prompt,
         authors=activity_model.authors,
         sources=activity_model.sources,
+        license=activity_model.license,
     )
 
     activity.textbook_guid = activity_model.textbook_guid
@@ -146,6 +150,7 @@ def update_activity_post(
     activity.prompt = activity_model.prompt
     activity.authors = activity_model.authors
     activity.sources = activity_model.sources
+    activity.license = activity_model.license
 
     # Ensure dirty
     session.add(activity)

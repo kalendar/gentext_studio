@@ -5,6 +5,7 @@ import jinjax
 from fastapi import Depends, Request
 from fastapi.templating import Jinja2Templates
 from groq import Groq
+from leaflock.licenses import LICENSE_MAP, License
 from pydantic import ValidationError
 from sqlalchemy.orm import Session as SQLASession
 
@@ -24,6 +25,8 @@ __TEMPLATES.env.globals.update(  # type: ignore
     {
         "SETTINGS": SETTINGS,
         "HTMLAttrs": jinjax.HTMLAttrs,
+        "LICENSES": list(License._value2member_map_.keys()),
+        "LICENSE_MAP": LICENSE_MAP,
         "len": len,
         "sorted": sorted,
         "markdown_to_html": markdown_to_html,

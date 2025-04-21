@@ -7,15 +7,13 @@
     class="h-content-height max-h-content-height mx-auto flex w-[80ch] flex-col gap-4 py-4">
     <div class="flex w-full items-center justify-between">
       <h2>Conversation</h2>
-      <p>
-        <a
-          id="share-button"
-          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-          href="{{ request.url_for('get_chat', chat_guid=chat_guid) }}"
-          onclick="copyToClipboard(event, this)"
-          >Share This Chat</a
-        >
-      </p>
+      <AButton
+        id="share-button"
+        color="blue"
+        :href="request.url_for('get_chat', chat_guid=chat_guid)"
+        onclick="copyToClipboard(event, this)">
+        Share This Chat
+      </AButton>
     </div>
 
     <div
@@ -37,7 +35,7 @@
       <div class="flex w-full flex-col gap-3 bg-white">
         <textarea
           id="message-input"
-          class="scrollbar max-h-[20ch] w-full resize-none overflow-y-scroll focus:border-0 focus-visible:outline-0"
+          class="scrollbar max-h-[20ch] w-full resize-none overflow-y-scroll !border-0 !bg-white focus:border-0 focus-visible:outline-0"
           name="message"
           placeholder="Enter your message..."
           required

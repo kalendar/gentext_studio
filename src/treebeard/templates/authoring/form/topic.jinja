@@ -6,7 +6,11 @@
 
 {% block body %}
   <div class="central-content">
-    <form action="" hx-ext="json-enc" hx-post="{{ hx_post }}">
+    <form
+      action=""
+      class="vertical-list"
+      hx-ext="json-enc"
+      hx-post="{{ hx_post }}">
       <div>
         <label for="name" class="flex items-center gap-0.5 text-lg font-bold"
           >Topic Name
@@ -102,6 +106,24 @@
           required
           placeholder="FirstName LastName\nFirstName LastName"
           :text="topic.authors if topic else ''" />
+      </div>
+      <div>
+        <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
+          >Topic License
+          <Tooltip> TODO </Tooltip>
+        </label>
+        <select
+          name="license"
+          id="license"
+          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
+          {% for license in LICENSES %}
+            <option
+              value="{{ license }}"
+              {{ 'selected' if topic and topic.license == license }}>
+              {{ LICENSE_MAP[license] }}
+            </option>
+          {% endfor %}
+        </select>
       </div>
       <input
         type="submit"

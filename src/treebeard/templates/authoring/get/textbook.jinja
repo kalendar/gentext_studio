@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-  <div class="central-content">
+  <div class="central-content vertical-list">
     <div class="flex flex-wrap justify-between">
       <h1>{{ textbook.title }}</h1>
       <AButton
@@ -79,10 +79,10 @@
             <div class="grow"></div>
             <AButton
               :hx-post="request.url_for('delete_activity', ident=activity.guid)"
-              color="red"
+              color="none"
               icon="delete"
               circular
-              class="scale-80 opacity-0 group-hover:scale-100 group-hover:opacity-100"
+              class="scale-80 border-red-500 text-red-500 opacity-0 group-hover:scale-100 group-hover:opacity-100 hover:border-red-600 hover:text-red-600"
               hx-confirm="Are you sure you want to delete this activity?" />
           </Card>
         {% endfor %}
