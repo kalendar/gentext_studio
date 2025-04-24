@@ -6,7 +6,10 @@
 
 {% block body %}
   <div class="central-content">
-    <form action="" hx-post="{{ hx_post }}" hx-ext="json-enc">
+    <form
+      method="post"
+      action="{{ request.url_for('update_textbook_post', ident=textbook.guid) }}"
+      class="vertical-list">
       <div>
         <label for="title" class="flex items-center gap-0.5 text-lg font-bold"
           >Title
@@ -69,12 +72,12 @@
             course."
           </Tooltip>
         </label>
-        <form.TextArea
-          name="prompt"
+        <p class="token-count">Tokens: 0</p>
+        <div
           id="prompt"
-          required
-          placeholder="This is the system prompt stub. This language will be included in every prompt sent to the LLM, so should not include details about specific topics or pedagogies. It might include information about the overall course topic, as well as information about personality, voice, and tone. For example, 'You are an empathetic, caring, supportive tutor for an undergraduate Introduction to Psychology course.'"
-          :text="textbook.prompt if textbook else ''" />
+          class="token-field pell"
+          data-content="{{ textbook.prompt if textbook else '' }}"></div>
+        <textarea name="prompt" id="textarea-prompt" required hidden></textarea>
       </div>
       <div>
         <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
@@ -83,14 +86,15 @@
             List the authors who contributed to this GOLE. One name per line.
           </Tooltip>
         </label>
-        <form.TextArea
-          name="authors"
+        <div
           id="authors"
+          class="token-field pell"
+          data-content="{{ textbook.authors if textbook else '' }}"></div>
+        <textarea
+          name="authors"
+          id="textarea-authors"
           required
-          placeholder="FirstName LastName\nFirstName LastName"
-          :text="textbook.authors if textbook else ''"
-          placeholder="* FirstName LastName\n* FirstName LastName"
-          :text="textbook.authors if textbook and textbook.authors else ''" />
+          hidden></textarea>
       </div>
       <div>
         <label
@@ -101,15 +105,15 @@
             List the people who peer reviewed this GOLE. One name per line.
           </Tooltip>
         </label>
-
-        <form.TextArea
-          name="reviewers"
+        <div
           id="reviewers"
+          class="token-field pell"
+          data-content="{{ textbook.reviewers if textbook else '' }}"></div>
+        <textarea
+          name="reviewers"
+          id="textarea-reviewers"
           required
-          placeholder="No Reviewers Yet"
-          :text="textbook.reviewers if textbook else ''"
-          placeholder="* FirstName LastName\n* FirstName LastName"
-          :text="textbook.reviewers if textbook and textbook.reviewers else ''" />
+          hidden></textarea>
       </div>
 
       <input
@@ -119,4 +123,21 @@
       <BackButton />
     </form>
   </div>
+{% endblock %}
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/turndown@7.2.0/dist/turndown.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"
+    integrity="sha256-iOtvu+DCcN3zOEruDJYg0HDgkKJuB8Z0Ia42yQO11kk="
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/pell@1.0.6/dist/pell.min.js"
+    integrity="sha256-4MPHeF2wFDMM9rzwTsz5Q8wfveOTZt7mtPmXeOlhmn0="
+    crossorigin="anonymous"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/pell@1.0.6/dist/pell.min.css"
+    integrity="sha256-Ld2o3+6zr33AQFbMa5nmnjrvJ+OgdEqYa72WW3LJcto="
+    crossorigin="anonymous" />
+  <script src="{{ request.url_for('static', path='js/PellInputs.js') }}"></script>
 {% endblock %}

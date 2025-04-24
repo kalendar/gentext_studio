@@ -7,10 +7,9 @@
 {% block body %}
   <div class="central-content">
     <form
-      action=""
-      class="vertical-list"
-      hx-ext="json-enc"
-      hx-post="{{ hx_post }}">
+      method="post"
+      action="{{ request.url_for('update_activity_post', ident=activity.guid) }}"
+      class="vertical-list">
       <div>
         <label for="name" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Name
@@ -42,13 +41,16 @@
             learners.
           </Tooltip>
         </label>
-        <form.TextArea
-          name="description"
+        <p class="token-count">Tokens: 0</p>
+        <div
           id="description"
-          rows="10"
+          class="token-field pell"
+          data-content="{{ activity.description if activity else '' }}"></div>
+        <textarea
+          name="description"
+          id="textarea-description"
           required
-          placeholder="This is the description of the activity. It will be shown to learners."
-          :text="activity.description if activity else ''" />
+          hidden></textarea>
       </div>
       <div>
         <label for="prompt" class="flex items-center gap-0.5 text-lg font-bold"
@@ -61,13 +63,12 @@
             practice with learners.
           </Tooltip>
         </label>
-        <form.TextArea
-          name="prompt"
+        <p class="token-count">Tokens: 0</p>
+        <div
           id="prompt"
-          rows="10"
-          required
-          placeholder="These instructions will be added to the system prompt stub and sent to the LLM. They will not be shown to learners. The instructions should describe an evidence-based teaching or study practice in enough detail for the LLM to be able to faithfully implement the practice with learners."
-          :text="activity.prompt if activity else ''" />
+          class="pell"
+          data-content="{{ activity.prompt if activity else '' }}"></div>
+        <textarea name="prompt" id="textarea-prompt" required hidden></textarea>
       </div>
       <div>
         <label for="sources" class="flex items-center gap-0.5 text-lg font-bold"
@@ -79,11 +80,15 @@
             Creative Commons best practices for attribution.
           </Tooltip>
         </label>
-        <form.TextArea
-          name="sources"
+        <div
           id="sources"
-          placeholder="Here you can optionally include any sources you referenced in the creation of this Activity. If you're attributing an OER, make sure to include a Title, Author, Source (URL), and License as per the Creative Commons best practices for attribution."
-          :text="activity.sources if activity else ''" />
+          class="pell"
+          data-content="{{ activity.sources if activity else '' }}"></div>
+        <textarea
+          name="sources"
+          id="textarea-sources"
+          required
+          hidden></textarea>
       </div>
       <div>
         <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
@@ -93,17 +98,23 @@
             line.
           </Tooltip>
         </label>
-        <form.TextArea
+        <div
           name="authors"
           id="authors"
+          class="pell"
+          data-content="{{ activity.authors if activity else '' }}"></div>
+        <textarea
+          name="authors"
+          id="textarea-authors"
           required
-          placeholder="FirstName LastName\nFirstName LastName"
-          :text="activity.authors if activity else ''" />
+          hidden></textarea>
       </div>
       <div>
         <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity License
-          <Tooltip>Choose the terms under which you wish to share this Activity.</Tooltip>
+          <Tooltip
+            >Choose the terms under which you wish to share this Activity.
+          </Tooltip>
         </label>
         <select
           name="license"
@@ -119,7 +130,9 @@
         </select>
       </div>
       <div>
-        <label for="Topics" class="flex items-center gap-0.5 text-lg font-bold"
+        <label
+          for="topic_guids"
+          class="flex items-center gap-0.5 text-lg font-bold"
           >Compatible Topics
           <Tooltip>
             Select the topics this activity is compatible with.
@@ -129,7 +142,7 @@
           name="topic_guids"
           id="topic_guids"
           multiple
-          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2 mb-5">
+          class="h-40 w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
           {% for topic in topics %}
             <option
               value="{{ topic.guid }}"
@@ -147,4 +160,21 @@
       <BackButton />
     </form>
   </div>
+{% endblock %}
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/turndown@7.2.0/dist/turndown.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/showdown@2.1.0/dist/showdown.min.js"
+    integrity="sha256-iOtvu+DCcN3zOEruDJYg0HDgkKJuB8Z0Ia42yQO11kk="
+    crossorigin="anonymous"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/pell@1.0.6/dist/pell.min.js"
+    integrity="sha256-4MPHeF2wFDMM9rzwTsz5Q8wfveOTZt7mtPmXeOlhmn0="
+    crossorigin="anonymous"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/pell@1.0.6/dist/pell.min.css"
+    integrity="sha256-Ld2o3+6zr33AQFbMa5nmnjrvJ+OgdEqYa72WW3LJcto="
+    crossorigin="anonymous" />
+  <script src="{{ request.url_for('static', path='js/PellInputs.js') }}"></script>
 {% endblock %}

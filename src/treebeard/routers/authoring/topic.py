@@ -1,7 +1,7 @@
 import uuid
 
-from fastapi import HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi import Form, HTTPException, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.routing import APIRouter
 from leaflock.licenses import License
 from leaflock.sqlalchemy_tables.topic import Topic
@@ -101,30 +101,33 @@ def update_topic_post(
     request: Request,
     ident: uuid.UUID,
     session: WriteSession,
-    topic_model: TopicModel,
+    name: str = Form(),
+    outcomes: str = Form(),
+    summary: str = Form(),
+    sources: str = Form(),
+    authors: str = Form(),
+    license: License = Form(),
+    textbook_guid: uuid.UUID = Form(),
 ):
     topic = session.get(Topic, ident=ident)
 
     if not topic:
         raise HTTPException(status_code=404, detail="Topic not found")
 
-    topic.name = topic_model.name
-    topic.outcomes = topic_model.outcomes
-    topic.summary = topic_model.summary
-    topic.textbook_guid = topic_model.textbook_guid
-    topic.authors = topic_model.authors
-    topic.sources = topic_model.sources
-    topic.license = topic_model.license
+    topic.name = name
+    topic.outcomes = outcomes
+    topic.summary = summary
+    topic.sources = sources
+    topic.authors = authors
+    topic.license = license
+    topic.textbook_guid = textbook_guid
 
     # Ensure dirty
     session.add(topic)
 
-    return HTMLResponse(
-        headers={
-            "HX-Location": str(
-                request.url_for("textbook_details", ident=topic_model.textbook_guid)
-            )
-        }
+    return RedirectResponse(
+        url=request.url_for("textbook_details", ident=textbook_guid),
+        status_code=status.HTTP_302_FOUND,
     )
 
 
