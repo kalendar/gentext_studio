@@ -30,8 +30,20 @@ function update(tokenField, editor) {
 }
 
 function updateTokenCount(tokenCounter, content) {
-  var tokens = content.length * 0.75;
-  tokens = Math.ceil(tokens);
+  var words = 0;
+  var lines = content.split("\n");
+  lines.forEach((line) => {
+    line
+      .trim()
+      .split(" ")
+      .forEach((word) => {
+        if (word !== "") {
+          words++;
+        }
+      });
+  });
+
+  var tokens = Math.ceil(words * 0.75);
 
   tokenCounter.innerHTML = `Tokens: ${tokens}`;
 }
