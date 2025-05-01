@@ -51,10 +51,11 @@
   .pell-content ol > li {
     @apply list-item list-inside list-decimal;
   }
+
 }
 
 h1 {
-  @apply text-2xl font-extrabold;
+  @apply text-xl font-extrabold;
 }
 
 h2 {
