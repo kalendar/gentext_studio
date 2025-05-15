@@ -13,12 +13,14 @@
       >
     </div>
     <div class="vertical-list">
-      {% for activity in topic.activities | sort(attribute="name") %}
+      {% for activity_model in activity_models %}
         <card.Activity
-          :activity="activity"
+          :activity="activity_model.activity"
           :textbook="textbook"
           :topic="topic"
-          :request="request" />
+          :request="request"
+          :tokens="activity_model.tokens"
+          :price="activity_model.price" />
       {% endfor %}
     </div>
   </div>

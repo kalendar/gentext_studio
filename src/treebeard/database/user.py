@@ -12,11 +12,20 @@ class Authorizer(StrEnum):
     github = "github"
 
 
+class UserType(StrEnum):
+    admin = "admin"
+    instructor = "instructor"
+    trial = "trial"
+    student = "student"
+
+
 class User(MappedAsDataclass, Base):
     __tablename__ = "users"
 
     email: Mapped[str] = mapped_column(primary_key=True)
     authorizer: Mapped[Authorizer] = mapped_column(primary_key=True)
+
+    type: Mapped[UserType] = mapped_column(default=UserType.trial)
 
     owned_textbooks: Mapped[set[Textbook]] = relationship(
         secondary="users_owned_textbooks",
@@ -27,8 +36,6 @@ class User(MappedAsDataclass, Base):
         secondary="users_saved_textbooks",
         default_factory=set,
     )
-
-    chat_whitelisted: Mapped[bool] = mapped_column(default=False)
 
     used_tokens: Mapped[int] = mapped_column(default=0)
 

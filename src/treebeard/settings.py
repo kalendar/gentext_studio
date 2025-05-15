@@ -3,6 +3,8 @@ from pathlib import Path
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from treebeard.groq_utils import GroqModels
+
 
 class __Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_prefix="treebeard_")
@@ -15,8 +17,7 @@ class __Settings(BaseSettings):
     development_mode: bool = Field(default=False)
 
     groq_api_key: str
-    groq_model: str
-    groq_max_tokens_per_user: int = Field(default=50_000)
+    groq_model: GroqModels
 
     google_oauth: bool = Field(default=False)
     google_client_id: str | None = Field(default=None)
@@ -27,6 +28,11 @@ class __Settings(BaseSettings):
     github_client_secret: str | None = Field(default=None)
 
     authorization: bool = Field(default=False)
+
+    admin_token_cap: int | None = Field(default=None)
+    instructor_token_cap: int | None = Field(default=None)
+    trial_token_cap: int | None = Field(default=50_000)
+    student_token_cap: int | None = Field(default=200_000)
 
 
 SETTINGS = __Settings()  # type: ignore

@@ -34,7 +34,7 @@ ChatMessage = Union[SystemMessage, UserMessage, AssistantMessage]
 
 
 class ChatMessages(BaseModel):
-    messages: list[ChatMessage] = Field(default_factory=list)
+    messages: list[ChatMessage] = Field(default_factory=list)  # type: ignore
 
 
 class ChatMessagesType(TypeDecorator):  # type: ignore

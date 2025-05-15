@@ -7,7 +7,7 @@ from fastapi.routing import APIRouter
 from starlette import status
 
 from treebeard.database.queries import get_user
-from treebeard.database.user import Authorizer, User
+from treebeard.database.user import Authorizer, User, UserType
 from treebeard.dependencies import Templates, WriteSession
 from treebeard.settings import SETTINGS
 
@@ -56,10 +56,18 @@ if SETTINGS.google_oauth:
 
         email: str = token["userinfo"]["email"]
 
-        user = get_user(session=session, email=email, authorizer=Authorizer.google)
+        user = get_user(
+            session=session,
+            email=email,
+            authorizer=Authorizer.google,
+        )
 
         if not user:
-            user = User(email=email, authorizer=Authorizer.google)
+            user = User(
+                email=email,
+                type=UserType.trial,
+                authorizer=Authorizer.google,
+            )
             session.add(user)
 
         request.session.update(
@@ -115,10 +123,18 @@ if SETTINGS.github_oauth:
             emails = email_resp.json()
             email = next((e["email"] for e in emails if e["primary"]), None)
 
-        user = get_user(session=session, email=email, authorizer=Authorizer.github)
+        user = get_user(
+            session=session,
+            email=email,
+            authorizer=Authorizer.github,
+        )
 
         if not user:
-            user = User(email=email, authorizer=Authorizer.github)
+            user = User(
+                email=email,
+                type=UserType.trial,
+                authorizer=Authorizer.github,
+            )
             session.add(user)
 
         request.session.update(

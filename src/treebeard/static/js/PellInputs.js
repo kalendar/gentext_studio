@@ -1,5 +1,8 @@
 var showdownConverter = new showdown.Converter();
 var turndownService = new TurndownService();
+turndownService.keep(["outcomes", "content"]);
+
+showdownConverter.setOption("backslashEscapesHTMLTags", true);
 
 var tokenFields = document.querySelectorAll(".pell");
 

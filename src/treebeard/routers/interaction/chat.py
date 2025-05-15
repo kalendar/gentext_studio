@@ -15,6 +15,7 @@ from treebeard.database.chat import (
 )
 from treebeard.database.queries import get_chat as get_chat_object
 from treebeard.database.queries import get_textbook
+from treebeard.database.user import UserType
 from treebeard.dependencies import (
     GroqClient,
     ReadSession,
@@ -23,6 +24,7 @@ from treebeard.dependencies import (
     get_current_user,
 )
 from treebeard.settings import SETTINGS
+from treebeard.utils import initial_prompt
 
 router = APIRouter(prefix="/learning/chat")
 
@@ -41,7 +43,7 @@ async def get_chat(
 ):
     current_user = await get_current_user(request=request, session=write_session)
 
-    if not current_user or not current_user.chat_whitelisted:
+    if not current_user:
         return RedirectResponse(request.url_for("root"))
 
     textbook = get_textbook(session=read_session, guid=textbook_guid)
@@ -68,12 +70,6 @@ async def get_chat(
         chat = get_chat_object(session=write_session, guid=chat_guid)
 
     if chat is None:
-        initial_prompt = f"""
-{activity.prompt}
-<content>{topic.summary}</content>
-<outcomes>{topic.outcomes}</outcomes>
-"""
-
         chat = Chat(
             guid=uuid.uuid4(),
             textbook_guid=textbook_guid,
@@ -82,7 +78,12 @@ async def get_chat(
             start_time=datetime.now(),
             chat_data=ChatMessages(
                 messages=[
-                    SystemMessage(content=initial_prompt),
+                    SystemMessage(
+                        content=initial_prompt(
+                            topic=topic,
+                            activity=activity,
+                        )
+                    ),
                 ]
             ),
         )
@@ -128,23 +129,45 @@ async def post_chat(
 ):
     current_user = await get_current_user(request=request, session=write_session)
 
-    if (
-        not current_user
-        or not current_user.chat_whitelisted
-        or current_user.used_tokens > SETTINGS.groq_max_tokens_per_user
-    ):
+    if not current_user:
+        return templates.TemplateResponse(
+            request=request,
+            name="interaction/chat/messages.jinja",
+            context={
+                "messages": [AssistantMessage(content="Not logged in.")],
+            },
+        )
+
+    current_user_capped: bool = False
+    current_user_token_cap: int = 0
+
+    if current_user.type == UserType.admin and SETTINGS.admin_token_cap:
+        if current_user.used_tokens >= SETTINGS.admin_token_cap:
+            current_user_capped = True
+        current_user_token_cap = SETTINGS.admin_token_cap
+    elif current_user.type == UserType.trial and SETTINGS.trial_token_cap:
+        if current_user.used_tokens >= SETTINGS.trial_token_cap:
+            current_user_capped = True
+        current_user_token_cap = SETTINGS.trial_token_cap
+    elif current_user.type == UserType.student and SETTINGS.student_token_cap:
+        if current_user.used_tokens >= SETTINGS.student_token_cap:
+            current_user_capped = True
+        current_user_token_cap = SETTINGS.student_token_cap
+    elif current_user.type == UserType.instructor and SETTINGS.instructor_token_cap:
+        if current_user.used_tokens >= SETTINGS.instructor_token_cap:
+            current_user_capped = True
+        current_user_token_cap = SETTINGS.instructor_token_cap
+
+    if current_user_capped:
         return templates.TemplateResponse(
             request=request,
             name="interaction/chat/messages.jinja",
             context={
                 "messages": [
                     AssistantMessage(
-                        content="""
-                        You've hit the limit of 50,000 tokens on your trial.
-                        We're still working on a sustainability model for GOLE
-                        Studio. If you would like to extend your trial, please
-                        contact info@golestudio.org.
-                        """
+                        content=f"""You've hit the limit of {current_user_token_cap} tokens on your account.
+We're still working on a sustainability model for GOLE Studio. 
+If you would like to extend your account's cap, please contact info@golestudio.org."""
                     )
                 ],
             },
