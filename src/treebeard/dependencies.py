@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session as SQLASession
 from treebeard.database import get_sessionmaker
 from treebeard.database.queries import get_user
 from treebeard.database.user import User
+from treebeard.groq_utils import GROQ_MODELS, GroqModel
 from treebeard.models.request_session import RequestSession
 from treebeard.settings import SETTINGS
 from treebeard.utils import markdown_to_html
@@ -84,6 +85,17 @@ async def __get_current_user(request: Request):
     )
 
 
+async def __get_current_model(request: Request) -> GroqModel:
+    try:
+        request_session = RequestSession.model_validate(
+            request.session, from_attributes=True
+        )
+    except ValidationError:
+        return GROQ_MODELS[SETTINGS.groq_model]
+
+    return GROQ_MODELS[request_session.user_model]
+
+
 async def get_current_user(request: Request, session: SQLASession):
     try:
         request_session = RequestSession.model_validate(
@@ -107,3 +119,4 @@ ReadSession = Annotated[SQLASession, Depends(__get_read_session)]
 WriteSession = Annotated[SQLASession, Depends(__get_write_session)]
 GroqClient = Annotated[Groq, Depends(__get_groq_client)]
 CurrentUser = Annotated[User | None, Depends(__get_current_user)]
+CurrentModel = Annotated[GroqModel, Depends(__get_current_model)]

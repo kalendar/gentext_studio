@@ -1,7 +1,9 @@
 from functools import lru_cache
+from math import ceil
 
 import markdown2  # type: ignore
 import nh3
+from leaflock.sqlalchemy_tables import Activity, Topic
 from markupsafe import Markup
 
 
@@ -22,3 +24,21 @@ def markdown_to_html(content: str | Markup) -> str | Markup:
     )
 
     return html
+
+
+def initial_prompt(topic: Topic, activity: Activity) -> str:
+    return f"""
+{activity.prompt}
+<content>{topic.summary}</content>
+<outcomes>{topic.outcomes}</outcomes>
+"""
+
+
+def token_estimate(string: str) -> int:
+    word_count: int = 0
+    lines = string.strip().split("\n")
+
+    for line in lines:
+        word_count += len([word for word in line.split(" ") if word])
+
+    return ceil(word_count * 0.75)

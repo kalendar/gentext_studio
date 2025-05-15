@@ -47,7 +47,7 @@
         <div
           id="outcomes"
           class="token-field pell"
-          data-content="{{ topic.outcomes if topic else '' }}"></div>
+          data-content="{{ topic.outcomes|e if topic else '' }}"></div>
         <textarea
           name="outcomes"
           id="textarea-outcomes"
@@ -124,12 +124,14 @@
       <div class="mt-5 mb-5">
         <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
           >Topic License
-          <Tooltip>Choose the terms under which you wish to share this Topic.</Tooltip>
+          <Tooltip>
+            Choose the terms under which you wish to share this Topic.
+          </Tooltip>
         </label>
         <select
           name="license"
           id="license"
-          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2 mb-5">
+          class="mb-5 w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
           {% for license in LICENSES %}
             <option
               value="{{ license }}"

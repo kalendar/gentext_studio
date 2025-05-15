@@ -67,7 +67,7 @@
         <div
           id="prompt"
           class="pell"
-          data-content="{{ activity.prompt if activity else '' }}"></div>
+          data-content="{{ activity.prompt|e if activity else '' }}"></div>
         <textarea name="prompt" id="textarea-prompt" required hidden></textarea>
       </div>
       <div class="mt-5">

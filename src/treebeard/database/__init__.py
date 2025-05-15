@@ -2,13 +2,21 @@ from leaflock.database import create_database
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
-# Force load
-from treebeard.database.chat import Base, Chat  # type: ignore  # noqa: F401
+from treebeard.database.chat import Base, Chat
 from treebeard.database.joins import (
-    UsersOwnedTextbooks,  # type: ignore  # noqa: F401
-    UsersSavedTextbooks,  # type: ignore  # noqa: F401
+    UsersOwnedTextbooks,
+    UsersSavedTextbooks,
 )
-from treebeard.database.user import User  # type: ignore  # noqa: F401
+from treebeard.database.user import User
+
+__all__ = [
+    "get_sessionmaker",
+    "Base",
+    "Chat",
+    "UsersOwnedTextbooks",
+    "UsersSavedTextbooks",
+    "User",
+]
 
 
 def get_sessionmaker(database_url: str) -> sessionmaker[Session]:
