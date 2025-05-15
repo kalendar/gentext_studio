@@ -876,8 +876,8 @@
   }
 }
 h1 {
-  font-size: var(--text-2xl);
-  line-height: var(--tw-leading, var(--text-2xl--line-height));
+  font-size: var(--text-xl);
+  line-height: var(--tw-leading, var(--text-xl--line-height));
   --tw-font-weight: var(--font-weight-extrabold);
   font-weight: var(--font-weight-extrabold);
 }

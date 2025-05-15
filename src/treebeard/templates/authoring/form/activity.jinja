@@ -31,7 +31,7 @@
         required
         hidden
         value="{{ textbook_ident }}" />
-      <div>
+      <div class="mt-5">
         <label
           for="description"
           class="flex items-center gap-0.5 text-lg font-bold"
@@ -41,7 +41,7 @@
             learners.
           </Tooltip>
         </label>
-        <p class="token-count">Tokens: 0</p>
+        <!-- p class="token-count">Tokens: 0</p -->
         <div
           id="description"
           class="token-field pell"
@@ -52,7 +52,7 @@
           required
           hidden></textarea>
       </div>
-      <div>
+      <div class="mt-5">
         <label for="prompt" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Prompt
           <Tooltip>
@@ -70,7 +70,7 @@
           data-content="{{ activity.prompt|e if activity else '' }}"></div>
         <textarea name="prompt" id="textarea-prompt" required hidden></textarea>
       </div>
-      <div>
+      <div class="mt-5">
         <label for="sources" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Sources
           <Tooltip>
@@ -90,7 +90,7 @@
           required
           hidden></textarea>
       </div>
-      <div>
+      <div class="mt-5">
         <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Authors
           <Tooltip>
@@ -109,7 +109,7 @@
           required
           hidden></textarea>
       </div>
-      <div>
+      <div class="mt-5">
         <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity License
           <Tooltip
@@ -129,7 +129,7 @@
           {% endfor %}
         </select>
       </div>
-      <div>
+      <div class="mt-5 mb-5">
         <label
           for="topic_guids"
           class="flex items-center gap-0.5 text-lg font-bold"
