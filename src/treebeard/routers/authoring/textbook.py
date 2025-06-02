@@ -96,7 +96,7 @@ def update_textbook_get(
         context={
             "textbook": textbook,
             "hx_post": request.url_for("update_textbook_post", ident=ident),
-            "submission_text": "Update GOLE",
+            "submission_text": "Update Generative Textbook",
         },
     )
 

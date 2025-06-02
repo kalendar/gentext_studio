@@ -1,11 +1,11 @@
 {% extends "base.jinja" %}
 
-{% block title %}Select a GOLE{% endblock %}
+{% block title %}Select a Generative Textbook{% endblock %}
 
 {% block body %}
   <div class="central-content">
     <div class="mb-5 flex w-full items-center justify-between">
-      <h1>Select a GOLE</h1>
+      <h1>Select a Generative Textbook</h1>
     </div>
     <div class="vertical-list">
       {% for textbook in textbooks | sort(attribute="title") %}

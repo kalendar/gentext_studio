@@ -1,10 +1,10 @@
 {% extends "base.jinja" %}
 
-{% block title %}GOLE Studio{% endblock %}
+{% block title %}Generative Textbook Studio{% endblock %}
 
 {% block body %}
   <div class="central-content">
-    <h1>GOLE Studio</h1>
+    <h1>Generative Textbook Studio</h1>
     <p class="font-light text-gray-500">
       Currently logged in as: {{ request.session.get("user_email") }}
     </p>
@@ -14,11 +14,11 @@
     <h2 class="mb-3">Study</h2>
     <div class="grid grid-cols-2 gap-5">
       <Card :href="{{ request.url_for('saved_textbooks') }}">
-        <p class="underlined">Your Saved GOLEs</p>
+        <p class="underlined">Your Saved Generative Textbooks</p>
       </Card>
 
       <Card :href="{{ request.url_for('get_textbooks') }}">
-        <p class="underlined">Browse All GOLEs</p>
+        <p class="underlined">Browse All Generative Textbooks</p>
       </Card>
     </div>
 
@@ -28,7 +28,7 @@
     <h2 class="mb-3">Create</h2>
     <div class="grid grid-cols-2 gap-5">
       <Card :href="{{ request.url_for('textbooks') }}">
-        <p class="underlined">Create or Update a GOLE</p>
+        <p class="underlined">Create or Update a Generative Textbook</p>
       </Card>
     </div>
 

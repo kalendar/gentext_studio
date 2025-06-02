@@ -6,8 +6,6 @@
     "dotenv",
     "enctype",
     "fastapi",
-    "GOLE",
-    "GOLEs",
     "Groq",
     "jinjax",
     "leaflock",

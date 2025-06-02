@@ -1,22 +1,22 @@
 [⬅Back](/README.md)
-# 📌 GOLE Studio Roadmap
+# 📌 Generative Textbook Studio Roadmap
 _Last Updated: 15 April 2025_
 
 💬 **Community Discussions:** [Discord](https://discord.gg/vSPvgyVxJ7)  
 
 ## 🎯 Vision Statement
-Generative open learning environments (GOLEs) combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful. While the first GOLEs will access LLMs running in the cloud, eventually GOLEs will run locally on learners' devices.
+Generative open learning environments (Generative Textbooks) combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful. While the first Generative Textbooks will access LLMs running in the cloud, eventually Generative Textbooks will run locally on learners' devices.
 
 ## 🚀 Roadmap Overview
 We welcome contributions — whether it's code, documentation, or ideas! If you're interested, check out our **[Guide to Contributing](CONTRIBUTING.md)** below.  
 
 ### ✅ Completed
 🎉 Features we've shipped!  
-- Mobile-first UI for studying and learning with GOLEs
+- Mobile-first UI for studying and learning with Generative Textbooks
 - Sharing learning activity transcripts
-- No-code authoring of GOLEs
-- GOLE metadata including authors, peer reviewers, and sources (e.g., for attributing OER)
-- Importing and exporting GOLEs between instances of GOLE Studio
+- No-code authoring of Generative Textbooks
+- Generative Textbook metadata including authors, peer reviewers, and sources (e.g., for attributing OER)
+- Importing and exporting Generative Textbooks between instances of Generative Textbook Studio
 - Flexible access to a wide range of open weights models via the [Groq API](https://groq.com/)
 - Login with GitHub
 
@@ -42,7 +42,7 @@ These are features we're planning. Share your feedback or vote on priorities in 
 - Capture user feedback (e.g., thumbs up / thumbs down)
 
 **LMS Integration** 
-- Make GOLE Studio an LTI Provider
+- Make Generative Textbook Studio an LTI Provider
 - Write activity completion (i.e., participation scores) to the LMS
 
 **Sustainability**
@@ -50,7 +50,7 @@ These are features we're planning. Share your feedback or vote on priorities in 
 
 📝 **Documentation Updates**  
 - [Installation Guide](/issues/2)
-- [GOLE Content Creation Guide](/issues/3)
+- [Generative Textbook Content Creation Guide](/issues/3)
 
 ## 💡 Ideas & Community Wishlist
 Suggest new feature ideas in [Discussions](/discussions)!

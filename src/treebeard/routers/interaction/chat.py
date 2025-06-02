@@ -166,7 +166,7 @@ async def post_chat(
                 "messages": [
                     AssistantMessage(
                         content=f"""You've hit the limit of {current_user_token_cap} tokens on your account.
-We're still working on a sustainability model for GOLE Studio. 
+We're still working on a sustainability model for Generative Textbook Studio. 
 If you would like to extend your account's cap, please contact info@golestudio.org."""
                     )
                 ],

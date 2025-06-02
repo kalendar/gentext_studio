@@ -1,7 +1,7 @@
 [⬅Back](/README.md)
-# 🛠 Contributing to GOLE Studio
+# 🛠 Contributing to Generative Textbook Studio
 
-Thank you for considering contributing to **GOLE Studio**! 🎉  
+Thank you for considering contributing to **Generative Textbook Studio**! 🎉  
 We welcome all types of contributions, including **bug fixes, new features, documentation improvements, and ideas**.  
 
 ---
@@ -62,4 +62,4 @@ If you find a bug or want to request a feature:
 
 ---
 
-🚀 **Thank you for contributing to GOLE Studio! Your support makes this project better.** 🎉
+🚀 **Thank you for contributing to Generative Textbook Studio! Your support makes this project better.** 🎉

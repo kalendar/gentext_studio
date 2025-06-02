@@ -1,7 +1,7 @@
 {% extends "base.jinja" %}
 
 {% block title %}
-  Create GOLE
+  Create Generative Textbook
 {% endblock %}
 
 {% block body %}
@@ -14,7 +14,7 @@
         <label for="title" class="flex items-center gap-0.5 text-lg font-bold"
           >Title
           <Tooltip>
-            This is the title of your GOLE. It will be shown to learners.
+            This is the title of your Generative Textbook. It will be shown to learners.
           </Tooltip>
         </label>
         <form.TextInput
@@ -28,7 +28,7 @@
         <label for="status" class="flex items-center gap-0.5 text-lg font-bold"
           >Status
           <Tooltip>
-            This is the publishing status of your GOLE. Draft is private,
+            This is the publishing status of your Generative Textbook. Draft is private,
             published is public.
           </Tooltip>
         </label>
@@ -49,7 +49,7 @@
         <label for="edition" class="flex items-center gap-0.5 text-lg font-bold"
           >Edition
           <Tooltip>
-            This is the edition of your GOLE. It will be shown to learners.
+            This is the edition of your Generative Textbook. It will be shown to learners.
           </Tooltip>
         </label>
         <form.TextInput
@@ -83,7 +83,7 @@
         <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
           >Authors
           <Tooltip>
-            List the authors who contributed to this GOLE. One name per line.
+            List the authors who contributed to this Generative Textbook. One name per line.
           </Tooltip>
         </label>
         <div
@@ -102,7 +102,7 @@
           class="flex items-center gap-0.5 text-lg font-bold"
           >Peer Reviewers
           <Tooltip>
-            List the people who peer reviewed this GOLE. One name per line.
+            List the people who peer reviewed this Generative Textbook. One name per line.
           </Tooltip>
         </label>
         <div
@@ -118,7 +118,7 @@
 
       <input
         type="submit"
-        value="{{ 'Create GOLE' if not submission_text else submission_text }}"
+        value="{{ 'Create Generative Textbook' if not submission_text else submission_text }}"
         class="cursor-pointer rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
       <BackButton />
     </form>

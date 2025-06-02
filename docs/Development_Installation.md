@@ -2,7 +2,7 @@
 ## Development Installation
 Prerequisite: [Groq](https://console.groq.com/keys)
 
-GOLE Studio currently uses the Groq API for LLM access. In the future, GOLE Studio will support local models as well.
+Generative Textbook Studio currently uses the Groq API for LLM access. In the future, Generative Textbook Studio will support local models as well.
 
 ### [uv](https://github.com/astral-sh/uv) (Recommended)
 Prerequisites: [uv](https://github.com/astral-sh/uv) and [tailwindcss/cli](https://tailwindcss.com/docs/installation/tailwind-cli).
