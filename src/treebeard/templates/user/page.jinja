@@ -6,7 +6,7 @@
   <div class="central-content">
     <h1>Generative Textbook Studio</h1>
     <p class="font-light text-gray-500">
-      Currently logged in as: {{ request.session.get("user_email") }}
+      Currently logged in as: {{ current_user.email }}
     </p>
 
     <br />
@@ -22,7 +22,6 @@
       </Card>
     </div>
 
-
     <br />
 
     <h2 class="mb-3">Create</h2>
@@ -32,10 +31,32 @@
       </Card>
     </div>
 
-    <!--
-    <a class="underlined" href="{{ request.url_for('owned_textbooks') }}"
-      >Owned Courses</a
-    >
-    -->
+    <select
+      name="chat_service"
+      id="chat_service"
+      hx-post="{{ request.url_for('save_chat_service') }}"
+      hx-swap="none"
+      hx-trigger="change">
+      <option
+        value="https://chatgpt.com/"
+        {{ 'selected' if current_user.chat_service.name == "chatgpt" }}>
+        ChatGPT
+      </option>
+      <option
+        value="https://claude.ai/new"
+        {{ 'selected' if current_user.chat_service.name == "claude" }}>
+        Claude
+      </option>
+      <option
+        value="https://gemini.google.com/app"
+        {{ 'selected' if current_user.chat_service.name == "gemini" }}>
+        Gemini
+      </option>
+      <option
+        value="https://copilot.microsoft.com/"
+        {{ 'selected' if current_user.chat_service.name == "copilot" }}>
+        Copilot
+      </option>
+    </select>
   </div>
 {% endblock %}

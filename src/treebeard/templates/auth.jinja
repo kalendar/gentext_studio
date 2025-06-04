@@ -4,8 +4,9 @@
 
 {% block body %}
   <div class="mx-auto mt-10 grid w-[40ch] grid-cols-1 gap-2">
-
-    <h1 class="w-full text-center">Login to explore Generative Textbook Studio.</h1>
+    <h1 class="w-full text-center">
+      Login to explore Generative Textbook Studio.
+    </h1>
     <br />
     {% if SETTINGS.google_oauth %}
       <AButton
@@ -23,9 +24,8 @@
         color="gray">
         Github
         <img
-            class="inline-block h-5"
-            src="https://cdn.simpleicons.org/github/black"
-        />
+          class="inline-block h-5"
+          src="https://cdn.simpleicons.org/github/black" />
       </AButton>
     {% endif %}
   </div>

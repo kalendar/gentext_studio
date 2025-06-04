@@ -1,4 +1,4 @@
-{# def activity, textbook, topic, request, tokens="Unknown", price="Unknown" #}
+{# def activity, textbook, topic, initial_prompt, chat_service, request, tokens="Unknown", price="Unknown" #}
 
 <Card
   :title="activity.name"
@@ -8,7 +8,43 @@
   clickable>
   <div class="flex gap-2 text-gray-500">
     <p>Tokens: {{ tokens }}</p>
-    {# <p>Initial Price: ${{ "%.2g"|format(price) }}</p> #}
   </div>
+
+  <button
+    type="button"
+    data-prompt="{{ initial_prompt }}"
+    onclick="
+      navigator.clipboard.writeText(this.dataset.prompt); 
+      event.stopPropagation(); 
+      this.classList.remove('hover:bg-sky-400'); 
+      this.classList.add('scale-95'); 
+      setTimeout(()=>{
+        this.classList.add('hover:bg-sky-400');
+        this.classList.remove('scale-95');
+      }, 100);
+      setTimeout(()=>{
+        window.open(`{{ chat_service }}`, '_blank').focus();
+      }, 500);
+    "
+    class="cursor-pointer rounded-lg border-sky-600 bg-sky-500 p-1 text-white transition-all duration-75 hover:bg-sky-400">
+    <p data-lucide="external-link"></p>
+  </button>
+
+  <button
+    type="button"
+    data-prompt="{{ initial_prompt }}"
+    onclick="
+      navigator.clipboard.writeText(this.dataset.prompt); 
+      event.stopPropagation(); 
+      this.classList.remove('hover:bg-sky-400'); 
+      this.classList.add('scale-95'); 
+      setTimeout(()=>{
+        this.classList.add('hover:bg-sky-400');
+        this.classList.remove('scale-95');
+      }, 100);
+    "
+    class="cursor-pointer rounded-lg border-sky-600 bg-sky-500 p-1 text-white transition-all duration-75 hover:bg-sky-400">
+    <p data-lucide="copy"></p>
+  </button>
   <p class="mt-2">{{ markdown_to_html(activity.description) | safe }}</p>
 </Card>
