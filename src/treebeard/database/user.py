@@ -8,6 +8,7 @@ from sqlalchemy.orm import Mapped, MappedAsDataclass, mapped_column, relationshi
 
 
 class ChatService(StrEnum):
+    integrated = "integrated"
     chatgpt = "https://chatgpt.com/"
     claude = "https://claude.ai/new"
     gemini = "https://gemini.google.com/app"
