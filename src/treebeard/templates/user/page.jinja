@@ -38,6 +38,11 @@
       hx-swap="none"
       hx-trigger="change">
       <option
+        value="integrated"
+        {{ 'selected' if current_user.chat_service.name == "integrated" }}>
+        Integrated
+      </option>
+      <option
         value="https://chatgpt.com/"
         {{ 'selected' if current_user.chat_service.name == "chatgpt" }}>
         ChatGPT

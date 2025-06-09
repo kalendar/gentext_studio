@@ -7,10 +7,48 @@
     <div class="mb-5 flex w-full items-center justify-between">
       <h1>Select an Activity</h1>
       <a
-        class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+        class="cursor-pointer rounded-xl bg-sky-400 p-2 text-white transition-all duration-75 hover:bg-sky-300"
         href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}"
         >Return to Topics</a
       >
+    </div>
+    <div id="chatServices" class="mb-5 flex w-full justify-between">
+      <button
+        id="integrated"
+        onclick="changeService(this)"
+        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        <p data-lucide="notebook" class="m-3 h-10 w-10"></p>
+      </button>
+      <button
+        id="chatgpt"
+        onclick="changeService(this)"
+        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        <img
+          class="m-3 h-10 w-10"
+          src="https://unpkg.com/simple-icons@v15/icons/openai.svg" />
+      </button>
+      <button
+        id="claude"
+        onclick="changeService(this)"
+        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        <img
+          class="m-3 h-10 w-10"
+          src="https://unpkg.com/simple-icons@v15/icons/claude.svg" />
+      </button>
+      <button
+        id="gemini"
+        onclick="changeService(this)"
+        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        <img
+          class="m-3 h-10 w-10"
+          src="https://unpkg.com/simple-icons@v15/icons/googlegemini.svg" />
+      </button>
+      <button
+        id="copilot"
+        onclick="changeService(this)"
+        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        <img class="m-3 h-10 w-10" src="/static/svg/copilot.svg" />
+      </button>
     </div>
     <div class="vertical-list">
       {% for activity_model in activity_models %}
@@ -26,4 +64,59 @@
       {% endfor %}
     </div>
   </div>
+{% endblock %}
+
+{% block script %}
+  <script>
+    var chatService = "{{chat_service.name}}";
+
+    const selectedClasses = [
+      "bg-sky-500",
+      "border-sky-600",
+      "hover:bg-sky-500",
+      "hover:border-sky-600",
+    ];
+    const unselectedClasses = [
+      "bg-gray-50",
+      "border-gray-300",
+      "hover:bg-gray-300",
+      "hover:border-gray-500",
+    ];
+
+    const services = {
+      integrated: "integrated",
+      chatgpt: "https://chatgpt.com/",
+      claude: "https://claude.ai/new",
+      gemini: "https://gemini.google.com/app",
+      copilot: "https://copilot.microsoft.com/",
+    };
+
+    function changeService(element) {
+      chatService = element.id;
+      const buttons = document.querySelectorAll("#chatServices button");
+
+      buttons.forEach((button) => {
+        button.classList.remove(...selectedClasses);
+        button.classList.add(...unselectedClasses);
+      });
+
+      const selectedButton = document.getElementById(chatService);
+      selectedButton.classList.add(...selectedClasses);
+    }
+
+    changeService(document.getElementById("{{chat_service.name}}"));
+
+    function linkExternalChat(element, event) {
+      if (chatService == "integrated") return;
+
+      event.stopImmediatePropagation(); 
+
+      const prompt = element.dataset.prompt;
+      navigator.clipboard.writeText(prompt);
+
+      setTimeout(() => {
+        window.open(services[chatService], "_blank").focus();
+      }, 500);
+    }
+  </script>
 {% endblock %}

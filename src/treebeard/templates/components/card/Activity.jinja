@@ -5,46 +5,13 @@
   :hx-get="request.url_for('get_chat', textbook_guid=textbook.guid, topic_guid=topic.guid, activity_guid=activity.guid)"
   hx-target="body"
   hx-push-url="true"
+  :data-prompt="initial_prompt"
+  :data-internal="request.url_for('get_chat', textbook_guid=textbook.guid, topic_guid=topic.guid, activity_guid=activity.guid)"
+  onclick="linkExternalChat(this, event);"
   clickable>
   <div class="flex gap-2 text-gray-500">
     <p>Tokens: {{ tokens }}</p>
   </div>
 
-  <button
-    type="button"
-    data-prompt="{{ initial_prompt }}"
-    onclick="
-      navigator.clipboard.writeText(this.dataset.prompt); 
-      event.stopPropagation(); 
-      this.classList.remove('hover:bg-sky-400'); 
-      this.classList.add('scale-95'); 
-      setTimeout(()=>{
-        this.classList.add('hover:bg-sky-400');
-        this.classList.remove('scale-95');
-      }, 100);
-      setTimeout(()=>{
-        window.open(`{{ chat_service }}`, '_blank').focus();
-      }, 500);
-    "
-    class="cursor-pointer rounded-lg border-sky-600 bg-sky-500 p-1 text-white transition-all duration-75 hover:bg-sky-400">
-    <p data-lucide="external-link"></p>
-  </button>
-
-  <button
-    type="button"
-    data-prompt="{{ initial_prompt }}"
-    onclick="
-      navigator.clipboard.writeText(this.dataset.prompt); 
-      event.stopPropagation(); 
-      this.classList.remove('hover:bg-sky-400'); 
-      this.classList.add('scale-95'); 
-      setTimeout(()=>{
-        this.classList.add('hover:bg-sky-400');
-        this.classList.remove('scale-95');
-      }, 100);
-    "
-    class="cursor-pointer rounded-lg border-sky-600 bg-sky-500 p-1 text-white transition-all duration-75 hover:bg-sky-400">
-    <p data-lucide="copy"></p>
-  </button>
   <p class="mt-2">{{ markdown_to_html(activity.description) | safe }}</p>
 </Card>
