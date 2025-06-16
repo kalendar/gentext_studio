@@ -17,9 +17,6 @@
     "uvicorn",
     "venv"
   ],
-  "[jinja-html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "files.associations": {
     "*.jinja": "jinja-html"
   },

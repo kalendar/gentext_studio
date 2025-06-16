@@ -3,30 +3,43 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-10 grid w-[40ch] grid-cols-1 gap-2">
 
-    <h1 class="w-full text-center">Login to explore Generative Textbook Studio.</h1>
-    <br />
-    {% if SETTINGS.google_oauth %}
-      <AButton
-        :href="{{ request.url_for('login_via_google') }}"
-        class="rounded-xl p-5 text-xl font-semibold text-black"
-        color="gray">
-        Google
-      </AButton>
-    {% endif %}
-
-    {% if SETTINGS.github_oauth %}
-      <AButton
-        :href="{{ request.url_for('login_via_github') }}"
-        class="rounded-xl p-5 text-xl font-semibold text-black"
-        color="gray">
-        Github
-        <img
-            class="inline-block h-5"
-            src="https://cdn.simpleicons.org/github/black"
-        />
-      </AButton>
-    {% endif %}
+<!-- Hero Section -->
+<div class="mx-auto mt-10 flex max-w-5xl items-center justify-between gap-10 px-6 py-16">
+  <!-- Text Column -->
+  <div class="flex-1">
+    <p class="text-6xl font-extrabold leading-tight text-gray-900">
+      The Easiest Way to AI-Enable Open Textbooks
+    
+    <p class="mt-6 text-lg text-gray-700">
+      Revise and remix AI activities into open educational resources to make learning more personal, relevant, and meaningful.
+    </p>
   </div>
+
+  <!-- Image Column -->
+  <div class="flex-1">
+    <img src="/static/img/gentext_studio.png" alt="Hero Image" class="w-full max-w-md" />
+  </div>
+</div>
+
+<div class="mx-auto mt-10 grid w-[40ch] grid-cols-1 gap-2">
+  <h1 class="w-full text-center">
+    Start exploring GenText Studio!
+  </h1>
+  <br />
+  {% if SETTINGS.google_oauth %}
+  <AButton :href="{{ request.url_for('login_via_google') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
+    color="gray">
+    Google
+  </AButton>
+  {% endif %}
+
+  {% if SETTINGS.github_oauth %}
+  <AButton :href="{{ request.url_for('login_via_github') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
+    color="gray">
+    Login with Github
+    <img class="inline-block h-5" src="https://cdn.simpleicons.org/github/black" />
+  </AButton>
+  {% endif %}
+</div>
 {% endblock %}

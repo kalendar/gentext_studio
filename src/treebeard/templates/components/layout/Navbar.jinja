@@ -16,14 +16,16 @@
   <ul
     class="flex h-full items-center justify-between gap-5 text-white [&_a]:decoration-white [&_a]:decoration-2">
     <li>
-      <a class="underlined" href="{{ homepage_url }}">Generative Textbook Studio</a>
+      <a class="underlined" href="{{ homepage_url }}"
+        >GenText Studio</a
+      >
     </li>
 
     <div class="flex gap-5">
       <li>
         <a
           class="underlined flex items-center gap-2"
-          href="https://github.com/kalendar/gole_studio"
+          href="https://github.com/kalendar/gentext_studio"
           >Get Involved
           <img
             class="inline-block h-5"
@@ -38,9 +40,9 @@
               >Logout</a
             >
           {% else %}
-            <a class="underlined" href="{{ request.url_for('login') }}"
+            <!-- a class="underlined" href="{{ request.url_for('login') }}"
               >Login</a
-            >
+            -->
           {% endif %}
         </li>
       {% endif %}

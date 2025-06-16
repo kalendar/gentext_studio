@@ -6,12 +6,21 @@
   <div class="mx-auto my-5 w-[80%]">
     <div class="flex w-full items-center justify-between">
       <h1>Your Generative Textbooks</h1>
-      <AButton :href="{{ request.url_for('create_textbook_get') }}" class=""
-        >Create a New Generative Textbook
-      </AButton>
+      <!-- a
+        class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+        href="{{ request.url_for('get_textbooks') }}"
+        >Return Home</a
+      -->
+
+
     </div>
     <br />
     <div class="grid-cols-adaptive gap-5">
+          <AButton :href="{{ request.url_for('create_textbook_get') }}" class=""
+        ><h1>Create a New Generative Textbook</h1>
+      </AButton>
+
+
       {% for textbook in textbooks %}
         <Card
           :href="{{ request.url_for('textbook_details', ident=textbook.guid) }}"

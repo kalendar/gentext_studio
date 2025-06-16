@@ -2,13 +2,12 @@ import tempfile
 import uuid
 
 from fastapi import Form, HTTPException, Request
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.routing import APIRouter
 from leaflock.conversion import sqla_to_pydantic
 from leaflock.sqlalchemy_tables.textbook import Textbook, TextbookStatus
 from pydantic import BaseModel
 from sqlalchemy import select
-from starlette import status
 
 from treebeard.dependencies import ReadSession, Templates, WriteSession
 
@@ -73,8 +72,8 @@ def create_textbook_get(
 @router.post("/create/textbook", response_class=HTMLResponse)
 def create_textbook_post(
     request: Request,
-    textbook_model: TextbookModel,
     session: WriteSession,
+    textbook_model: TextbookModel = Form(),
 ):
     session.add(Textbook(**textbook_model.model_dump()))
 
@@ -106,31 +105,25 @@ def update_textbook_post(
     request: Request,
     ident: uuid.UUID,
     session: WriteSession,
-    title: str = Form(),
-    textbook_status: TextbookStatus = Form(alias="status"),
-    edition: str = Form(),
-    prompt: str = Form(),
-    authors: str = Form(),
-    reviewers: str = Form(),
+    textbook_model: TextbookModel = Form(),
 ):
     textbook = session.get(Textbook, ident=ident)
 
     if not textbook:
         raise HTTPException(status_code=404, detail="Textbook not found")
 
-    textbook.title = title
-    textbook.status = textbook_status
-    textbook.edition = edition
-    textbook.prompt = prompt
-    textbook.authors = authors
-    textbook.reviewers = reviewers
+    textbook.title = textbook_model.title
+    textbook.status = textbook_model.status
+    textbook.edition = textbook_model.edition
+    textbook.prompt = textbook_model.prompt
+    textbook.authors = textbook_model.authors
+    textbook.reviewers = textbook_model.reviewers
 
     # Ensure dirty
     session.add(textbook)
 
-    return RedirectResponse(
-        url=request.url_for("textbook_details", ident=ident),
-        status_code=status.HTTP_302_FOUND,
+    return HTMLResponse(
+        headers={"HX-Location": str(request.url_for("textbook_details", ident=ident))}
     )
 
 

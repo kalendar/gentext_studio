@@ -1,17 +1,23 @@
 [⬅Back](/README.md)
+
 # 📌 Generative Textbook Studio Roadmap
+
 _Last Updated: 15 April 2025_
 
-💬 **Community Discussions:** [Discord](https://discord.gg/vSPvgyVxJ7)  
+💬 **Community Discussions:** [Discord](https://discord.gg/vSPvgyVxJ7)
 
 ## 🎯 Vision Statement
+
 Generative open learning environments (Generative Textbooks) combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful. While the first Generative Textbooks will access LLMs running in the cloud, eventually Generative Textbooks will run locally on learners' devices.
 
 ## 🚀 Roadmap Overview
-We welcome contributions — whether it's code, documentation, or ideas! If you're interested, check out our **[Guide to Contributing](CONTRIBUTING.md)** below.  
+
+We welcome contributions — whether it's code, documentation, or ideas! If you're interested, check out our **[Guide to Contributing](CONTRIBUTING.md)** below.
 
 ### ✅ Completed
-🎉 Features we've shipped!  
+
+🎉 Features we've shipped!
+
 - Mobile-first UI for studying and learning with Generative Textbooks
 - Sharing learning activity transcripts
 - No-code authoring of Generative Textbooks
@@ -21,44 +27,53 @@ We welcome contributions — whether it's code, documentation, or ideas! If you'
 - Login with GitHub
 
 ## 🔨 In Progress (Next Release)
-We’re actively working on these features. Please contribute!  
 
-
+We’re actively working on these features. Please contribute!
 
 ## 📌 Upcoming
-These are features we're planning. Share your feedback or vote on priorities in [Discussions](/discussions).  
+
+These are features we're planning. Share your feedback or vote on priorities in [Discussions](/discussions).
 
 **Overall Enhancements**
+
 - Login with Google
 
 **Learner Tools**
+
 - Run locally with [ollama](https://ollama.com/)
 - Add multimodal capabilities as they become available in new models
 
 **Instructor Tools**
+
 - Create a shareable link to a specific topic + learning activity
 
 **Research Infrastructure**
+
 - Capture user feedback (e.g., thumbs up / thumbs down)
 
-**LMS Integration** 
+**LMS Integration**
+
 - Make Generative Textbook Studio an LTI Provider
 - Write activity completion (i.e., participation scores) to the LMS
 
 **Sustainability**
+
 - Allow users to bring their own API key
 
-📝 **Documentation Updates**  
+📝 **Documentation Updates**
+
 - [Installation Guide](/issues/2)
 - [Generative Textbook Content Creation Guide](/issues/3)
 
 ## 💡 Ideas & Community Wishlist
+
 Suggest new feature ideas in [Discussions](/discussions)!
 
 ## 🤝 Contribution Guide
-Want to contribute? Follow these steps:  
 
-1. **Check Issues:** Look for a "good first issue" tag in [Issues](https://github.com/kalendar/gole_studio/issues).
+Want to contribute? Follow these steps:
+
+1. **Check Issues:** Look for a "good first issue" tag in [Issues](https://github.com/kalendar/gentext_studio/issues).
 2. **Join Discussions:** Share your ideas in our [Discord](https://discord.gg/vSPvgyVxJ7).
 3. **Fork & Code:** Follow our [Guide to Contributing](CONTRIBUTING.md) to submit pull requests.
-4. **Get Recognized:** We highlight top contributors in our release notes! 🎉  
+4. **Get Recognized:** We highlight top contributors in our release notes! 🎉
