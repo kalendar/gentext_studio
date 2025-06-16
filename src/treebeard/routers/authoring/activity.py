@@ -2,7 +2,7 @@ import uuid
 from typing import Optional
 
 from fastapi import Form, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 from fastapi.routing import APIRouter
 from leaflock.licenses import License
 from leaflock.sqlalchemy_tables.activity import Activity
@@ -58,16 +58,11 @@ def create_activity_get(
 @router.post("/create/activity", response_class=HTMLResponse)
 def create_activity_post(
     request: Request,
-    activity_model: ActivityModel,
     session: WriteSession,
+    activity_model: ActivityModel = Form(),
 ):
     activity = Activity(
-        name=activity_model.name,
-        description=activity_model.description,
-        prompt=activity_model.prompt,
-        authors=activity_model.authors,
-        sources=activity_model.sources,
-        license=activity_model.license,
+        **activity_model.model_dump(exclude=set(["textbook_guid", "topic_guids"]))
     )
 
     activity.textbook_guid = activity_model.textbook_guid
@@ -133,18 +128,19 @@ def update_activity_post(
     request: Request,
     ident: uuid.UUID,
     session: WriteSession,
-    name: str = Form(),
-    description: str = Form(),
-    prompt: str = Form(),
-    authors: str = Form(),
-    sources: str = Form(),
-    license: License = Form(),
-    topic_guids: list[uuid.UUID] = Form(default_factory=list),
+    activity_model: ActivityModel = Form(),
 ):
     activity = session.get(Activity, ident=ident)
 
     if not activity:
         raise HTTPException(status_code=404, detail="Activity not found")
+
+    # In the case of one selected topic, it returns int not list[int]
+    topic_guids = (
+        activity_model.topic_guids
+        if isinstance(activity_model.topic_guids, set)
+        else set([activity_model.topic_guids])
+    )
 
     # Update topics (ensure uniqueness with set)
     activity.topics = set(
@@ -152,19 +148,22 @@ def update_activity_post(
     )
 
     # Update the rest
-    activity.name = name
-    activity.description = description
-    activity.prompt = prompt
-    activity.authors = authors
-    activity.sources = sources
-    activity.license = license
+    activity.name = activity_model.name
+    activity.description = activity_model.description
+    activity.prompt = activity_model.prompt
+    activity.authors = activity_model.authors
+    activity.sources = activity_model.sources
+    activity.license = activity_model.license
 
     # Ensure dirty
     session.add(activity)
 
-    return RedirectResponse(
-        url=request.url_for("textbook_details", ident=activity.textbook_guid),
-        status_code=status.HTTP_302_FOUND,
+    return HTMLResponse(
+        headers={
+            "HX-Location": str(
+                request.url_for("textbook_details", ident=activity.textbook_guid)
+            )
+        }
     )
 
 
