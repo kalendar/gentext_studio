@@ -53,6 +53,6 @@ if SETTINGS.development_mode:
 @app.get("/")
 async def root(request: Request):
     return RedirectResponse(
-        request.url_for("get_textbooks"),
+        request.url_for("current_user"),
         status_code=status.HTTP_302_FOUND,
     )
