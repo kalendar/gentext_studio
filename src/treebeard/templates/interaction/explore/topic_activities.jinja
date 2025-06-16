@@ -5,52 +5,65 @@
 {% block body %}
   <div class="central-content">
     <div class="mb-5 flex w-full items-center justify-between">
-      <h1>Select an Activity</h1>
+      <h1>Select a Model</h1>
       <a
-        class="cursor-pointer rounded-xl bg-sky-400 p-2 text-white transition-all duration-75 hover:bg-sky-300"
+        class="p-2 cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-sky-300"
         href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}"
         >Return to Topics</a
       >
     </div>
     <div id="chatServices" class="mb-5 flex w-full justify-between">
       <button
-        id="integrated"
-        onclick="changeService(this)"
-        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
-        <p data-lucide="notebook" class="m-3 h-10 w-10"></p>
-      </button>
-      <button
         id="chatgpt"
         onclick="changeService(this)"
-        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        class="p-2 cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
         <img
           class="m-3 h-10 w-10"
           src="https://unpkg.com/simple-icons@v15/icons/openai.svg" />
+          <label>ChatGPT</label>
       </button>
       <button
         id="claude"
         onclick="changeService(this)"
-        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        class="p-2 cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
         <img
           class="m-3 h-10 w-10"
           src="https://unpkg.com/simple-icons@v15/icons/claude.svg" />
+          <label>Claude</label>
       </button>
+      
       <button
         id="gemini"
         onclick="changeService(this)"
-        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        class="p-2 cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
         <img
           class="m-3 h-10 w-10"
           src="https://unpkg.com/simple-icons@v15/icons/googlegemini.svg" />
+          <label>Gemini</label>
       </button>
       <button
         id="copilot"
         onclick="changeService(this)"
-        class="cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        class="p-2 cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
         <img class="m-3 h-10 w-10" src="/static/svg/copilot.svg" />
+        CoPilot
       </button>
+      <button
+        id="integrated"
+        onclick="changeService(this)"
+        class="p-2 cursor-pointer rounded-xl border border-gray-300 bg-gray-50 hover:border-gray-500 hover:bg-gray-300">
+        <p data-lucide="notebook" class="m-3 h-10 w-10"></p>
+        <label>Integrated</label>
+      </button>
+
     </div>
+
+<hr class="mt-7 mb-7 text-gray-400" /> 
+
     <div class="vertical-list">
+
+    <h1>Select an Activity</h1>
+
       {% for activity_model in activity_models %}
         <card.Activity
           :activity="activity_model.activity"

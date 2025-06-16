@@ -1,39 +1,46 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Generative Textbook Studio{% endblock %}</title>
-    <script
-      src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js"
-      integrity="sha256-4gndpcgjVHnzFm3vx3UOHbzVpcGAi3eS/C5nM3aPtEc="
-      crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/autosize@6.0.1/dist/autosize.min.js"
-      integrity="sha256-VCHx3GCDnd156mCM5EM9bJTj7mhMrrwg2tAab9B1vQs="
-      crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"
-      integrity="sha256-bQqDH8GbS66FF5etM5MVfoYa+3hiRZwRImNZsn4sQzc="
-      crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet" />
-    <link rel="stylesheet" href="/static/css/main.css" />
-  </head>
-  <body class="bg-background">
-    <layout.Navbar :request="request" />
-    <main class="h-full w-full">
-      {% block body %}
-      {% endblock %}
-    </main>
-  </body>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    lucide.createIcons();
-  </script>
-  {% block script %}
-  {% endblock %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Generative Textbook Studio{% endblock %}</title>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js"
+    integrity="sha256-4gndpcgjVHnzFm3vx3UOHbzVpcGAi3eS/C5nM3aPtEc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/autosize@6.0.1/dist/autosize.min.js"
+    integrity="sha256-VCHx3GCDnd156mCM5EM9bJTj7mhMrrwg2tAab9B1vQs=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"
+    integrity="sha256-bQqDH8GbS66FF5etM5MVfoYa+3hiRZwRImNZsn4sQzc=" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/main.css" />
+</head>
+
+<body class="bg-background flex flex-col min-h-screen">
+  <layout.Navbar :request="request" />
+  <main class="flex-grow w-full">
+    {% block body %}
+    {% endblock %}
+  </main>
+
+  <footer class="w-full py-6">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col items-center justify-center text-sm text-muted-foreground">
+        <p>GenText Studio is Open Source <span style="color: red;">&hearts;</span> Generously supported by <a class="underline text-sky-500"
+            href="https://lumenlearning.com/">Lumen Learning</a></p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+</script>
+{% block script %}
+{% endblock %}
+
 </html>

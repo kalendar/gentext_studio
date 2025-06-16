@@ -3,30 +3,24 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-  <div class="mx-auto mt-10 grid w-[40ch] grid-cols-1 gap-2">
-    <h1 class="w-full text-center">
-      Login to explore Generative Textbook Studio.
-    </h1>
-    <br />
-    {% if SETTINGS.google_oauth %}
-      <AButton
-        :href="{{ request.url_for('login_via_google') }}"
-        class="rounded-xl p-5 text-xl font-semibold text-black"
-        color="gray">
-        Google
-      </AButton>
-    {% endif %}
+<div class="mx-auto mt-10 grid w-[40ch] grid-cols-1 gap-2">
+  <h1 class="w-full text-center">
+    Login to explore <br /> Generative Textbook Studio.
+  </h1>
+  <br />
+  {% if SETTINGS.google_oauth %}
+  <AButton :href="{{ request.url_for('login_via_google') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
+    color="gray">
+    Google
+  </AButton>
+  {% endif %}
 
-    {% if SETTINGS.github_oauth %}
-      <AButton
-        :href="{{ request.url_for('login_via_github') }}"
-        class="rounded-xl p-5 text-xl font-semibold text-black"
-        color="gray">
-        Github
-        <img
-          class="inline-block h-5"
-          src="https://cdn.simpleicons.org/github/black" />
-      </AButton>
-    {% endif %}
-  </div>
+  {% if SETTINGS.github_oauth %}
+  <AButton :href="{{ request.url_for('login_via_github') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
+    color="gray">
+    Github
+    <img class="inline-block h-5" src="https://cdn.simpleicons.org/github/black" />
+  </AButton>
+  {% endif %}
+</div>
 {% endblock %}
