@@ -1,14 +1,17 @@
-{# def activity, textbook, topic, request, tokens="Unknown", price="Unknown" #}
+{# def activity, textbook, topic, initial_prompt, chat_service, request, tokens="Unknown", price="Unknown" #}
 
 <Card
   :title="activity.name"
   :hx-get="request.url_for('get_chat', textbook_guid=textbook.guid, topic_guid=topic.guid, activity_guid=activity.guid)"
   hx-target="body"
   hx-push-url="true"
+  :data-prompt="initial_prompt"
+  :data-internal="request.url_for('get_chat', textbook_guid=textbook.guid, topic_guid=topic.guid, activity_guid=activity.guid)"
+  onclick="linkExternalChat(this, event);"
   clickable>
   <div class="flex gap-2 text-gray-500">
-    <p>Tokens: {{ tokens }}</p>
-    {# <p>Initial Price: ${{ "%.2g"|format(price) }}</p> #}
+    <!-- p>Tokens: {{ tokens }}</p-->
   </div>
+
   <p class="mt-2">{{ markdown_to_html(activity.description) | safe }}</p>
 </Card>

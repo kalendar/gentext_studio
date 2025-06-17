@@ -3,39 +3,78 @@
 {% block title %}Generative Textbook Studio{% endblock %}
 
 {% block body %}
-  <div class="central-content">
-    <h1>Generative Textbook Studio</h1>
-    <p class="font-light text-gray-500">
-      Currently logged in as: {{ request.session.get("user_email") }}
-    </p>
+<div class="central-content">
+  <h1>Welcome!</h1>
+  <p class="font-light text-gray-500">
+    You're currently logged in as {{ current_user.email }}.
+  </p>
 
-    <br />
+  <br />
+  <hr class="text-gray-400" />
+  <br />
 
-    <h2 class="mb-3">Study</h2>
-    <div class="grid grid-cols-2 gap-5">
-      <Card :href="{{ request.url_for('saved_textbooks') }}">
-        <p class="underlined">Your Saved Generative Textbooks</p>
-      </Card>
+  <h2 class="mb-3">Study</h2>
+  <div class="grid grid-cols-2 gap-5">
+    <Card :href="{{ request.url_for('saved_textbooks') }}">
+      <p class="underlined">Your Saved Generative Textbooks</p>
+    </Card>
 
-      <Card :href="{{ request.url_for('get_textbooks') }}">
-        <p class="underlined">Browse All Generative Textbooks</p>
-      </Card>
-    </div>
-
-
-    <br />
-
-    <h2 class="mb-3">Create</h2>
-    <div class="grid grid-cols-2 gap-5">
-      <Card :href="{{ request.url_for('textbooks') }}">
-        <p class="underlined">Create or Update a Generative Textbook</p>
-      </Card>
-    </div>
-
-    <!--
-    <a class="underlined" href="{{ request.url_for('owned_textbooks') }}"
-      >Owned Courses</a
-    >
-    -->
+    <Card :href="{{ request.url_for('get_textbooks') }}">
+      <p class="underlined">Browse All Generative Textbooks</p>
+    </Card>
   </div>
+
+  <br />
+  <hr class="text-gray-400" />
+  <br />
+
+  <h2 class="mb-3">Create</h2>
+  <div class="grid grid-cols-2 gap-5">
+    <Card :href="{{ request.url_for('textbooks') }}">
+      <p class="underlined">Create or Update a Generative Textbook</p>
+    </Card>
+  </div>
+
+  <br />
+  <hr class="text-gray-400" />
+  <br />
+
+  <h2 class="mb-3">Settings</h2>
+  <div class="grid grid-cols-1">
+
+    <p class="mb-5">Select the default LLM to use when studying:</p> 
+    <select name="chat_service" id="chat_service" hx-post="{{ request.url_for('save_chat_service') }}" hx-swap="none"
+      hx-trigger="change">
+      <option value="https://chatgpt.com/" {{ 'selected' if current_user.chat_service.name=="chatgpt" }}>
+        ChatGPT
+      </option>
+      <option value="https://claude.ai/new" {{ 'selected' if current_user.chat_service.name=="claude" }}>
+        Claude
+      </option>
+      <option value="https://gemini.google.com/app" {{ 'selected' if current_user.chat_service.name=="gemini" }}>
+        Gemini
+      </option>
+      <option value="https://copilot.microsoft.com/" {{ 'selected' if current_user.chat_service.name=="copilot" }}>
+        Copilot
+      </option>
+      <option value="integrated" {{ 'selected' if current_user.chat_service.name=="integrated" }}>
+        Integrated Open Weights Model (Llama 3.3)
+      </option>
+    </select>
+    <ul class="list-disc mt-5 pl-4">
+    <li>For ChatGPT, Claude, Gemini, and CoPilot, when you choose an
+      Activity the complete prompt will be copied to the clipboard and you will be redirected 
+      to the corresponding site. You will then need to paste the prompt into the chat window and press Enter.</li>
+    <li>No matter which model you choose as the default, you can always choose a different model before starting an Activity.</li>
+    <li>On generativetextbooks.org, there's a 50,000 token usage limit of on the Integrated open weights model, which uses 
+    llama-3.3-70b-versatile on Groq, because tokens cost money over the API. In the future we may implement
+    something like a "bring your own API key" functionality, which will let you make unlimited use of the 
+    open weights model in a pay-as-you-go manner. (The long-term goal is for you to be able to run GenText Studio 
+    on your local computer, using your own local model, for free.)</li>
+    </ul>
+    <br />
+
+  </div>
+</div>
+
 {% endblock %}

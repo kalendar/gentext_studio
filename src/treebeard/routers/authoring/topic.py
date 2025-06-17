@@ -1,7 +1,7 @@
 import uuid
 
 from fastapi import Form, HTTPException, Request
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 from fastapi.routing import APIRouter
 from leaflock.licenses import License
 from leaflock.sqlalchemy_tables.topic import Topic
@@ -46,8 +46,8 @@ def create_topic_get(
 @router.post("/create/topic", response_class=HTMLResponse)
 def create_topic_post(
     request: Request,
-    topic_model: TopicModel,
     session: WriteSession,
+    topic_model: TopicModel = Form(),
 ):
     topic = Topic(**topic_model.model_dump(exclude=set(["textbook_guid"])))
 
@@ -94,33 +94,30 @@ def update_topic_post(
     request: Request,
     ident: uuid.UUID,
     session: WriteSession,
-    name: str = Form(),
-    outcomes: str = Form(),
-    summary: str = Form(),
-    sources: str = Form(),
-    authors: str = Form(),
-    license: License = Form(),
-    textbook_guid: uuid.UUID = Form(),
+    topic_model: TopicModel = Form(),
 ):
     topic = session.get(Topic, ident=ident)
 
     if not topic:
         raise HTTPException(status_code=404, detail="Topic not found")
 
-    topic.name = name
-    topic.outcomes = outcomes
-    topic.summary = summary
-    topic.sources = sources
-    topic.authors = authors
-    topic.license = license
-    topic.textbook_guid = textbook_guid
+    topic.name = topic_model.name
+    topic.outcomes = topic_model.outcomes
+    topic.summary = topic_model.summary
+    topic.sources = topic_model.sources
+    topic.authors = topic_model.authors
+    topic.license = topic_model.license
+    topic.textbook_guid = topic_model.textbook_guid
 
     # Ensure dirty
     session.add(topic)
 
-    return RedirectResponse(
-        url=request.url_for("textbook_details", ident=textbook_guid),
-        status_code=status.HTTP_302_FOUND,
+    return HTMLResponse(
+        headers={
+            "HX-Location": str(
+                request.url_for("textbook_details", ident=topic_model.textbook_guid)
+            )
+        }
     )
 
 

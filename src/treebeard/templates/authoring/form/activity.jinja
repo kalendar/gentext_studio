@@ -8,7 +8,7 @@
   <div class="central-content">
     <form
       method="post"
-      action="{{ request.url_for('update_activity_post', ident=activity.guid) }}"
+      hx-post="{{ hx_post }}"
       class="vertical-list">
       <div>
         <label for="name" class="flex items-center gap-0.5 text-lg font-bold"

@@ -9,7 +9,12 @@ from leaflock.sqlalchemy_tables import Activity
 from treebeard.database.queries import all_textbooks
 from treebeard.database.queries import get_chat as get_chat_
 from treebeard.database.queries import get_textbook as get_textbook_
-from treebeard.dependencies import CurrentModel, ReadSession, Templates
+from treebeard.database.user import ChatService
+from treebeard.dependencies import (
+    CurrentUser,
+    ReadSession,
+    Templates,
+)
 from treebeard.utils import initial_prompt, token_estimate
 
 router = APIRouter(prefix="/learning/explore")
@@ -20,6 +25,7 @@ class ActivityModel:
     activity: Activity
     tokens: int
     price: float
+    initial_prompt: str
 
 
 @router.get("/textbooks", response_model=None)
@@ -101,7 +107,7 @@ async def get_textbook_activities(
     textbook_guid: uuid.UUID,
     topic_guid: uuid.UUID,
     templates: Templates,
-    current_model: CurrentModel,
+    current_user: CurrentUser,
 ) -> HTMLResponse | RedirectResponse:
     textbook = get_textbook_(session=read_session, guid=textbook_guid)
     topic = next(
@@ -117,13 +123,15 @@ async def get_textbook_activities(
     activity_models: list[ActivityModel] = list()
 
     for activity in activities:
-        tokens = token_estimate(string=initial_prompt(topic=topic, activity=activity))
+        initial_prompt_str = initial_prompt(topic=topic, activity=activity)
+        tokens = token_estimate(string=initial_prompt_str)
 
         activity_models.append(
             ActivityModel(
                 activity=activity,
                 tokens=tokens,
-                price=current_model.price_of_tokens(tokens=tokens),
+                price=0,
+                initial_prompt=initial_prompt_str,
             )
         )
 
@@ -134,5 +142,8 @@ async def get_textbook_activities(
             "textbook": textbook,
             "topic": topic,
             "activity_models": activity_models,
+            "chat_service": current_user.chat_service
+            if current_user
+            else ChatService.chatgpt,
         },
     )

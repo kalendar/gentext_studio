@@ -1,8 +1,9 @@
 [⬅Back](/README.md)
+
 # 🛠 Contributing to Generative Textbook Studio
 
 Thank you for considering contributing to **Generative Textbook Studio**! 🎉  
-We welcome all types of contributions, including **bug fixes, new features, documentation improvements, and ideas**.  
+We welcome all types of contributions, including **bug fixes, new features, documentation improvements, and ideas**.
 
 ---
 
@@ -12,7 +13,7 @@ We welcome all types of contributions, including **bug fixes, new features, docu
 2. **Fork the repo**: Click the **Fork** button on the top right.
 3. **Clone your fork**:
    ```sh
-   git clone https://github.com/kalendar/gole_studio.git
+   git clone https://github.com/kalendar/gentext_studio.git
    ```
 4. **Create a new branch**:
    ```sh
@@ -40,13 +41,14 @@ We welcome all types of contributions, including **bug fixes, new features, docu
 ✅ Keep PRs **small and focused** on a single change.  
 ✅ Add **comments** if your code is complex.  
 ✅ Update **documentation** if your change affects usage.  
-✅ Be **respectful** and **collaborative**.  
+✅ Be **respectful** and **collaborative**.
 
 ---
 
 ## 🐛 Reporting Issues
 
 If you find a bug or want to request a feature:
+
 1. **Check if it's already reported** in [Issues](/issues).
 2. If not, **open a new issue**:
    - Use a **descriptive title**.

@@ -9,6 +9,7 @@
 
 @theme inline {
   --color-background: oklch(0.95 0.0042 236.5);
+  --color-background: #ffffff;
 }
 
 @theme inline {
