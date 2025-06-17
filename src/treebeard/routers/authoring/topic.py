@@ -49,14 +49,7 @@ def create_topic_post(
     topic_model: TopicModel,
     session: WriteSession,
 ):
-    topic = Topic(
-        name=topic_model.name,
-        outcomes=topic_model.outcomes,
-        summary=topic_model.summary,
-        sources=topic_model.sources,
-        authors=topic_model.authors,
-        license=topic_model.license,
-    )
+    topic = Topic(**topic_model.model_dump(exclude=set(["textbook_guid"])))
 
     topic.textbook_guid = topic_model.textbook_guid
 
