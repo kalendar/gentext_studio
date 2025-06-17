@@ -49,7 +49,7 @@ def create_topic_post(
     session: WriteSession,
     topic_model: TopicModel = Form(),
 ):
-    topic = Topic(**topic_model.model_dump())
+    topic = Topic(**topic_model.model_dump(exclude=set(["textbook_guid"])))
 
     topic.textbook_guid = topic_model.textbook_guid
 
