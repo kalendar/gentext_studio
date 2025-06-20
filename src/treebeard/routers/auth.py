@@ -98,7 +98,8 @@ if SETTINGS.github_oauth:
     @router.get("/login/github")
     async def login_via_github(request: Request) -> RedirectResponse:
         github = __oauth.create_client("github")  # type:ignore
-        redirect_uri = request.url_for("authorize_github")
+        #redirect_uri = request.url_for("authorize_github")
+        redirect_uri = "https://generativetextbooks.org/auth/github"
         return await github.authorize_redirect(request, redirect_uri)  # type: ignore
 
     @typing.no_type_check
