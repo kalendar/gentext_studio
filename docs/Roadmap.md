@@ -18,25 +18,25 @@ We welcome contributions — whether it's code, documentation, or ideas! If you'
 
 🎉 Features we've shipped!
 
-- Mobile-first UI for studying and learning with Generative Textbooks
-- Sharing learning activity transcripts
 - No-code authoring of Generative Textbooks
 - Generative Textbook metadata including authors, peer reviewers, and sources (e.g., for attributing OER)
 - Importing and exporting Generative Textbooks between instances of Generative Textbook Studio
+- Sharing learning activity transcripts
 - Flexible access to a wide range of open weights models via the [Groq API](https://groq.com/)
+- Paste support for popular proprietary models including ChatGPT, Claude, Gemini, and CoPilot
 - Login with GitHub
 
 ## 🔨 In Progress (Next Release)
 
 We’re actively working on these features. Please contribute!
 
+- Login with Google
+
 ## 📌 Upcoming
 
 These are features we're planning. Share your feedback or vote on priorities in [Discussions](/discussions).
 
 **Overall Enhancements**
-
-- Login with Google
 
 **Learner Tools**
 
