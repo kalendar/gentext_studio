@@ -57,20 +57,20 @@
       <option value="https://copilot.microsoft.com/" {{ 'selected' if current_user.chat_service.name=="copilot" }}>
         Copilot
       </option>
-      <option value="integrated" {{ 'selected' if current_user.chat_service.name=="integrated" }}>
+      <!-- option value="integrated" {{ 'selected' if current_user.chat_service.name=="integrated" }}>
         Integrated Open Weights Model (Llama 3.3)
-      </option>
+      </option -->
     </select>
     <ul class="list-disc mt-5 pl-4">
     <li>For ChatGPT, Claude, Gemini, and CoPilot, when you choose an
       Activity the complete prompt will be copied to the clipboard and you will be redirected 
       to the corresponding site. You will then need to paste the prompt into the chat window and press Enter.</li>
     <li>No matter which model you choose as the default, you can always choose a different model before starting an Activity.</li>
-    <li>On generativetextbooks.org, there's a 50,000 token usage limit of on the Integrated open weights model, which uses 
+    <!-- li>On generativetextbooks.org, there's a 50,000 token usage limit of on the Integrated open weights model, which uses 
     llama-3.3-70b-versatile on Groq, because tokens cost money over the API. In the future we may implement
     something like a "bring your own API key" functionality, which will let you make unlimited use of the 
     open weights model in a pay-as-you-go manner. (The long-term goal is for you to be able to run GenText Studio 
-    on your local computer, using your own local model, for free.)</li>
+    on your local computer, using your own local model, for free.)</li -->
     </ul>
     <br />
 

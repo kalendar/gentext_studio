@@ -11,6 +11,7 @@ def unauthorized_path(path: str) -> bool:
         or path.startswith("/learning/explore")
         or path == "/static/css/main.css"
         or path == "/static/img/gentext_studio.png"
+        or path == "/static/img/copilot.png"
     )
 
 
