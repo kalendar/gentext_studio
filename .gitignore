@@ -317,5 +317,6 @@ dist
 dev.ipynb
 __pycache__/main.cpython-312.pyc
 /dev
+*.demo
 *.db
 *.sqlite
