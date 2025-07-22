@@ -8,7 +8,7 @@ _Last Updated: 15 April 2025_
 
 ## 🎯 Vision Statement
 
-Generative open learning environments (Generative Textbooks) combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful. While the first Generative Textbooks will access LLMs running in the cloud, eventually Generative Textbooks will run locally on learners' devices.
+Generative textbooks combine the technical power of generative AI with the participatory power of open education to make learning more affordable, effective, and meaningful. While the first generative textbooks will access LLMs running in the cloud, eventually generative textbooks will also run locally on learners' devices.
 
 ## 🚀 Roadmap Overview
 
@@ -22,15 +22,14 @@ We welcome contributions — whether it's code, documentation, or ideas! If you'
 - Generative Textbook metadata including authors, peer reviewers, and sources (e.g., for attributing OER)
 - Importing and exporting Generative Textbooks between instances of Generative Textbook Studio
 - Sharing learning activity transcripts
-- Flexible access to a wide range of open weights models via the [Groq API](https://groq.com/)
 - Paste support for popular proprietary models including ChatGPT, Claude, Gemini, and CoPilot
+- Flexible access to a wide range of open weights models via the [Groq API](https://groq.com/) (currently disabled on generativetextbooks.org)
 - Login with GitHub
+- Login with Google
 
 ## 🔨 In Progress (Next Release)
 
 We’re actively working on these features. Please contribute!
-
-- Login with Google
 
 ## 📌 Upcoming
 
@@ -41,7 +40,7 @@ These are features we're planning. Share your feedback or vote on priorities in 
 **Learner Tools**
 
 - Run locally with [ollama](https://ollama.com/)
-- Add multimodal capabilities as they become available in new models
+- Add multi-modal capabilities as they become available in new models
 
 **Instructor Tools**
 
@@ -53,7 +52,7 @@ These are features we're planning. Share your feedback or vote on priorities in 
 
 **LMS Integration**
 
-- Make Generative Textbook Studio an LTI Provider
+- Make GenText Studio an LTI Provider
 - Write activity completion (i.e., participation scores) to the LMS
 
 **Sustainability**
