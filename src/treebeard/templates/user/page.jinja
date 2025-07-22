@@ -1,50 +1,42 @@
 {% extends "base.jinja" %}
 
-{% block title %}Generative Textbook Studio{% endblock %}
+{% block title %}GenText Studio{% endblock %}
 
 {% block body %}
-<div class="central-content">
-  <h1>Welcome!</h1>
-  <p class="font-light text-gray-500">
+<div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+  <h1 class="text-2xl sm:text-3xl font-bold text-center mb-2">Welcome!</h1>
+  <p class="font-light text-gray-500 text-center mb-6">
     You're currently logged in as {{ current_user.email }}.
   </p>
 
-  <br />
-  <hr class="text-gray-400" />
-  <br />
+  <hr class="text-gray-400 mb-6" />
 
-  <h2 class="mb-3">Study</h2>
-  <div class="grid grid-cols-2 gap-5">
+  <h2 class="mb-3 text-xl font-semibold text-center">Study</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
     <Card :href="{{ request.url_for('saved_textbooks') }}">
       <p class="underlined">Your Saved Generative Textbooks</p>
     </Card>
-
     <Card :href="{{ request.url_for('get_textbooks') }}">
-      <p class="underlined">Browse All Generative Textbooks</p>
+      <p class="underlined">All Available Generative Textbooks</p>
     </Card>
   </div>
 
-  <br />
-  <hr class="text-gray-400" />
-  <br />
+  <hr class="text-gray-400 mb-6" />
 
-  <h2 class="mb-3">Create</h2>
-  <div class="grid grid-cols-2 gap-5">
+  <h2 class="mb-3 text-xl font-semibold text-center">Create</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
     <Card :href="{{ request.url_for('textbooks') }}">
       <p class="underlined">Create or Update a Generative Textbook</p>
     </Card>
   </div>
 
-  <br />
-  <hr class="text-gray-400" />
-  <br />
+  <hr class="text-gray-400 mb-6" />
 
-  <h2 class="mb-3">Settings</h2>
+  <h2 class="mb-3 text-xl font-semibold text-center">Settings</h2>
   <div class="grid grid-cols-1">
-
     <p class="mb-5">Select the default LLM to use when studying:</p> 
     <select name="chat_service" id="chat_service" hx-post="{{ request.url_for('save_chat_service') }}" hx-swap="none"
-      hx-trigger="change">
+      hx-trigger="change" class="w-full max-w-xs mb-4">
       <option value="https://chatgpt.com/" {{ 'selected' if current_user.chat_service.name=="chatgpt" }}>
         ChatGPT
       </option>
@@ -73,8 +65,6 @@
     on your local computer, using your own local model, for free.)</li -->
     </ul>
     <br />
-
   </div>
 </div>
-
 {% endblock %}

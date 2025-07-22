@@ -3,35 +3,37 @@
 {% block title %}Generative Textbook Details{% endblock %}
 
 {% block body %}
-  <div class="central-content">
-    <div class="flex w-full items-center justify-between">
-      <h1>{{ textbook.title }}</h1>
-      <p>
-        <a
-          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+<p>Back to <a
+          class="underline text-blue-400"
           href="{{ request.url_for('get_textbooks') }}"
-          >Return to Generative Textbooks</a
-        >
-      </p>
+          >Available Generative Textbooks</a>
+</p>
+  <div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <div class="flex flex-col sm:flex-row w-full items-center justify-between gap-2 sm:gap-0 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-center sm:text-left w-full mb-2 sm:mb-0">{{ textbook.title }}</h1>
     </div>
-    <h2>Authors</h2>
-    <div>{{ textbook.authors }}</div>
-    <h2>Reviewers</h2>
-    <div>{{ textbook.reviewers }}</div>
-    <h2>Topics</h2>
-    <div>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Authors</h2>
+    <div class="mb-4">{{ textbook.authors }}</div>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Reviewers</h2>
+    <div class="mb-4">{{ textbook.reviewers }}</div>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Topics</h2>
+    <div class="mb-6">
       {% for topic in textbook.topics|sort(attribute="name") %}
-        <p>{{ topic.name }}</p>
-        <p class="ml-5">By: {{ topic.authors }}</p>
-        <p class="ml-5">License: {{ topic.license }}</p>
+        <div class="mb-3">
+          <p class="font-semibold">{{ topic.name }}</p>
+          <p class="ml-3 text-sm text-gray-700">By: {{ topic.authors }}</p>
+          <p class="ml-3 text-sm text-gray-700">License: {{ topic.license }}</p>
+        </div>
       {% endfor %}
     </div>
-    <h2>Activities</h2>
+    <h2 class="text-xl font-semibold mt-6 mb-2">Activities</h2>
     <div>
       {% for activity in textbook.activities|sort(attribute="name") %}
-        <p>{{ activity.name }}</p>
-        <p class="ml-5">By: {{ activity.authors }}</p>
-        <p class="ml-5">Sources: {{ activity.license }}</p>
+        <div class="mb-3">
+          <p class="font-semibold">{{ activity.name }}</p>
+          <p class="ml-3 text-sm text-gray-700">By: {{ activity.authors }}</p>
+          <p class="ml-3 text-sm text-gray-700">Sources: {{ activity.license }}</p>
+        </div>
       {% endfor %}
     </div>
   </div>

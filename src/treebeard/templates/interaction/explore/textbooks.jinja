@@ -1,13 +1,13 @@
 {% extends "base.jinja" %}
 
-{% block title %}Select a Generative Textbook{% endblock %}
+{% block title %}Available Generative Textbooks{% endblock %}
 
 {% block body %}
-  <div class="central-content">
-    <div class="mb-5 flex w-full items-center justify-between">
-      <h1>Select a Generative Textbook</h1>
+  <div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <div class="mb-5 flex flex-col sm:flex-row w-full items-center justify-between gap-2 sm:gap-0">
+      <h1 class="text-2xl sm:text-3xl font-bold text-center  w-full">Available Generative Textbooks</h1>
     </div>
-    <div class="vertical-list">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for textbook in textbooks | selectattr("status", "equalto", "published")  | sort(attribute="title") %}
         <card.Textbook
           :textbook="textbook"
