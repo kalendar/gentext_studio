@@ -5,13 +5,13 @@
 {% block body %}
 
 <!-- Hero Section -->
-<div class="mx-auto mt-10 flex max-w-5xl items-center justify-between gap-10 px-6 py-16">
+<div class="mx-auto mt-6 flex flex-col-reverse items-center justify-between gap-8 px-4 py-8 sm:mt-10 sm:flex-row sm:gap-10 sm:px-6 sm:py-16 max-w-5xl w-full">
   <!-- Text Column -->
-  <div class="flex-1">
-    <p class="text-6xl font-extrabold leading-tight text-gray-900">
+  <div class="flex-1 text-center sm:text-left">
+    <p class="text-3xl sm:text-6xl font-extrabold leading-tight text-gray-900">
       Stop Reading. Start Engaging.
-    
-    <p class="mt-6 text-lg text-gray-700">
+    </p>
+    <p class="mt-4 sm:mt-6 text-base sm:text-lg text-gray-700">
       Interactive textbooks generated in real-time, just for you.
       No-code tools so every instructor can author AI-powered open textbooks.
       Free and open source, with support for open licensing and attribution.
@@ -19,29 +19,26 @@
   </div>
 
   <!-- Image Column -->
-  <div class="flex-1">
-    <img src="/static/img/gentext_studio.png" alt="Generative Textbooks Logo" class="w-full max-w-md" />
+  <div class="flex-1 flex justify-center mb-6 sm:mb-0">
+    <img src="/static/img/gentext_studio.png" alt="Generative Textbooks Logo" class="w-40 sm:w-full max-w-xs sm:max-w-md" />
   </div>
 </div>
 
-<div class="mx-auto mt-1 flex max-w-5xl flex-row gap-2 justify-center">
-
-  <AButton :href="{{ request.url_for('get_textbooks') }}" class="rounded-xl p-5 text-xl font-semibold text-white" color="blue">
+<div class="mx-auto mt-4 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-2 justify-center w-full max-w-lg px-4">
+  <AButton :href="{{ request.url_for('get_textbooks') }}" class="rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-base sm:text-lg font-semibold text-white w-full sm:w-auto" color="blue">
     Start Learning
     <img class="inline-block h-5" src="https://cdn.simpleicons.org/read.cv/white" />
   </AButton>
 
   {% if SETTINGS.google_oauth %}
-  <AButton :href="{{ request.url_for('login_via_google') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
-    color="gray">
+  <AButton :href="{{ request.url_for('login_via_google') }}" class="rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-base sm:text-lg font-semibold text-black w-full sm:w-auto" color="gray">
     Login with Google to Start Authoring
     <!-- img class="inline-block h-5" src="https://cdn.simpleicons.org/google/black" / -->
   </AButton>
   {% endif %}
 
   {% if SETTINGS.github_oauth %}
-  <AButton :href="{{ request.url_for('login_via_github') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
-    color="gray">
+  <AButton :href="{{ request.url_for('login_via_github') }}" class="rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-base sm:text-lg font-semibold text-black w-full sm:w-auto" color="gray">
     Login with Github
     <!-- img class="inline-block h-5" src="https://cdn.simpleicons.org/github/black" / -->
   </AButton>
