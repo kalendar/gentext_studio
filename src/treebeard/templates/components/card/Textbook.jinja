@@ -7,12 +7,12 @@
   clickable>
   <div class="flex justify-between">
     <h2>{{ textbook.title }}</h2>
-    <div>
+    <div class="flex flex-row items-center gap-2">
       {% if show_details %}
         <a
           href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
           class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-          >Details <i data-lucide="info" class="inline-block"></i
+          ><i data-lucide="info" class="inline-block"></i
         ></a>
       {% endif %}
       {% if show_add %}
@@ -22,7 +22,7 @@
           hx-push-url="false"
           class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
           onclick="event.stopPropagation();">
-          Add to library
+         <i data-lucide="circle-plus" class="inline-block"></i> 
         </span>
       {% endif %}
     </div>

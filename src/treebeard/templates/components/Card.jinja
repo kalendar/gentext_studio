@@ -1,5 +1,5 @@
 {# def title = None, clickable = False #}
-{% do attrs.set(class="w-full rounded-xl border border-gray-300 bg-gray-50 p-3") %}
+{% do attrs.set(class="w-full max-w-full sm:max-w-md md:max-w-lg mx-auto rounded-xl border border-gray-300 bg-gray-50 p-3") %}
 
 {% if clickable or attrs.get("href") %}
   {% do attrs.set(class="hover:scale-[101%] transition-all duration-75 cursor-pointer") %}
