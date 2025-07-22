@@ -320,3 +320,4 @@ __pycache__/main.cpython-312.pyc
 *.demo
 *.db
 *.sqlite
+goles_db.demo

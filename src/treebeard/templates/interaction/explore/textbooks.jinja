@@ -8,7 +8,7 @@
       <h1>Select a Generative Textbook</h1>
     </div>
     <div class="vertical-list">
-      {% for textbook in textbooks | sort(attribute="title") %}
+      {% for textbook in textbooks | selectattr("status", "equalto", "published")  | sort(attribute="title") %}
         <card.Textbook
           :textbook="textbook"
           :request="request"
