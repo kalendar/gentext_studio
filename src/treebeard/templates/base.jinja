@@ -20,7 +20,7 @@
 </head>
 
 <body class="bg-background flex flex-col min-h-screen">
-  <layout.Navbar :request="request" />
+   <layout.Navbar :request="request" />
   <main class="flex-grow w-full">
     {% block body %}
     {% endblock %}
@@ -29,7 +29,14 @@
   <footer class="w-full py-6">
     <div class="container mx-auto px-4">
       <div class="flex flex-col items-center justify-center text-sm text-muted-foreground">
-        <p class="text-base">GenText Studio is Open Source <span style="color: red;">&hearts;</span> Generously supported by <a class="underline text-sky-500"
+        <p class="text-base">GenText Studio is Open Source <span style="color: red;">&hearts;</span> 
+                     
+        <a
+          class="underline text-sky-500"
+          href="https://github.com/kalendar/gentext_studio"
+          >Get Involved</a></p>
+
+        <p class="text-base">Generously supported by <a class="underline text-sky-500"
             href="https://lumenlearning.com/">Lumen Learning</a></p>
       </div>
     </div>
