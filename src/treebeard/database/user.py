@@ -33,6 +33,7 @@ class User(MappedAsDataclass, Base):
     email: Mapped[str] = mapped_column(primary_key=True)
     authorizer: Mapped[Authorizer] = mapped_column(primary_key=True)
     chat_service: Mapped[ChatService] = mapped_column(default=ChatService.chatgpt)
+    chat_whitelisted: Mapped[bool] = mapped_column(default=False)
 
     type: Mapped[UserType] = mapped_column(default=UserType.trial)
 
