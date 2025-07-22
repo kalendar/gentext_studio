@@ -77,6 +77,18 @@
       {% endfor %}
     </div>
   </div>
+  <!-- Modal goes here -->
+  <div id="activity-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg p-8 max-w-md w-full text-center">
+      <h2 class="text-2xl font-bold mb-4">Remember to Paste!</h2>
+      <p class="mb-6">When you arrive at your selected chat service, remember to paste your prompt into the 
+      chat box.</p>
+      <div class="flex justify-center gap-4">
+        <button id="modal-cancel" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
+        <button id="modal-confirm" class="px-4 py-2 rounded bg-sky-500 text-white hover:bg-sky-600">Continue</button>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block script %}
@@ -119,17 +131,44 @@
 
     changeService(document.getElementById("{{chat_service.name}}"));
 
+    let pendingPrompt = null;
+    let pendingService = null;
+
     function linkExternalChat(element, event) {
       if (chatService == "integrated") return;
 
-      event.stopImmediatePropagation(); 
+      event.stopImmediatePropagation();
 
-      const prompt = element.dataset.prompt;
-      navigator.clipboard.writeText(prompt);
+      pendingPrompt = element.dataset.prompt;
+      pendingService = chatService;
 
-      setTimeout(() => {
-        window.open(services[chatService], "_blank").focus();
-      }, 500);
+      // Show modal
+      document.getElementById("activity-modal").classList.remove("hidden");
     }
+
+    // Modal logic
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("activity-modal");
+      const cancelBtn = document.getElementById("modal-cancel");
+      const confirmBtn = document.getElementById("modal-confirm");
+
+      cancelBtn.onclick = function () {
+        modal.classList.add("hidden");
+        pendingPrompt = null;
+        pendingService = null;
+      };
+
+      confirmBtn.onclick = function () {
+        if (pendingPrompt && pendingService) {
+          navigator.clipboard.writeText(pendingPrompt);
+          setTimeout(() => {
+            window.open(services[pendingService], "_blank").focus();
+            modal.classList.add("hidden");
+            pendingPrompt = null;
+            pendingService = null;
+          }, 500);
+        }
+      };
+    });
   </script>
 {% endblock %}
