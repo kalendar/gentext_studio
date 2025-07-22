@@ -9,8 +9,7 @@
   <!-- Text Column -->
   <div class="flex-1">
     <p class="text-6xl font-extrabold leading-tight text-gray-900">
-      Stop Reading,
-      Start Engaging.
+      Stop Reading. Start Engaging.
     
     <p class="mt-6 text-lg text-gray-700">
       Interactive textbooks generated in real-time, just for you.
@@ -21,11 +20,11 @@
 
   <!-- Image Column -->
   <div class="flex-1">
-    <img src="/static/img/gentext_studio.png" alt="Hero Image" class="w-full max-w-md" />
+    <img src="/static/img/gentext_studio.png" alt="Generative Textbooks Logo" class="w-full max-w-md" />
   </div>
 </div>
 
-<div class="mx-auto mt-10 flex w-[80ch] flex-row gap-2 justify-center">
+<div class="mx-auto mt-1 flex max-w-5xl flex-row gap-2 justify-center">
 
   <AButton :href="{{ request.url_for('get_textbooks') }}" class="rounded-xl p-5 text-xl font-semibold text-white" color="blue">
     Start Learning
@@ -35,15 +34,16 @@
   {% if SETTINGS.google_oauth %}
   <AButton :href="{{ request.url_for('login_via_google') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
     color="gray">
-    Google
+    Login with Google to Start Authoring
+    <!-- img class="inline-block h-5" src="https://cdn.simpleicons.org/google/black" / -->
   </AButton>
   {% endif %}
 
   {% if SETTINGS.github_oauth %}
   <AButton :href="{{ request.url_for('login_via_github') }}" class="rounded-xl p-5 text-xl font-semibold text-black"
     color="gray">
-    Login to Author
-    <img class="inline-block h-5" src="https://cdn.simpleicons.org/github/black" />
+    Login with Github
+    <!-- img class="inline-block h-5" src="https://cdn.simpleicons.org/github/black" / -->
   </AButton>
   {% endif %}
 </div>
