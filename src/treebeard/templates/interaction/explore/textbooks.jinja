@@ -12,7 +12,7 @@
         <card.Textbook
           :textbook="textbook"
           :request="request"
-          :show_add="SETTINGS.authorization" />
+          :show_add="request.session.get('user_email')" />
       {% endfor %}
     </div>
   </div>
