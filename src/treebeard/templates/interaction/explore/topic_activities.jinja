@@ -7,7 +7,7 @@
     <div class="mb-5 flex w-full items-center justify-between">
       <h1>Select a Model</h1>
       <a
-        class="p-2 cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-sky-300"
+        class="p-2 cursor-pointer rounded-xl bg-blue-400 text-white transition-all duration-75 hover:bg-sky-300"
         href="{{ request.url_for('get_textbook_topics', textbook_guid=textbook.guid) }}"
         >Return to Topics</a
       >
@@ -77,18 +77,21 @@
       {% endfor %}
     </div>
   </div>
-  <!-- Modal goes here -->
+  
+  <!-- Modal -->
   <div id="activity-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-white rounded-lg p-8 max-w-md w-full text-center">
       <h2 class="text-2xl font-bold mb-4">Remember to Paste!</h2>
       <p class="mb-6">When you arrive at your selected chat service, remember to paste your prompt into the 
       chat box.</p>
       <div class="flex justify-center gap-4">
-        <button id="modal-cancel" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
-        <button id="modal-confirm" class="px-4 py-2 rounded bg-sky-500 text-white hover:bg-sky-600">Continue</button>
+        <button id="modal-cancel" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400" onclick="modalCancel()">Cancel</button>
+        <button id="modal-confirm" class="px-4 py-2 rounded bg-sky-500 text-white hover:bg-sky-600" onclick="modalConfirm()">Continue</button>
       </div>
     </div>
   </div>
+  <!-- Modal -->
+
 {% endblock %}
 
 {% block script %}
@@ -148,28 +151,24 @@
     }
 
     // Modal logic
-    document.addEventListener("DOMContentLoaded", function () {
-      const modal = document.getElementById("activity-modal");
-      const cancelBtn = document.getElementById("modal-cancel");
-      const confirmBtn = document.getElementById("modal-confirm");
+    var modal = document.getElementById("activity-modal");
+    
+    function modalCancel(){
+      modal.classList.add("hidden");
+      pendingPrompt = null;
+      pendingService = null;
+    }
 
-      cancelBtn.onclick = function () {
-        modal.classList.add("hidden");
-        pendingPrompt = null;
-        pendingService = null;
-      };
-
-      confirmBtn.onclick = function () {
-        if (pendingPrompt && pendingService) {
-          navigator.clipboard.writeText(pendingPrompt);
-          setTimeout(() => {
-            window.open(services[pendingService], "_blank").focus();
-            modal.classList.add("hidden");
-            pendingPrompt = null;
-            pendingService = null;
-          }, 500);
-        }
-      };
-    });
+    function modalConfirm(){
+      if (pendingPrompt && pendingService) {
+        navigator.clipboard.writeText(pendingPrompt);
+        setTimeout(() => {
+          window.open(services[pendingService], "_blank").focus();
+          modal.classList.add("hidden");
+          pendingPrompt = null;
+          pendingService = null;
+        }, 200);
+      }
+    }
   </script>
 {% endblock %}
