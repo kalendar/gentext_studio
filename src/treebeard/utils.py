@@ -1,3 +1,4 @@
+import re
 from functools import lru_cache
 from math import ceil
 
@@ -24,6 +25,23 @@ def markdown_to_html(content: str | Markup) -> str | Markup:
     )
 
     return html
+
+
+def striptags(text: str) -> str:
+    """Remove HTML tags from text."""
+    if not text:
+        return ""
+    # Simple regex to remove HTML tags
+    return re.sub(r"<[^>]+>", "", text)
+
+
+def truncate(text: str, length: int = 80, end: str = "...") -> str:
+    """Truncate text to specified length."""
+    if not text:
+        return ""
+    if len(text) <= length:
+        return text
+    return text[: length - len(end)] + end
 
 
 def initial_prompt(topic: Topic, activity: Activity) -> str:
