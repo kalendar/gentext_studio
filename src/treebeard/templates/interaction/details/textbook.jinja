@@ -9,30 +9,49 @@
           >Available Generative Textbooks</a>
 </p>
   <div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
-    <div class="flex flex-col sm:flex-row w-full items-center justify-between gap-2 sm:gap-0 mb-6">
+    <!--div class="flex flex-col sm:flex-row w-full items-center justify-between gap-2 sm:gap-0 mb-6"-->
+    <div class="mb-4">
       <h1 class="text-2xl sm:text-3xl font-bold text-center sm:text-left w-full mb-2 sm:mb-0">{{ textbook.title }}</h1>
+    <div class="mb-4">
+        <a href="{{ request.url_for('view_textbook_form', textbook_guid=textbook.guid) }}" 
+           class="text-sky-600 hover:text-sky-800 underline">
+          Textbook-level Prompt Stub
+        </a>
+        </div>
     </div>
     <h2 class="text-xl font-semibold mt-6 mb-2">Authors</h2>
     <div class="mb-4">{{ textbook.authors }}</div>
     <h2 class="text-xl font-semibold mt-6 mb-2">Reviewers</h2>
     <div class="mb-4">{{ textbook.reviewers }}</div>
     <h2 class="text-xl font-semibold mt-6 mb-2">Topics</h2>
-    <div class="mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
       {% for topic in textbook.topics|sort(attribute="name") %}
-        <div class="mb-3">
-          <p class="font-semibold">{{ topic.name }}</p>
-          <p class="ml-3 text-sm text-gray-700">By: {{ topic.authors }}</p>
-          <p class="ml-3 text-sm text-gray-700">License: {{ topic.license }}</p>
+        <div class="w-full max-w-full sm:max-w-md md:max-w-lg mx-auto rounded-xl border border-gray-300 bg-gray-50 p-3 hover:scale-[101%] transition-all duration-75 cursor-pointer">
+          <div class="flex justify-between">
+            
+              <a href="{{ request.url_for('view_topic_form', topic_guid=topic.guid) }}" 
+                 class="text-sky-600 hover:text-sky-800 underline">
+                {{ topic.name }}
+              </a>
+            
+          </div>
+          <p class="text-sm text-gray-600">By: {{ topic.authors }}</p>
+          <p class="text-sm text-gray-600">License: {{ topic.license }}</p>
         </div>
       {% endfor %}
     </div>
     <h2 class="text-xl font-semibold mt-6 mb-2">Activities</h2>
-    <div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {% for activity in textbook.activities|sort(attribute="name") %}
-        <div class="mb-3">
-          <p class="font-semibold">{{ activity.name }}</p>
-          <p class="ml-3 text-sm text-gray-700">By: {{ activity.authors }}</p>
-          <p class="ml-3 text-sm text-gray-700">Sources: {{ activity.license }}</p>
+        <div class="w-full max-w-full sm:max-w-md md:max-w-lg mx-auto rounded-xl border border-gray-300 bg-gray-50 p-3 hover:scale-[101%] transition-all duration-75 cursor-pointer">
+          <div class="flex justify-between">
+              <a href="{{ request.url_for('view_activity_form', activity_guid=activity.guid) }}" 
+                 class="text-sky-600 hover:text-sky-800 underline">
+                {{ activity.name }}
+              </a>
+          </div>
+          <p class="text-sm text-gray-600">By: {{ activity.authors }}</p>
+          <p class="text-sm text-gray-600">Sources: {{ activity.license }}</p>
         </div>
       {% endfor %}
     </div>

@@ -1,0 +1,58 @@
+{% extends "base.jinja" %}
+
+{% block title %}{{ textbook.title }} - Textbook Details{% endblock %}
+
+{% block body %}
+<p>Back to <a
+          class="underline text-blue-400"
+          href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
+          >{{ textbook.title }}</a>
+</p>
+  <div class="max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <!-- Textbook header -->
+    <div class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{{ textbook.title }}</h1>
+      <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+        <div>
+          <span class="font-medium">Status:</span> {{ textbook.status.title() }}
+        </div>
+        <div>
+          <span class="font-medium">Edition:</span> {{ textbook.edition }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Textbook form content -->
+    <div class="space-y-8">
+      <!-- System Prompt -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">System Prompt</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <div class="prose max-w-none">
+            {{ markdown_to_html(textbook.prompt) | safe }}
+          </div>
+        </div>
+      </section>
+
+      <!-- Authors -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Authors</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <div class="prose max-w-none">
+            {{ markdown_to_html(textbook.authors) | safe }}
+          </div>
+        </div>
+      </section>
+
+      <!-- Peer Reviewers -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Peer Reviewers</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <div class="prose max-w-none">
+            {{ markdown_to_html(textbook.reviewers) | safe }}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock %}
