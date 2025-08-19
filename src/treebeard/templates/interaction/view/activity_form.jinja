@@ -1,0 +1,87 @@
+{% extends "base.jinja" %}
+
+{% block title %}{{ activity.name }} - Activity Details{% endblock %}
+
+{% block body %}
+<p>Back to <a
+          class="underline text-blue-400"
+          href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
+          >{{ textbook.title }}</a>
+</p>
+  <div class="max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <!-- Activity header -->
+    <div class="mb-8">
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{{ activity.name }}</h1>
+      <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+        <div>
+          <span class="font-medium">Authors:</span> {{ activity.authors }}
+        </div>
+        <div>
+          <span class="font-medium">License:</span> {{ activity.license }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity form content -->
+    <div class="space-y-8">
+      <!-- Activity Description -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Activity Description</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <div class="prose max-w-none">
+            {{ markdown_to_html(activity.description) | safe }}
+          </div>
+        </div>
+      </section>
+
+      <!-- Activity Prompt -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Activity Prompt</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <div class="prose max-w-none">
+            {{ markdown_to_html(activity.prompt) | safe }}
+          </div>
+        </div>
+      </section>
+
+      <!-- Activity Sources -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Activity Sources</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <div class="prose max-w-none">
+            {{ markdown_to_html(activity.sources) | safe }}
+          </div>
+        </div>
+      </section>
+
+      <!-- Activity Authors -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Activity Authors</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          <div class="prose max-w-none">
+            {{ markdown_to_html(activity.authors) | safe }}
+          </div>
+        </div>
+      </section>
+
+      <!-- Compatible Topics -->
+      <section>
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">Compatible Topics</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+          {% if activity.topics %}
+            <div class="space-y-2">
+              {% for topic in activity.topics | sort(attribute="name") %}
+                <div class="flex items-center">
+                  <span class="text-blue-600">•</span>
+                  <span class="ml-2">{{ topic.name }}</span>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-gray-600 italic">No compatible topics specified.</p>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  </div>
+{% endblock %}

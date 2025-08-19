@@ -5,26 +5,20 @@
 {% endblock %}
 
 {% block body %}
-  <div class="central-content vertical-list">
-    <div class="flex flex-wrap justify-between">
-      <h1>{{ textbook.title }}</h1>
-      <AButton
-        :hx-post="request.url_for('delete_textbook', ident=textbook.guid)"
-        color="red"
-        class="h-min w-min"
-        hx-confirm="This will delete the entire textbook. Are you sure you want to do that?">
-        Delete
-      </AButton>
+  <div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <div class="flex flex-col sm:flex-row w-full items-center justify-between gap-2 sm:gap-0 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-center w-full mb-2 sm:mb-0">{{ textbook.title }}</h1>
+      
     </div>
     <Card
-      class="group flex justify-between !rounded !border-gray-300 bg-gray-50 p-2 transition-colors duration-75 hover:bg-white"
+      class="group flex justify-between !rounded !border-gray-300 bg-gray-50 p-2 transition-colors duration-75 hover:bg-white mb-6"
       :href="{{ request.url_for('update_textbook_get', ident=textbook.guid) }}">
       <p class="underlined">Details</p>
     </Card>
 
-    <div class="flex flex-col gap-1">
-      <div class="flex w-full items-center justify-between p-2">
-        <h2>Topics</h2>
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-col sm:flex-row items-center justify-center mt-5 gap-2 p-2 max-w-md mx-auto">
+        <h2 class="text-xl font-semibold">Topics</h2>
         <AButton
           :href="{{ request.url_for('create_topic_get', textbook_ident=textbook.guid) }}"
           color="none"
@@ -32,7 +26,7 @@
           class="border-sky-600 text-sky-600 hover:border-sky-700 hover:text-sky-700"
           icon="create" />
       </div>
-      <div id="sortable-topics" class="flex flex-col gap-1">
+      <div id="sortable-topics" class="flex flex-col gap-2">
         {% for topic in textbook.topics %}
           <Card
             class="group flex items-center justify-between gap-2 !rounded !border-gray-200 bg-gray-50 p-2 transition-colors duration-75 hover:bg-white"
@@ -55,9 +49,9 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-1">
-      <div class="flex w-full items-center justify-between p-2">
-        <h2>Activities</h2>
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col sm:flex-row items-center justify-center mt-10 gap-2 p-2 max-w-md mx-auto">
+        <h2 class="text-xl font-semibold">Activities</h2>
         <AButton
           :href="request.url_for('create_activity_get', textbook_ident=textbook.guid)"
           color="none"
@@ -65,8 +59,7 @@
           class="border-sky-500 text-sky-600 hover:border-sky-700 hover:text-sky-700"
           icon="create" />
       </div>
-
-      <div id="sortable-activities" class="flex flex-col gap-1">
+      <div id="sortable-activities" class="flex flex-col gap-2">
         {% for activity in textbook.activities %}
           <Card
             class="group flex items-center justify-between gap-2 !rounded !border-gray-200 bg-gray-50 p-2 transition-colors duration-75 hover:bg-white"
@@ -88,6 +81,15 @@
         {% endfor %}
       </div>
     </div>
+  </div>
+  <div class="flex flex-col gap-2 max-w-md mx-auto w-full mt-8">
+    <AButton
+      :hx-post="request.url_for('delete_textbook', ident=textbook.guid)"
+      color="red"
+      class="w-full text-center text-base"
+      hx-confirm="This will delete the entire textbook. Are you sure you want to do that?">
+      Danger Zone: Delete This Textbook?
+    </AButton>
   </div>
 {% endblock %}
 

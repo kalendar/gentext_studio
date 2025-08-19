@@ -15,7 +15,7 @@ from treebeard.database.user import User
 from treebeard.groq_utils import GROQ_MODELS, GroqModel
 from treebeard.models.request_session import RequestSession
 from treebeard.settings import SETTINGS
-from treebeard.utils import markdown_to_html
+from treebeard.utils import markdown_to_html, striptags, truncate
 
 __TREEBEARD_ROOT = Path(__file__).parent.resolve()
 
@@ -31,6 +31,8 @@ __TEMPLATES.env.globals.update(  # type: ignore
         "len": len,
         "sorted": sorted,
         "markdown_to_html": markdown_to_html,
+        "striptags": striptags,
+        "truncate": truncate,
     }
 )
 __CATALOG = jinjax.Catalog(jinja_env=__TEMPLATES.env)  # type: ignore
