@@ -77,11 +77,13 @@ Activities</p>
   </div>
   <!-- Modal -->
   <div id="activity-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white rounded-lg p-8 max-w-md w-full text-center">
-      <h2 class="text-2xl font-bold mb-4">Remember to Paste!</h2>
+    <div class="bg-white rounded-lg p-8 max-w-md w-full">
+      <h2 class="text-2xl font-bold mb-4 text-center bg-amber-300">READ THIS!</h2>
       <p id="modal-chat-service-text" class="mb-6">
-        When you arrive at <strong id="modal-chat-service-name">your selected chat service</strong>, remember to paste 
-        your prompt into the chat box and hit Enter.
+        A prompt has been copied to your clipboard. When you click Continue below, you will be forwarded to 
+        <strong id="modal-chat-service-name">your selected chat service</strong>. You need to paste the prompt 
+        into the chat box and hit Enter. You can paste either by typing "CTRL-V" or by right-clicking in the chatbox 
+        and choosing Paste from the menu. 
       </p>
       <div class="flex justify-center gap-4">
         <button id="modal-cancel" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400" onclick="modalCancel()">Cancel</button>
