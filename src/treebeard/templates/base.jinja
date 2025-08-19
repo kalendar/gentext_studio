@@ -23,6 +23,16 @@
   <link rel="manifest" href="/static/img/site.webmanifest">
 </head>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3RJSZ9PYDV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3RJSZ9PYDV');
+</script>
+
 <body class="bg-background flex flex-col min-h-screen">
   <layout.Navbar :request="request" />
   <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
