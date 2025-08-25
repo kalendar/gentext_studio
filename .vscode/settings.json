@@ -13,6 +13,7 @@
     "OELMs",
     "pydantic",
     "redoc",
+    "sqla",
     "TREEBEARD",
     "uvicorn",
     "venv"
