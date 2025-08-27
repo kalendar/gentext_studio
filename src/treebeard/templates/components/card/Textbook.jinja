@@ -11,18 +11,17 @@
       {% if show_details %}
         <a
           href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
-          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
-          ><i data-lucide="info" class="inline-block"></i
-        ></a>
+          class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-400 text-white transition-all duration-75 hover:bg-blue-300"
+          ><em><strong>i</strong></em></a>
       {% endif %}
       {% if show_add %}
         <span
           hx-post="{{ request.url_for('save_textbook', textbook_guid=textbook.guid) }}"
           hx-swap="none"
           hx-push-url="false"
-          class="cursor-pointer rounded-xl bg-blue-400 p-2 text-white transition-all duration-75 hover:bg-blue-300"
+          class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-400 text-xl text-white transition-all duration-75 hover:bg-blue-300"
           onclick="event.stopPropagation();">
-         <i data-lucide="circle-plus" class="inline-block"></i> 
+         <strong>+</strong>
         </span>
       {% endif %}
     </div>
