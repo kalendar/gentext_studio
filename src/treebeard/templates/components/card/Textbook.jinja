@@ -4,15 +4,18 @@
   :hx-get="request.url_for('get_textbook_topics', textbook_guid=textbook.guid)"
   hx-target="body"
   hx-push-url="true"
-  clickable>
-  <div class="flex justify-between">
-    <h2>{{ textbook.title }}</h2>
-    <div class="flex flex-row items-center gap-2">
+  clickable
+>
+  <div class="flex justify-between items-start">
+    <h2 class="text-xl font-semibold">{{ textbook.title }}</h2>
+    <div class="flex flex-row gap-2">
       {% if show_details %}
         <a
           href="{{ request.url_for('get_textbook', textbook_guid=textbook.guid) }}"
           class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-400 text-white transition-all duration-75 hover:bg-blue-300"
-          ><em><strong>i</strong></em></a>
+        >
+          <em><strong>i</strong></em>
+        </a>
       {% endif %}
       {% if show_add %}
         <span
@@ -20,8 +23,9 @@
           hx-swap="none"
           hx-push-url="false"
           class="cursor-pointer inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-400 text-xl text-white transition-all duration-75 hover:bg-blue-300"
-          onclick="event.stopPropagation();">
-         <strong>+</strong>
+          onclick="event.stopPropagation();"
+        >
+          <strong>+</strong>
         </span>
       {% endif %}
     </div>
