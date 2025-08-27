@@ -5,12 +5,18 @@
 {% endblock %}
 
 {% block body %}
-  <div class="central-content">
+  <div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <div class="flex flex-col sm:flex-row w-full items-center justify-between gap-2 sm:gap-0 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-center w-full mb-2 sm:mb-0">
+        {% if activity %}Update{% else %}Create{% endif %} Activity
+      </h1>
+    </div>
+    
     <form
       method="post"
       hx-post="{{ hx_post }}"
-      class="vertical-list">
-      <div>
+      class="flex flex-col gap-6">
+      <div class="flex flex-col gap-2">
         <label for="name" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Name
           <Tooltip>
@@ -31,7 +37,7 @@
         required
         hidden
         value="{{ textbook_ident }}" />
-      <div class="mt-5">
+      <div class="flex flex-col gap-2">
         <label
           for="description"
           class="flex items-center gap-0.5 text-lg font-bold"
@@ -52,7 +58,7 @@
           required
           hidden></textarea>
       </div>
-      <div class="mt-5">
+      <div class="flex flex-col gap-2">
         <label for="prompt" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Prompt
           <Tooltip>
@@ -70,7 +76,7 @@
           data-content="{{ activity.prompt|e if activity else '' }}"></div>
         <textarea name="prompt" id="textarea-prompt" required hidden></textarea>
       </div>
-      <div class="mt-5">
+      <div class="flex flex-col gap-2">
         <label for="sources" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Sources
           <Tooltip>
@@ -90,7 +96,7 @@
           required
           hidden></textarea>
       </div>
-      <div class="mt-5">
+      <div class="flex flex-col gap-2">
         <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity Authors
           <Tooltip>
@@ -109,7 +115,7 @@
           required
           hidden></textarea>
       </div>
-      <div class="mt-5">
+      <div class="flex flex-col gap-2">
         <label for="license" class="flex items-center gap-0.5 text-lg font-bold"
           >Activity License
           <Tooltip
@@ -119,7 +125,7 @@
         <select
           name="license"
           id="license"
-          class="w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
+          class="w-full rounded border border-gray-400 bg-gray-100 p-2">
           {% for license in LICENSES %}
             <option
               value="{{ license }}"
@@ -129,7 +135,7 @@
           {% endfor %}
         </select>
       </div>
-      <div class="mt-5 mb-5">
+      <div class="flex flex-col gap-2">
         <label
           for="topic_guids"
           class="flex items-center gap-0.5 text-lg font-bold"
@@ -142,7 +148,7 @@
           name="topic_guids"
           id="topic_guids"
           multiple
-          class="h-40 w-full overflow-y-auto rounded border border-b-blue-950 bg-gray-50 p-2">
+          class="h-40 w-full rounded border border-gray-400 bg-gray-100 p-2">
           {% for topic in topics %}
             <option
               value="{{ topic.guid }}"
@@ -153,11 +159,14 @@
           {% endfor %}
         </select>
       </div>
-      <input
-        type="submit"
-        value="{{ 'Create Activity' if not submission_text else submission_text }}"
-        class="cursor-pointer rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
-      <BackButton />
+      
+      <div class="flex flex-col gap-4 mt-6">
+        <input
+          type="submit"
+          value="{{ 'Create Activity' if not submission_text else submission_text }}"
+          class="cursor-pointer rounded border-2 border-sky-600 bg-sky-600 px-4 py-2 text-white transition duration-100 hover:bg-sky-500 text-base font-medium" />
+        <BackButton />
+      </div>
     </form>
   </div>
 {% endblock %}
