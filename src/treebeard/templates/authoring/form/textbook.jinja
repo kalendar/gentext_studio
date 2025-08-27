@@ -5,12 +5,18 @@
 {% endblock %}
 
 {% block body %}
-  <div class="central-content">
+  <div class="max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+    <div class="flex flex-col sm:flex-row w-full items-center justify-between gap-2 sm:gap-0 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-center w-full mb-2 sm:mb-0">
+        {% if textbook %}Update{% else %}Create{% endif %} Generative Textbook
+      </h1>
+    </div>
+    
     <form
       method="post"
       hx-post="{{ hx_post }}"
-      class="vertical-list">
-      <div>
+      class="flex flex-col gap-6">
+      <div class="flex flex-col gap-2">
         <label for="title" class="flex items-center gap-0.5 text-lg font-bold"
           >Title
           <Tooltip>
@@ -25,7 +31,7 @@
           :value="textbook.title if textbook else ''"
           placeholder="This is the title of your textbook. It will be shown to learners." />
       </div>
-      <div>
+      <div class="flex flex-col gap-2">
         <label for="status" class="flex items-center gap-0.5 text-lg font-bold"
           >Status
           <Tooltip>
@@ -33,7 +39,7 @@
             private, published is public.
           </Tooltip>
         </label>
-        <select name="status" id="status">
+        <select name="status" id="status" class="w-full rounded border border-gray-400 bg-gray-100 p-2">
           <option
             value="draft"
             {{ 'selected' if textbook and textbook.status == 'draft' else '' }}>
@@ -46,7 +52,7 @@
           </option>
         </select>
       </div>
-      <div>
+      <div class="flex flex-col gap-2">
         <label for="edition" class="flex items-center gap-0.5 text-lg font-bold"
           >Edition
           <Tooltip>
@@ -61,7 +67,7 @@
           :value="textbook.edition if textbook and textbook.edition else ''"
           placeholder="First Edition" />
       </div>
-      <div>
+      <div class="flex flex-col gap-2">
         <label for="prompt" class="flex items-center gap-0.5 text-lg font-bold"
           >System Prompt
           <Tooltip>
@@ -80,7 +86,7 @@
           data-content="{{ textbook.prompt if textbook else '' }}"></div>
         <textarea name="prompt" id="textarea-prompt" required hidden></textarea>
       </div>
-      <div>
+      <div class="flex flex-col gap-2">
         <label for="authors" class="flex items-center gap-0.5 text-lg font-bold"
           >Authors
           <Tooltip>
@@ -98,7 +104,7 @@
           required
           hidden></textarea>
       </div>
-      <div>
+      <div class="flex flex-col gap-2">
         <label
           for="reviewers"
           class="flex items-center gap-0.5 text-lg font-bold"
@@ -119,11 +125,13 @@
           hidden></textarea>
       </div>
 
-      <input
-        type="submit"
-        value="{{ 'Create Generative Textbook' if not submission_text else submission_text }}"
-        class="cursor-pointer rounded border-2 border-sky-600 bg-sky-600 px-2 py-1 text-white transition duration-100 hover:bg-sky-500" />
-      <BackButton />
+      <div class="flex flex-col gap-4 mt-6">
+        <input
+          type="submit"
+          value="{{ 'Create Generative Textbook' if not submission_text else submission_text }}"
+          class="cursor-pointer rounded border-2 border-sky-600 bg-sky-600 px-4 py-2 text-white transition duration-100 hover:bg-sky-500 text-base font-medium" />
+        <BackButton />
+      </div>
     </form>
   </div>
 {% endblock %}
